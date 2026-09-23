@@ -1,6 +1,6 @@
 # LogLens AI site
 
-Static, no build step.
+Static, no build step..
 
 Deploy: drag this folder into vercel.com/new, or run `vercel --prod` inside it.
 
