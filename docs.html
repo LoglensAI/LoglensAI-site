@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Docs — LogLens AI | Install, CLI &amp; Python SDK</title>
+<title>Docs - LogLens AI | Install, CLI &amp; Python SDK</title>
 <meta name="description" content="LogLens AI documentation: install via pip or Docker, CLI commands (analyze, watch, ask, benchmark, train), and the Python SDK." />
 <meta name="theme-color" content="#05070D" />
 <link rel="canonical" href="https://loglensai.com/docs" />
@@ -77,7 +77,7 @@
   <main class="content">
     <span class="badge">// v0.9.x · MIT</span>
     <h1>Documentation</h1>
-    <p class="lead">Local, explainable log anomaly detection — from your terminal or inside your Python app.</p>
+    <p class="lead">Local, explainable log anomaly detection - from your terminal or inside your Python app.</p>
 
     <h2 id="install">Installation</h2>
     <p>LogLens runs on Python 3.10+ (Linux, macOS, Windows).</p>
@@ -88,7 +88,7 @@
 <span class="p">$</span> pip install <span class="s">"loglensai[deep]"</span></pre>
 
     <h2 id="quickstart">Quick start</h2>
-    <pre><span class="c"># scan a file — worst incidents first, each explained</span>
+    <pre><span class="c"># scan a file - worst incidents first, each explained</span>
 <span class="p">$</span> loglens analyze --source app.log
 
 <span class="c"># faster multiprocess scan for huge files</span>
@@ -110,7 +110,7 @@
     </table>
 
     <h2 id="watch"><code>watch</code></h2>
-    <p>Stream anomalies from a live command — Docker, Kubernetes, journald, anything.</p>
+    <p>Stream anomalies from a live command - Docker, Kubernetes, journald, anything.</p>
     <pre><span class="p">$</span> loglens watch <span class="s">"docker logs -f my-api"</span> --rca
 <span class="p">$</span> loglens watch <span class="s">"kubectl logs -f deploy/api"</span>
 <span class="p">$</span> loglens watch <span class="s">"journalctl -f"</span></pre>
@@ -144,7 +144,7 @@ print(result.summary())</pre>
     <p>In async apps, use <code>await analyze_async(...)</code>. For custom streams, feed lines to <code>LiveDetector</code>.</p>
 
     <h2 id="handler">Logging handler</h2>
-    <p>Make any Python app alarm on itself — one line.</p>
+    <p>Make any Python app alarm on itself - one line.</p>
     <pre><span class="k">import</span> logging
 <span class="k">from</span> loglens <span class="k">import</span> LogLensHandler
 
@@ -153,7 +153,7 @@ logging.getLogger().addHandler(
 )</pre>
 
     <h2 id="docker">Docker</h2>
-    <p>Multi-arch images (amd64 + arm64) — no Python needed on the host.</p>
+    <p>Multi-arch images (amd64 + arm64) - no Python needed on the host.</p>
     <pre><span class="c"># scan a file (mount its folder at /data)</span>
 <span class="p">$</span> docker run --rm -v <span class="s">"$PWD:/data"</span> loglensai/loglens analyze --source app.log
 
