@@ -3,540 +3,523 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
+<script src="/support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
-<title>LogLens AI - Local, Open-Source Log Anomaly Detection | Datadog, Splunk &amp; Sentry Alternative</title>
-<meta name="description" content="LogLens AI finds the log lines that actually matter, locally and in seconds. Explainable, privacy-first log anomaly detection with fast, turbo and neural modes. MIT open source." />
-<meta name="keywords" content="log anomaly detection, local log analysis, open source log monitoring, Datadog alternative, Splunk alternative, Sentry alternative, self-hosted log analysis, AI log analyzer, observability tool, CI log gating" />
+<title>LogLens AI - Self-Hosted Log Anomaly Detection for Server Teams | Open Source</title>
+<meta name="description" content="LogLens AI detects failures in your server logs entirely on your own infrastructure. Explainable alerts, no per-GB bill, offline and air-gap ready. MIT open source." />
+<meta name="keywords" content="self-hosted log monitoring, on-premise log analysis, log anomaly detection, air-gapped log monitoring, Splunk alternative, Datadog alternative, Sentry alternative, server log analyzer, observability tool, open source log management" />
 <meta name="author" content="Paras Rajput" />
 <link rel="canonical" href="https://loglensai.com/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="LogLens AI" />
-<meta property="og:title" content="LogLens AI - Find the log lines that actually matter, locally" />
-<meta property="og:description" content="A local, open-source alternative to Datadog/Splunk/Sentry. Your logs never leave your machine." />
+<meta property="og:title" content="LogLens AI - Log anomaly detection that stays on your servers" />
+<meta property="og:description" content="Explainable incident detection that runs on your own infrastructure. Nothing uploaded, no per-GB bill, MIT open source." />
 <meta property="og:url" content="https://loglensai.com/" />
 <meta property="og:image" content="https://loglensai.com/og-image.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="LogLens AI - local log anomaly detection" />
-<meta name="twitter:description" content="Explainable, privacy-first anomaly detection. Your logs never leave your machine." />
-<meta name="twitter:image" content="https://loglensai.com/og-image.png" />
-<meta name="theme-color" content="#06080E" />
-<link rel="icon" type="image/png" href="assets/favicon.png" />
+<meta name="theme-color" content="#05080F" />
+<link rel="icon" type="image/png" href="/assets/favicon.png" />
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"LogLens AI","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS, Windows","softwareVersion":"0.12","license":"https://opensource.org/licenses/MIT","url":"https://loglensai.com/","downloadUrl":"https://pypi.org/project/loglensai/","codeRepository":"https://github.com/LoglensAI/LogLens-AI","author":{"@type":"Person","name":"Paras Rajput"},"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet" />
 <style>
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  html, body { margin: 0; padding: 0; background: #06080E; }
-  a { color: #22D3EE; text-decoration: none; }
-  a:hover { color: #7FE6F7; }
-  :focus-visible { outline: 2px solid #22D3EE; outline-offset: 3px; border-radius: 6px; }
-  ::selection { background: rgba(59,130,246,0.35); }
-  input::placeholder { color: #7582A3; }
-  @keyframes ll-blink { 0%,49% { opacity: 1; } 50%,100% { opacity: 0; } }
-  @keyframes ll-pop { 0% { opacity: 0; transform: translateY(8px); } 100% { opacity: 1; transform: none; } }
-  @keyframes ll-drift { 0%,100% { transform: translate(0,0); } 50% { transform: translate(40px,30px); } }
-  @media (max-width: 960px) { .ll-hide-m { display: none !important; } }
-  @media (min-width: 961px) { .ll-show-m { display: none !important; } }
-  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } html { scroll-behavior: auto; } }
+  html, body { margin: 0; padding: 0; background: #FFFFFF; }
+  a { color: #1F6BFF; text-decoration: none; }
+  a:hover { color: #1557D6; }
+  :focus-visible { outline: 2px solid #1F6BFF; outline-offset: 3px; border-radius: 6px; }
+  ::selection { background: rgba(31,107,255,0.22); }
+  summary::-webkit-details-marker { display: none; }
+  @media (max-width: 980px) { .ll-hide-m { display: none !important; } }
+  @media (min-width: 981px) { .ll-show-m { display: none !important; } }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
 </style>
 </helmet>
-<div ref="{{ rootRef }}" style="--bg:#06080E; --bg2:#0A0E18; --card:rgba(15,21,36,0.72); --line:rgba(130,150,210,0.14); --ink:#EAF0FF; --mute:#A3AECB; --dim:#7582A3; --acc:#22D3EE; --nav:rgba(6,8,14,0.72); --chip:rgba(130,150,210,0.1); min-height:100vh; background:var(--bg); color:var(--ink); font-family:'Geist',system-ui,sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; transition:background .3s ease, color .3s ease;">
+<div ref="{{ rootRef }}" style="--bg:#FFFFFF; --alt:#F5F7FB; --ink:#0B1530; --body:#3D4966; --mute:#5B6785; --line:#E3E8F1; --card:#FFFFFF; --link:#1F6BFF; --soft:#EEF3FF; --ok:#137A43; --okbg:#E8F5EE; --warn:#8A5A00; --warnbg:#FFF4DC; --vio:#5B3FD9; --viobg:#F1EDFF; --nav:rgba(255,255,255,0.9); --shadow:0 1px 2px rgba(11,21,48,0.05), 0 12px 32px -18px rgba(11,21,48,0.18); min-height:100vh; background:var(--bg); color:var(--ink); font-family:'IBM Plex Sans',system-ui,sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden;">
 
-  <a href="#main" style="position:absolute; left:-9999px; top:8px; z-index:200; padding:8px 14px; border-radius:8px; background:#EAF0FF; color:#06080E; font-weight:600;" style-focus="left:12px;">Skip to content</a>
+  <a href="#main" style="position:absolute; left:-9999px; top:8px; z-index:200; padding:8px 14px; border-radius:8px; background:#0B1530; color:#FFFFFF; font-weight:600;" style-focus="left:12px;">Skip to content</a>
 
-  <!-- 1. NAV -->
-  <header style="position:sticky; top:0; z-index:80; background:var(--nav); backdrop-filter:blur(16px) saturate(1.4); -webkit-backdrop-filter:blur(16px) saturate(1.4); border-bottom:1px solid var(--line);">
-    <nav aria-label="Primary" style="max-width:1200px; margin:0 auto; padding:0 20px; height:66px; display:flex; align-items:center; gap:20px;">
+  <header style="position:sticky; top:0; z-index:80; background:var(--nav); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid var(--line);">
+    <nav aria-label="Primary" style="max-width:1200px; margin:0 auto; padding:0 20px; height:68px; display:flex; align-items:center; gap:24px;">
       <a href="#top" aria-label="LogLens AI home" style="display:flex; align-items:center; gap:10px; color:var(--ink); flex-shrink:0;">
-        <img src="assets/loglens-mark.png" alt="LogLens AI logo" width="32" height="32" style="width:32px; height:32px; border-radius:50%; box-shadow:0 0 16px rgba(34,211,238,0.35);" />
-        <span style="font-weight:700; font-size:17px; letter-spacing:-0.02em;">LogLens AI</span>
+        <img src="/assets/loglens-mark.png" alt="LogLens AI logo" width="30" height="30" style="width:30px; height:30px; border-radius:50%;" />
+        <span style="font-weight:700; font-size:17px; letter-spacing:-0.01em;">LogLens AI</span>
       </a>
-      <div class="ll-hide-m" style="display:flex; align-items:center; gap:2px;">
-        <a href="#features" style="padding:8px 11px; border-radius:8px; font-size:14px; font-weight:500; color:var(--mute);" style-hover="color:var(--ink); background:var(--chip);">Features</a>
-        <a href="#how" style="padding:8px 11px; border-radius:8px; font-size:14px; font-weight:500; color:var(--mute);" style-hover="color:var(--ink); background:var(--chip);">How it works</a>
-        <a href="#install" style="padding:8px 11px; border-radius:8px; font-size:14px; font-weight:500; color:var(--mute);" style-hover="color:var(--ink); background:var(--chip);">Install</a>
-        <a href="#pricing" style="padding:8px 11px; border-radius:8px; font-size:14px; font-weight:500; color:var(--mute);" style-hover="color:var(--ink); background:var(--chip);">Pricing</a>
-        <a href="/docs" style="padding:8px 11px; border-radius:8px; font-size:14px; font-weight:500; color:var(--mute);" style-hover="color:var(--ink); background:var(--chip);">Docs</a>
-        <a href="https://github.com/LoglensAI/LogLens-AI" target="_blank" rel="noopener" style="padding:8px 11px; border-radius:8px; font-size:14px; font-weight:500; color:var(--mute);" style-hover="color:var(--ink); background:var(--chip);">GitHub</a>
+      <div class="ll-hide-m" style="display:flex; align-items:center; gap:4px;">
+        <a href="#product" style="padding:8px 12px; border-radius:8px; font-size:14.5px; font-weight:500; color:var(--body);" style-hover="color:var(--ink); background:var(--alt);">Product</a>
+        <a href="#security" style="padding:8px 12px; border-radius:8px; font-size:14.5px; font-weight:500; color:var(--body);" style-hover="color:var(--ink); background:var(--alt);">Security</a>
+        <a href="#deploy" style="padding:8px 12px; border-radius:8px; font-size:14.5px; font-weight:500; color:var(--body);" style-hover="color:var(--ink); background:var(--alt);">Deployment</a>
+        <a href="#pricing" style="padding:8px 12px; border-radius:8px; font-size:14.5px; font-weight:500; color:var(--body);" style-hover="color:var(--ink); background:var(--alt);">Pricing</a>
+        <a href="docs.html" style="padding:8px 12px; border-radius:8px; font-size:14.5px; font-weight:500; color:var(--body);" style-hover="color:var(--ink); background:var(--alt);">Docs</a>
       </div>
       <div style="flex:1;"></div>
-      <a class="ll-hide-m" href="https://github.com/LoglensAI/LogLens-AI" target="_blank" rel="noopener" aria-label="Star LogLens AI on GitHub" style="display:inline-flex; align-items:center; gap:7px; height:38px; padding:0 13px; border-radius:9px; border:1px solid var(--line); background:var(--card); color:var(--ink); font-size:13.5px; font-weight:600; white-space:nowrap;" style-hover="border-color:rgba(34,211,238,0.5);">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38v-1.33c-2.23.48-2.7-1.07-2.7-1.07-.36-.93-.89-1.18-.89-1.18-.73-.5.05-.49.05-.49.8.06 1.23.83 1.23.83.72 1.23 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 014 0c1.53-1.03 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
-        <span>Star</span>
+      <a class="ll-hide-m" href="https://github.com/LoglensAI/LogLens-AI" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:7px; font-size:14.5px; font-weight:500; color:var(--body); white-space:nowrap;" style-hover="color:var(--ink);">
+        <svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38v-1.33c-2.23.48-2.7-1.07-2.7-1.07-.36-.93-.89-1.18-.89-1.18-.73-.5.05-.49.05-.49.8.06 1.23.83 1.23.83.72 1.23 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 014 0c1.53-1.03 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>GitHub
       </a>
-      <button onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" style="width:38px; height:38px; flex-shrink:0; display:inline-flex; align-items:center; justify-content:center; border-radius:9px; border:1px solid var(--line); background:var(--card); color:var(--mute); cursor:pointer;" style-hover="color:var(--ink); border-color:rgba(34,211,238,0.5);">
-        <sc-if value="{{ isDark }}" hint-placeholder-val="{{ true }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></sc-if>
-        <sc-if value="{{ isLight }}" hint-placeholder-val="{{ false }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 019.5 4a8 8 0 1010.5 10.5z"></path></svg></sc-if>
-      </button>
-      <a href="#install" style="display:inline-flex; align-items:center; height:38px; padding:0 16px; border-radius:9px; background:linear-gradient(100deg,#22D3EE,#3B82F6 60%,#8B5CF6); color:#041018; font-size:14px; font-weight:700; white-space:nowrap; box-shadow:0 6px 22px -8px rgba(59,130,246,0.8);" style-hover="filter:brightness(1.1); color:#041018;">Get started</a>
-      <button class="ll-show-m" onClick="{{ toggleMenu }}" aria-label="Open menu" aria-expanded="{{ menuOpen }}" style="width:38px; height:38px; flex-shrink:0; display:inline-flex; align-items:center; justify-content:center; border-radius:9px; border:1px solid var(--line); background:var(--card); color:var(--ink); cursor:pointer;">
+      <a class="ll-hide-m" href="#deploy" style="display:inline-flex; align-items:center; height:40px; padding:0 16px; border-radius:9px; border:1px solid var(--line); background:var(--card); color:var(--ink); font-size:14.5px; font-weight:600; white-space:nowrap;" style-hover="border-color:#1F6BFF; color:var(--ink);">Install free</a>
+      <a href="#contact" style="display:inline-flex; align-items:center; height:40px; padding:0 16px; border-radius:9px; background:#1F6BFF; color:#FFFFFF; font-size:14.5px; font-weight:600; white-space:nowrap;" style-hover="background:#1557D6; color:#FFFFFF;">Talk to us</a>
+      <button class="ll-show-m" onClick="{{ toggleMenu }}" aria-label="Open menu" aria-expanded="{{ menuOpen }}" style="width:40px; height:40px; flex-shrink:0; display:inline-flex; align-items:center; justify-content:center; border-radius:9px; border:1px solid var(--line); background:var(--card); color:var(--ink); cursor:pointer;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
       </button>
     </nav>
     <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
-      <div class="ll-show-m" onClick="{{ closeMenu }}" style="display:flex; flex-direction:column; padding:8px 20px 18px; gap:2px; border-top:1px solid var(--line); background:var(--bg);">
-        <a href="#features" style="padding:12px 4px; font-size:16px; color:var(--ink); border-bottom:1px solid var(--line);">Features</a>
-        <a href="#how" style="padding:12px 4px; font-size:16px; color:var(--ink); border-bottom:1px solid var(--line);">How it works</a>
-        <a href="#install" style="padding:12px 4px; font-size:16px; color:var(--ink); border-bottom:1px solid var(--line);">Install</a>
-        <a href="#pricing" style="padding:12px 4px; font-size:16px; color:var(--ink); border-bottom:1px solid var(--line);">Pricing</a>
-        <a href="/docs" style="padding:12px 4px; font-size:16px; color:var(--ink); border-bottom:1px solid var(--line);">Docs</a>
-        <a href="https://github.com/LoglensAI/LogLens-AI" target="_blank" rel="noopener" style="padding:12px 4px; font-size:16px; color:var(--ink);">GitHub ★</a>
+      <div class="ll-show-m" onClick="{{ closeMenu }}" style="display:flex; flex-direction:column; padding:6px 20px 18px; border-top:1px solid var(--line); background:var(--bg);">
+        <a href="#product" style="padding:13px 2px; font-size:16px; color:var(--ink); border-bottom:1px solid var(--line);">Product</a>
+        <a href="#security" style="padding:13px 2px; font-size:16px; color:var(--ink); border-bottom:1px solid var(--line);">Security</a>
+        <a href="#deploy" style="padding:13px 2px; font-size:16px; color:var(--ink); border-bottom:1px solid var(--line);">Deployment</a>
+        <a href="#pricing" style="padding:13px 2px; font-size:16px; color:var(--ink); border-bottom:1px solid var(--line);">Pricing</a>
+        <a href="docs.html" style="padding:13px 2px; font-size:16px; color:var(--ink); border-bottom:1px solid var(--line);">Docs</a>
+        <a href="https://github.com/LoglensAI/LogLens-AI" target="_blank" rel="noopener" style="padding:13px 2px; font-size:16px; color:var(--ink);">GitHub</a>
       </div>
     </sc-if>
   </header>
 
   <main id="main">
-  <!-- 2. HERO -->
-  <section id="top" aria-labelledby="hero-h" style="position:relative; overflow:hidden;">
-    <div aria-hidden="true" style="position:absolute; inset:0; pointer-events:none;">
-      <div style="position:absolute; top:-240px; left:-160px; width:720px; height:620px; border-radius:50%; background:radial-gradient(circle, rgba(34,211,238,0.18), transparent 62%); filter:blur(30px); animation:ll-drift 20s ease-in-out infinite;"></div>
-      <div style="position:absolute; top:-120px; right:-220px; width:760px; height:680px; border-radius:50%; background:radial-gradient(circle, rgba(139,92,246,0.18), transparent 62%); filter:blur(30px);"></div>
-      <div style="position:absolute; inset:0; background-image:linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size:56px 56px; opacity:0.5; mask-image:radial-gradient(ellipse 80% 60% at 50% 10%, #000 30%, transparent 75%); -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 10%, #000 30%, transparent 75%);"></div>
-    </div>
-    <div style="position:relative; max-width:1200px; margin:0 auto; padding:clamp(52px,8vw,96px) 20px clamp(64px,8vw,96px); display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,460px),1fr)); gap:clamp(36px,5vw,56px); align-items:center;">
-      <div data-reveal style="opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; min-width:0;">
-        <a href="https://github.com/LoglensAI/LogLens-AI/releases" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:9px; padding:5px 12px 5px 5px; margin-bottom:24px; border-radius:100px; border:1px solid var(--line); background:var(--card); font-size:13px; color:var(--mute); white-space:nowrap; max-width:100%;" style-hover="border-color:rgba(34,211,238,0.5); color:var(--ink);">
-          <span style="padding:2px 9px; border-radius:100px; background:linear-gradient(90deg,#22D3EE,#8B5CF6); color:#041018; font-family:'JetBrains Mono',monospace; font-size:11.5px; font-weight:700;">v0.12</span>
-          <span>Warm daemon + native installers</span><span aria-hidden="true">→</span>
-        </a>
-        <h1 id="hero-h" style="margin:0 0 20px; font-size:clamp(38px,5.8vw,68px); line-height:1.02; letter-spacing:-0.042em; font-weight:800; text-wrap:balance;">Find the log lines that <span style="background:linear-gradient(95deg,#22D3EE,#3B82F6 55%,#A78BFA); -webkit-background-clip:text; background-clip:text; color:transparent;">actually matter</span> - locally, in seconds.</h1>
-        <p style="margin:0 0 30px; max-width:540px; font-size:clamp(17px,1.5vw,19px); line-height:1.6; color:var(--mute); text-wrap:pretty;">Privacy-first anomaly detection that runs on your own machine, scores every line, and tells you in plain words <span style="color:var(--ink); font-weight:600;">why</span> it was flagged.</p>
-        <div style="display:flex; flex-wrap:wrap; gap:12px; margin-bottom:28px;">
-          <a href="#install" style="display:inline-flex; align-items:center; gap:8px; height:52px; padding:0 22px; border-radius:12px; background:linear-gradient(100deg,#22D3EE,#3B82F6 60%,#8B5CF6); color:#041018; font-size:15.5px; font-weight:700; white-space:nowrap; box-shadow:0 12px 36px -12px rgba(59,130,246,0.9);" style-hover="filter:brightness(1.1); color:#041018;">Install now <span aria-hidden="true">→</span></a>
-          <button onClick="{{ openDemo }}" style="display:inline-flex; align-items:center; gap:10px; height:52px; padding:0 20px 0 14px; border-radius:12px; border:1px solid var(--line); background:var(--card); color:var(--ink); font-family:inherit; font-size:15.5px; font-weight:600; white-space:nowrap; cursor:pointer;" style-hover="border-color:rgba(34,211,238,0.55);">
-            <span style="width:28px; height:28px; border-radius:50%; background:rgba(34,211,238,0.14); color:var(--acc); display:inline-flex; align-items:center; justify-content:center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"></path></svg></span>
-            Watch demo
-          </button>
+  <!-- HERO -->
+  <section id="top" aria-labelledby="hero-h" style="position:relative; overflow:hidden; background:#05080F; color:#EAF0FF;">
+    <div aria-hidden="true" style="position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse 60% 70% at 85% 10%, rgba(31,107,255,0.22), transparent 60%), radial-gradient(ellipse 50% 60% at 0% 100%, rgba(124,92,255,0.12), transparent 60%);"></div>
+    <div aria-hidden="true" style="position:absolute; inset:0; pointer-events:none; background-image:linear-gradient(rgba(140,160,220,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(140,160,220,0.07) 1px, transparent 1px); background-size:64px 64px; mask-image:linear-gradient(180deg, #000, transparent 85%); -webkit-mask-image:linear-gradient(180deg, #000, transparent 85%);"></div>
+    <div style="position:relative; max-width:1200px; margin:0 auto; padding:clamp(56px,8vw,104px) 20px clamp(64px,8vw,104px); display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,440px),1fr)); gap:clamp(40px,5vw,64px); align-items:center;">
+      <div data-reveal style="opacity:0; transform:translateY(12px); transition:opacity .6s ease, transform .6s ease; min-width:0;">
+        <div style="display:inline-flex; align-items:center; gap:9px; margin-bottom:26px; padding:6px 12px; border-radius:100px; border:1px solid rgba(255,255,255,0.14); background:rgba(255,255,255,0.04); font-size:13px; color:#B4BED6; white-space:nowrap; max-width:100%;">
+          <span style="width:7px; height:7px; border-radius:50%; background:#00B4FF;"></span>Self-hosted log anomaly detection · v0.12
         </div>
-        <ul aria-label="Highlights" style="list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:8px 16px; font-size:13.5px; color:var(--dim);">
-          <li style="display:flex; align-items:center; gap:7px; white-space:nowrap;"><span style="width:6px; height:6px; border-radius:50%; background:#3FB950;"></span>Runs 100% locally</li>
-          <li style="display:flex; align-items:center; gap:7px; white-space:nowrap;"><span style="width:6px; height:6px; border-radius:50%; background:#22D3EE;"></span>MIT open source</li>
-          <li style="display:flex; align-items:center; gap:7px; white-space:nowrap; font-family:'JetBrains Mono',monospace; font-size:12.5px;"><span style="width:6px; height:6px; border-radius:50%; background:#A78BFA;"></span>pip · apt · brew · Docker</li>
+        <h1 id="hero-h" style="margin:0 0 22px; font-size:clamp(36px,5vw,58px); line-height:1.08; letter-spacing:-0.025em; font-weight:600; text-wrap:balance;">Know what broke on your servers, without your logs ever leaving them.</h1>
+        <p style="margin:0 0 34px; max-width:560px; font-size:clamp(17px,1.5vw,19px); line-height:1.6; color:#B4BED6; text-wrap:pretty;">LogLens reads logs where they already live, flags the few lines that signal a real failure, and explains each one in plain language. No agents to manage, no per-GB bill, nothing uploaded.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:12px; margin-bottom:36px;">
+          <a href="#contact" style="display:inline-flex; align-items:center; gap:8px; height:50px; padding:0 22px; border-radius:10px; background:#1F6BFF; color:#FFFFFF; font-size:15.5px; font-weight:600; white-space:nowrap;" style-hover="background:#3B7BFF; color:#FFFFFF;">Talk to us about Team &amp; Enterprise</a>
+          <a href="#deploy" style="display:inline-flex; align-items:center; height:50px; padding:0 22px; border-radius:10px; border:1px solid rgba(255,255,255,0.24); color:#FFFFFF; font-size:15.5px; font-weight:600; white-space:nowrap;" style-hover="border-color:rgba(255,255,255,0.5); color:#FFFFFF; background:rgba(255,255,255,0.05);">Install free</a>
+        </div>
+        <ul aria-label="Key assurances" style="list-style:none; margin:0; padding:22px 0 0; border-top:1px solid rgba(255,255,255,0.1); display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,230px),1fr)); gap:12px 24px; font-size:14.5px; color:#D5DCEC;">
+          <li style="display:flex; align-items:flex-start; gap:10px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3FB970" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0; margin-top:2px;"><path d="M5 12l5 5L20 7"></path></svg>Detection runs entirely on the host</li>
+          <li style="display:flex; align-items:flex-start; gap:10px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3FB970" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0; margin-top:2px;"><path d="M5 12l5 5L20 7"></path></svg>MIT licensed, fully auditable source</li>
+          <li style="display:flex; align-items:flex-start; gap:10px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3FB970" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0; margin-top:2px;"><path d="M5 12l5 5L20 7"></path></svg>Works offline and air-gapped</li>
+          <li style="display:flex; align-items:flex-start; gap:10px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3FB970" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0; margin-top:2px;"><path d="M5 12l5 5L20 7"></path></svg>Native Linux, macOS and Windows packages</li>
         </ul>
       </div>
 
-      <div data-reveal style="opacity:0; transform:translateY(18px); transition:opacity .8s ease .1s, transform .8s ease .1s; min-width:0;">
-        <div style="position:relative; border-radius:16px; padding:1px; background:linear-gradient(140deg, rgba(34,211,238,0.55), rgba(59,130,246,0.15) 45%, rgba(139,92,246,0.55));">
-          <div style="border-radius:15px; overflow:hidden; background:#0A0E18; box-shadow:0 30px 80px -30px rgba(0,0,0,0.85);">
-            <div style="display:flex; align-items:center; gap:7px; padding:11px 14px; border-bottom:1px solid rgba(130,150,210,0.14); background:#0F1424;">
-              <span style="width:11px; height:11px; border-radius:50%; background:#FF5F57;"></span><span style="width:11px; height:11px; border-radius:50%; background:#FEBC2E;"></span><span style="width:11px; height:11px; border-radius:50%; background:#28C840;"></span>
-              <span style="margin-left:8px; font-family:'JetBrains Mono',monospace; font-size:12px; color:#7582A3;">~/services/checkout</span>
-              <button onClick="{{ replay }}" aria-label="Replay terminal animation" style="margin-left:auto; height:26px; padding:0 10px; border-radius:6px; border:1px solid rgba(130,150,210,0.22); background:transparent; color:#7582A3; font-family:'JetBrains Mono',monospace; font-size:11.5px; cursor:pointer;" style-hover="color:#EAF0FF; border-color:rgba(34,211,238,0.5);">↻ replay</button>
+      <div data-reveal style="opacity:0; transform:translateY(12px); transition:opacity .6s ease .1s, transform .6s ease .1s; min-width:0;">
+        <sc-if value="{{ showDiagram }}" hint-placeholder-val="{{ true }}">
+          <figure aria-label="Data flow diagram: detection runs inside your server; AI root-cause and alerts are optional" style="margin:0; border-radius:16px; border:1px solid rgba(140,160,220,0.2); background:#0A1024; padding:clamp(18px,2.4vw,26px); box-shadow:0 40px 90px -40px rgba(0,0,0,0.9);">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:16px; font-family:'IBM Plex Mono',monospace; font-size:12px; color:#8E9AB8;"><span>DATA FLOW</span><span>default configuration</span></div>
+            <div style="border-radius:12px; border:1.5px solid rgba(0,180,255,0.45); background:rgba(0,180,255,0.05); padding:18px;">
+              <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:16px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00B4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="7" rx="1.5"></rect><rect x="3" y="13" width="18" height="7" rx="1.5"></rect><path d="M7 7.5h.01M7 16.5h.01"></path></svg>
+                <span style="font-size:15.5px; font-weight:600; color:#FFFFFF;">Your server</span>
+                <span style="margin-left:auto; display:inline-flex; align-items:center; gap:6px; padding:3px 10px; border-radius:100px; background:rgba(63,185,112,0.14); border:1px solid rgba(63,185,112,0.4); color:#5BD08A; font-size:12px; font-weight:600; white-space:nowrap;">Nothing leaves</span>
+              </div>
+              <div style="font-size:12px; color:#8E9AB8; margin-bottom:8px;">Inputs</div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:#D5DCEC; margin-bottom:16px; line-height:1.6;">log files · stdin · URLs · docker / kubectl / tail streams</div>
+              <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;">
+                <span style="display:inline-flex; align-items:center; gap:7px; padding:7px 11px; border-radius:8px; background:#111A33; border:1px solid rgba(140,160,220,0.18); font-size:13px; color:#EAF0FF; white-space:nowrap;"><span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#00B4FF;">1</span>Parse</span>
+                <span style="display:inline-flex; align-items:center; gap:7px; padding:7px 11px; border-radius:8px; background:#111A33; border:1px solid rgba(140,160,220,0.18); font-size:13px; color:#EAF0FF; white-space:nowrap;"><span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#00B4FF;">2</span>Template</span>
+                <span style="display:inline-flex; align-items:center; gap:7px; padding:7px 11px; border-radius:8px; background:#111A33; border:1px solid rgba(140,160,220,0.18); font-size:13px; color:#EAF0FF; white-space:nowrap;"><span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#00B4FF;">3</span>Detect</span>
+                <span style="display:inline-flex; align-items:center; gap:7px; padding:7px 11px; border-radius:8px; background:#111A33; border:1px solid rgba(140,160,220,0.18); font-size:13px; color:#EAF0FF; white-space:nowrap;"><span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#00B4FF;">4</span>Group</span>
+                <span style="display:inline-flex; align-items:center; gap:7px; padding:7px 11px; border-radius:8px; background:#111A33; border:1px solid rgba(140,160,220,0.18); font-size:13px; color:#EAF0FF; white-space:nowrap;"><span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#00B4FF;">5</span>Explain</span>
+              </div>
+              <div style="font-size:12px; color:#8E9AB8; margin-bottom:8px;">Outputs</div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:#D5DCEC; line-height:1.6;">terminal · JSON · offline HTML report · CI exit code</div>
             </div>
-            <div aria-live="polite" style="height:390px; padding:16px 18px; font-family:'JetBrains Mono',monospace; font-size:12.5px; line-height:1.7; color:#E6EDF7; overflow:hidden;">{{ terminal }}</div>
+            <div aria-hidden="true" style="display:flex; justify-content:center; padding:4px 0;"><div style="width:0; height:26px; border-left:1.5px dashed rgba(140,160,220,0.4);"></div></div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,190px),1fr)); gap:10px;">
+              <div style="border-radius:12px; border:1.5px dashed rgba(140,160,220,0.32); padding:14px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:6px;"><span style="font-size:14px; font-weight:600; color:#FFFFFF;">AI root-cause</span><span style="font-size:11px; font-weight:600; color:#FFC940; white-space:nowrap;">opt-in</span></div>
+                <div style="font-size:13px; line-height:1.5; color:#A9B4CE;">Anomaly summaries only, to the LLM provider you configure. Never the full log.</div>
+              </div>
+              <div style="border-radius:12px; border:1.5px dashed rgba(140,160,220,0.32); padding:14px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:6px;"><span style="font-size:14px; font-weight:600; color:#FFFFFF;">Alerts</span><span style="font-size:11px; font-weight:600; color:#FFC940; white-space:nowrap;">opt-in</span></div>
+                <div style="font-size:13px; line-height:1.5; color:#A9B4CE;">Slack, Teams or email destinations that you set up.</div>
+              </div>
+            </div>
+          </figure>
+        </sc-if>
+        <sc-if value="{{ showHeroVideo }}" hint-placeholder-val="{{ false }}">
+          <div style="border-radius:16px; overflow:hidden; border:1px solid rgba(140,160,220,0.2); background:#000; box-shadow:0 40px 90px -40px rgba(0,0,0,0.9);">
+            <video src="{{ video1 }}" controls="controls" preload="metadata" playsinline="" aria-label="LogLens AI product overview video" style="display:block; width:100%; aspect-ratio:16/9; background:#000;"></video>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+
+  <!-- FACTS -->
+  <section aria-label="Key facts" style="border-bottom:1px solid var(--line); background:var(--bg);">
+    <div style="max-width:1200px; margin:0 auto; padding:0 20px; display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,230px),1fr));">
+      <div data-reveal style="opacity:0; transform:translateY(10px); transition:opacity .5s ease, transform .5s ease; padding:30px 24px 30px 0;">
+        <div style="font-size:34px; font-weight:600; letter-spacing:-0.02em; color:var(--ink);">$0</div>
+        <div style="margin-top:6px; font-size:14.5px; line-height:1.5; color:var(--mute);">per GB and per host for the Individual edition</div>
+      </div>
+      <div data-reveal style="opacity:0; transform:translateY(10px); transition:opacity .5s ease .05s, transform .5s ease .05s; padding:30px 24px 30px 0;">
+        <div style="font-size:34px; font-weight:600; letter-spacing:-0.02em; color:var(--ink);">~7×</div>
+        <div style="margin-top:6px; font-size:14.5px; line-height:1.5; color:var(--mute);">faster warm runs with the daemon (≈2.4s → ≈0.33s)</div>
+      </div>
+      <div data-reveal style="opacity:0; transform:translateY(10px); transition:opacity .5s ease .1s, transform .5s ease .1s; padding:30px 24px 30px 0;">
+        <div style="font-size:34px; font-weight:600; letter-spacing:-0.02em; color:var(--ink);">0</div>
+        <div style="margin-top:6px; font-size:14.5px; line-height:1.5; color:var(--mute);">log lines uploaded in the default configuration</div>
+      </div>
+      <div data-reveal style="opacity:0; transform:translateY(10px); transition:opacity .5s ease .15s, transform .5s ease .15s; padding:30px 24px 30px 0;">
+        <div style="font-size:34px; font-weight:600; letter-spacing:-0.02em; color:var(--ink);">MIT</div>
+        <div style="margin-top:6px; font-size:14.5px; line-height:1.5; color:var(--mute);">open-source license, no vendor lock-in</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PILLARS -->
+  <section id="product" aria-labelledby="pil-h" style="max-width:1200px; margin:0 auto; padding:clamp(72px,9vw,112px) 20px; scroll-margin-top:68px;">
+    <div data-reveal style="opacity:0; transform:translateY(12px); transition:opacity .6s ease, transform .6s ease; max-width:720px; margin-bottom:48px;">
+      <div style="font-size:13px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--link);">Why server teams trust it</div>
+      <h2 id="pil-h" style="margin:12px 0 14px; font-size:clamp(30px,3.8vw,44px); line-height:1.12; letter-spacing:-0.02em; font-weight:600; text-wrap:balance;">Built for the people accountable for uptime.</h2>
+      <p style="margin:0; font-size:17.5px; line-height:1.65; color:var(--body); text-wrap:pretty;">Most log platforms ask you to ship every line to someone else's cloud and pay by the gigabyte. LogLens takes the opposite position on all three things that matter to an infrastructure lead.</p>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,300px),1fr)); gap:20px;">
+      <article data-reveal style="opacity:0; transform:translateY(12px); transition:opacity .5s ease, transform .5s ease; padding:28px; border-radius:14px; border:1px solid var(--line); background:var(--card); box-shadow:var(--shadow);">
+        <div style="width:44px; height:44px; border-radius:10px; display:flex; align-items:center; justify-content:center; background:var(--soft); color:var(--link); margin-bottom:20px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"></rect><path d="M8 10V7a4 4 0 018 0v3"></path></svg></div>
+        <h3 style="margin:0 0 8px; font-size:20px; font-weight:600;">Data stays sovereign</h3>
+        <p style="margin:0 0 18px; font-size:15px; line-height:1.6; color:var(--body);">Your logs are read, parsed and analyzed on your own machines. There is no ingest pipeline to secure.</p>
+        <ul style="list-style:none; margin:0; padding:18px 0 0; border-top:1px solid var(--line); display:flex; flex-direction:column; gap:10px; font-size:14.5px; line-height:1.5; color:var(--body);">
+          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:var(--ok); font-weight:700;">✓</span>Detection is 100% local</li>
+          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:var(--ok); font-weight:700;">✓</span>Daemon talks over a per-user local socket only</li>
+          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:var(--ok); font-weight:700;">✓</span>AI features are opt-in and send summaries, never full logs</li>
+        </ul>
+      </article>
+      <article data-reveal style="opacity:0; transform:translateY(12px); transition:opacity .5s ease .08s, transform .5s ease .08s; padding:28px; border-radius:14px; border:1px solid var(--line); background:var(--card); box-shadow:var(--shadow);">
+        <div style="width:44px; height:44px; border-radius:10px; display:flex; align-items:center; justify-content:center; background:var(--okbg); color:var(--ok); margin-bottom:20px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M17 6H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"></path></svg></div>
+        <h3 style="margin:0 0 8px; font-size:20px; font-weight:600;">Cost stays predictable</h3>
+        <p style="margin:0 0 18px; font-size:15px; line-height:1.6; color:var(--body);">It runs on hardware you already operate, so log growth never turns into a surprise invoice.</p>
+        <ul style="list-style:none; margin:0; padding:18px 0 0; border-top:1px solid var(--line); display:flex; flex-direction:column; gap:10px; font-size:14.5px; line-height:1.5; color:var(--body);">
+          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:var(--ok); font-weight:700;">✓</span>No per-GB or per-host ingest fees</li>
+          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:var(--ok); font-weight:700;">✓</span>Individual edition is free under MIT</li>
+          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:var(--ok); font-weight:700;">✓</span>Bring your own LLM key, only if you want AI summaries</li>
+        </ul>
+      </article>
+      <article data-reveal style="opacity:0; transform:translateY(12px); transition:opacity .5s ease .16s, transform .5s ease .16s; padding:28px; border-radius:14px; border:1px solid var(--line); background:var(--card); box-shadow:var(--shadow);">
+        <div style="width:44px; height:44px; border-radius:10px; display:flex; align-items:center; justify-content:center; background:var(--viobg); color:var(--vio); margin-bottom:20px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l8 3v6c0 5-3.4 9.3-8 11-4.6-1.7-8-6-8-11V5z"></path><path d="M9 12l2 2 4-4"></path></svg></div>
+        <h3 style="margin:0 0 8px; font-size:20px; font-weight:600;">Operations stay simple</h3>
+        <p style="margin:0 0 18px; font-size:15px; line-height:1.6; color:var(--body);">A self-contained binary installed from your normal package manager. Nothing new to run in production.</p>
+        <ul style="list-style:none; margin:0; padding:18px 0 0; border-top:1px solid var(--line); display:flex; flex-direction:column; gap:10px; font-size:14.5px; line-height:1.5; color:var(--body);">
+          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:var(--ok); font-weight:700;">✓</span>apt, dnf, Homebrew, winget or Docker</li>
+          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:var(--ok); font-weight:700;">✓</span>Registers as a systemd, launchd or Windows service</li>
+          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:var(--ok); font-weight:700;">✓</span>Stable exit codes for scripts and CI</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- DAY ONE -->
+  <section aria-labelledby="day-h" style="background:var(--alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+    <div style="max-width:1200px; margin:0 auto; padding:clamp(72px,9vw,112px) 20px; display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,440px),1fr)); gap:clamp(36px,5vw,64px); align-items:start;">
+      <div data-reveal style="opacity:0; transform:translateY(12px); transition:opacity .6s ease, transform .6s ease; min-width:0;">
+        <div style="font-size:13px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--link);">Capabilities</div>
+        <h2 id="day-h" style="margin:12px 0 14px; font-size:clamp(30px,3.8vw,44px); line-height:1.12; letter-spacing:-0.02em; font-weight:600;">What your team gets on day one.</h2>
+        <p style="margin:0 0 28px; font-size:17px; line-height:1.65; color:var(--body);">Instead of 10,000 identical errors, your engineers see one incident with a count, a score and a reason.</p>
+        <dl style="margin:0; display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,230px),1fr)); gap:22px 28px;">
+          <div><dt style="font-size:15.5px; font-weight:600; margin-bottom:4px;">Explainable alerts</dt><dd style="margin:0; font-size:14.5px; line-height:1.55; color:var(--body);">Every anomaly carries a 0 to 1 score and readable reasons.</dd></div>
+          <div><dt style="font-size:15.5px; font-weight:600; margin-bottom:4px;">Incident families</dt><dd style="margin:0; font-size:14.5px; line-height:1.55; color:var(--body);">Repeats collapse into one family with an ×N count.</dd></div>
+          <div><dt style="font-size:15.5px; font-weight:600; margin-bottom:4px;">Live watch</dt><dd style="margin:0; font-size:14.5px; line-height:1.55; color:var(--body);">Stream docker, kubectl or tail output and flag issues as they happen.</dd></div>
+          <div><dt style="font-size:15.5px; font-weight:600; margin-bottom:4px;">Three detection modes</dt><dd style="margin:0; font-size:14.5px; line-height:1.55; color:var(--body);">Fast for everyday use, turbo for huge files, deep for semantic issues.</dd></div>
+          <div><dt style="font-size:15.5px; font-weight:600; margin-bottom:4px;">CI/CD gate</dt><dd style="margin:0; font-size:14.5px; line-height:1.55; color:var(--body);">JSON output, <code style="font-family:'IBM Plex Mono',monospace; font-size:13px;">--fail-on</code> and an official GitHub Action.</dd></div>
+          <div><dt style="font-size:15.5px; font-weight:600; margin-bottom:4px;">Offline HTML reports</dt><dd style="margin:0; font-size:14.5px; line-height:1.55; color:var(--body);">A standalone file you can attach to a postmortem.</dd></div>
+          <div><dt style="font-size:15.5px; font-weight:600; margin-bottom:4px;">Your own model</dt><dd style="margin:0; font-size:14.5px; line-height:1.55; color:var(--body);">Train on your labeled logs with <code style="font-family:'IBM Plex Mono',monospace; font-size:13px;">loglens train</code>.</dd></div>
+          <div><dt style="font-size:15.5px; font-weight:600; margin-bottom:4px;">Optional AI root-cause</dt><dd style="margin:0; font-size:14.5px; line-height:1.55; color:var(--body);">OpenAI, Azure or Groq with your own key.</dd></div>
+        </dl>
+      </div>
+      <figure data-reveal aria-label="Example LogLens output" style="opacity:0; transform:translateY(12px); transition:opacity .6s ease .1s, transform .6s ease .1s; margin:0; min-width:0; border-radius:14px; border:1px solid var(--line); background:var(--card); box-shadow:var(--shadow); overflow:hidden;">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 18px; border-bottom:1px solid var(--line);">
+          <code style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--ink); overflow-x:auto; white-space:nowrap;">loglens analyze --source app.log</code>
+          <span style="flex-shrink:0; font-size:11.5px; font-weight:600; color:var(--mute); padding:3px 9px; border-radius:100px; background:var(--alt); border:1px solid var(--line); white-space:nowrap;">Example output</span>
+        </div>
+        <div style="padding:16px 18px; display:flex; flex-direction:column; gap:12px;">
+          <div style="display:flex; flex-wrap:wrap; gap:8px 18px; font-size:13px; color:var(--mute); font-family:'IBM Plex Mono',monospace;"><span>format: auto-detected</span><span>mode: fast</span><span>48,210 lines parsed</span></div>
+          <div style="border-radius:10px; border:1px solid var(--line); border-left:3px solid #D93A3A; padding:14px 16px;">
+            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px;"><span style="font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600; padding:2px 8px; border-radius:5px; background:#FDECEC; color:#B42318;">ERROR</span><span style="font-size:14px; font-weight:600;">db</span><span style="margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--mute);">×47 · score 0.95</span></div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--ink); margin-bottom:6px; overflow-wrap:anywhere;">connection refused | host=db-1</div>
+            <div style="font-size:13px; color:var(--body);"><span style="font-weight:600; color:var(--vio);">why:</span> severity ERROR, failure keyword, burst</div>
+          </div>
+          <div style="border-radius:10px; border:1px solid var(--line); border-left:3px solid #C98A00; padding:14px 16px;">
+            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px;"><span style="font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600; padding:2px 8px; border-radius:5px; background:#FFF4DC; color:#8A5A00;">WARN</span><span style="font-size:14px; font-weight:600;">api</span><span style="margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--mute);">×12 · score 0.71</span></div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--ink); margin-bottom:6px; overflow-wrap:anywhere;">upstream latency 2140ms /checkout</div>
+            <div style="font-size:13px; color:var(--body);"><span style="font-weight:600; color:var(--vio);">why:</span> rare template, timing</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; padding-top:4px; font-size:13.5px; color:var(--body);"><span style="font-size:11px; font-weight:700; letter-spacing:0.05em; padding:3px 9px; border-radius:5px; background:#B42318; color:#FFFFFF;">INCIDENT</span>2 families · 59 of 48,210 lines flagged</div>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <!-- SECURITY -->
+  <section id="security" aria-labelledby="sec-h" style="max-width:1200px; margin:0 auto; padding:clamp(72px,9vw,112px) 20px; scroll-margin-top:68px;">
+    <div data-reveal style="opacity:0; transform:translateY(12px); transition:opacity .6s ease, transform .6s ease; max-width:720px; margin-bottom:36px;">
+      <div style="font-size:13px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--link);">Security &amp; data handling</div>
+      <h2 id="sec-h" style="margin:12px 0 14px; font-size:clamp(30px,3.8vw,44px); line-height:1.12; letter-spacing:-0.02em; font-weight:600;">Know exactly where your data goes.</h2>
+      <p style="margin:0; font-size:17px; line-height:1.65; color:var(--body);">A plain answer for your security review, component by component.</p>
+    </div>
+    <div data-reveal tabindex="0" aria-label="Data handling table, scrolls horizontally on small screens" style="opacity:0; transform:translateY(12px); transition:opacity .6s ease, transform .6s ease; overflow-x:auto; border-radius:14px; border:1px solid var(--line); background:var(--card); box-shadow:var(--shadow);">
+      <table style="width:100%; min-width:720px; border-collapse:collapse; font-size:14.5px;">
+        <caption style="position:absolute; left:-9999px;">Where each LogLens component runs and what, if anything, leaves the host</caption>
+        <thead>
+          <tr style="background:var(--alt);">
+            <th scope="col" style="text-align:left; padding:14px 20px; font-size:13px; font-weight:600; color:var(--mute); border-bottom:1px solid var(--line);">Component</th>
+            <th scope="col" style="text-align:left; padding:14px 20px; font-size:13px; font-weight:600; color:var(--mute); border-bottom:1px solid var(--line);">Where it runs</th>
+            <th scope="col" style="text-align:left; padding:14px 20px; font-size:13px; font-weight:600; color:var(--mute); border-bottom:1px solid var(--line);">What leaves the host</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row" style="text-align:left; padding:16px 20px; font-weight:600; border-bottom:1px solid var(--line);">Parsing &amp; detection</th><td style="padding:16px 20px; color:var(--body); border-bottom:1px solid var(--line);">On the host, as the invoking user</td><td style="padding:16px 20px; border-bottom:1px solid var(--line);"><span style="display:inline-flex; padding:3px 10px; border-radius:100px; background:var(--okbg); color:var(--ok); font-size:13px; font-weight:600; white-space:nowrap;">Nothing</span></td></tr>
+          <tr><th scope="row" style="text-align:left; padding:16px 20px; font-weight:600; border-bottom:1px solid var(--line);">Warm daemon</th><td style="padding:16px 20px; color:var(--body); border-bottom:1px solid var(--line);">Unix socket (0600, per user) or loopback TCP with a random token on Windows</td><td style="padding:16px 20px; border-bottom:1px solid var(--line);"><span style="display:inline-flex; padding:3px 10px; border-radius:100px; background:var(--okbg); color:var(--ok); font-size:13px; font-weight:600; white-space:nowrap;">Nothing, localhost only</span></td></tr>
+          <tr><th scope="row" style="text-align:left; padding:16px 20px; font-weight:600; border-bottom:1px solid var(--line);">Neural model (<code style="font-family:'IBM Plex Mono',monospace; font-size:13px;">--deep</code>)</th><td style="padding:16px 20px; color:var(--body); border-bottom:1px solid var(--line);">Bundled with native installs; local directory via <code style="font-family:'IBM Plex Mono',monospace; font-size:13px;">LOGLENS_MODEL_DIR</code></td><td style="padding:16px 20px; border-bottom:1px solid var(--line);"><span style="display:inline-flex; padding:3px 10px; border-radius:100px; background:var(--okbg); color:var(--ok); font-size:13px; font-weight:600; white-space:nowrap;">Nothing, runs offline</span></td></tr>
+          <tr><th scope="row" style="text-align:left; padding:16px 20px; font-weight:600; border-bottom:1px solid var(--line);">AI root-cause &amp; <code style="font-family:'IBM Plex Mono',monospace; font-size:13px;">ask</code></th><td style="padding:16px 20px; color:var(--body); border-bottom:1px solid var(--line);">Only when you pass <code style="font-family:'IBM Plex Mono',monospace; font-size:13px;">--rca</code> or use <code style="font-family:'IBM Plex Mono',monospace; font-size:13px;">ask</code></td><td style="padding:16px 20px; border-bottom:1px solid var(--line); color:var(--body);"><span style="display:inline-flex; padding:3px 10px; margin:0 8px 6px 0; border-radius:100px; background:var(--warnbg); color:var(--warn); font-size:13px; font-weight:600; white-space:nowrap;">Opt-in</span>Anomaly summaries to your chosen provider. The report shows the count sent and token usage.</td></tr>
+          <tr><th scope="row" style="text-align:left; padding:16px 20px; font-weight:600;">Alerts</th><td style="padding:16px 20px; color:var(--body);">Only when you configure an alerter in the SDK</td><td style="padding:16px 20px; color:var(--body);"><span style="display:inline-flex; padding:3px 10px; margin:0 8px 6px 0; border-radius:100px; background:var(--warnbg); color:var(--warn); font-size:13px; font-weight:600; white-space:nowrap;">Opt-in</span>The alert message, to the Slack, Teams or email destination you set.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin:18px 0 0; font-size:15px; color:var(--body);">Full details in the <a href="docs.html#13-privacy--data-handling" style="color:var(--link); font-weight:600;">Privacy &amp; data handling</a> section of the docs, and in the <a href="https://github.com/LoglensAI/LogLens-AI" target="_blank" rel="noopener" style="color:var(--link); font-weight:600;">source code</a>.</p>
+  </section>
+
+  <!-- DEPLOY -->
+  <section id="deploy" aria-labelledby="dep-h" style="background:var(--alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line); scroll-margin-top:68px;">
+    <div style="max-width:1200px; margin:0 auto; padding:clamp(72px,9vw,112px) 20px;">
+      <div data-reveal style="opacity:0; transform:translateY(12px); transition:opacity .6s ease, transform .6s ease; max-width:720px; margin-bottom:36px;">
+        <div style="font-size:13px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--link);">Deployment</div>
+        <h2 id="dep-h" style="margin:12px 0 14px; font-size:clamp(30px,3.8vw,44px); line-height:1.12; letter-spacing:-0.02em; font-weight:600;">Deploys like any other system package.</h2>
+        <p style="margin:0; font-size:17px; line-height:1.65; color:var(--body);">Native installers bundle neural mode, need no Python, and update through the channel you already patch with.</p>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,420px),1fr)); gap:20px; align-items:start;">
+        <div data-reveal style="opacity:0; transform:translateY(12px); transition:opacity .6s ease, transform .6s ease; min-width:0; border-radius:14px; border:1px solid var(--line); background:var(--card); box-shadow:var(--shadow); overflow:hidden;">
+          <div role="tablist" aria-label="Install method" style="display:flex; gap:4px; padding:8px; border-bottom:1px solid var(--line); overflow-x:auto;">
+            <button role="tab" aria-selected="{{ t0sel }}" onClick="{{ tab0 }}" style="flex-shrink:0; height:36px; padding:0 14px; border-radius:8px; border:1px solid {{ t0bd }}; background:{{ t0bg }}; color:{{ t0fg }}; font-family:inherit; font-size:14px; font-weight:600; cursor:pointer;">Linux</button>
+            <button role="tab" aria-selected="{{ t1sel }}" onClick="{{ tab1 }}" style="flex-shrink:0; height:36px; padding:0 14px; border-radius:8px; border:1px solid {{ t1bd }}; background:{{ t1bg }}; color:{{ t1fg }}; font-family:inherit; font-size:14px; font-weight:600; cursor:pointer;">macOS</button>
+            <button role="tab" aria-selected="{{ t2sel }}" onClick="{{ tab2 }}" style="flex-shrink:0; height:36px; padding:0 14px; border-radius:8px; border:1px solid {{ t2bd }}; background:{{ t2bg }}; color:{{ t2fg }}; font-family:inherit; font-size:14px; font-weight:600; cursor:pointer;">Windows</button>
+            <button role="tab" aria-selected="{{ t3sel }}" onClick="{{ tab3 }}" style="flex-shrink:0; height:36px; padding:0 14px; border-radius:8px; border:1px solid {{ t3bd }}; background:{{ t3bg }}; color:{{ t3fg }}; font-family:inherit; font-size:14px; font-weight:600; cursor:pointer;">Python</button>
+            <button role="tab" aria-selected="{{ t4sel }}" onClick="{{ tab4 }}" style="flex-shrink:0; height:36px; padding:0 14px; border-radius:8px; border:1px solid {{ t4bd }}; background:{{ t4bg }}; color:{{ t4fg }}; font-family:inherit; font-size:14px; font-weight:600; cursor:pointer;">Docker</button>
+          </div>
+          <div role="tabpanel" style="padding:18px; display:flex; flex-direction:column; gap:12px;">
+            <sc-if value="{{ t0sel }}" hint-placeholder-val="{{ true }}">
+              <div style="font-size:13.5px; font-weight:600; color:var(--body);">Debian / Ubuntu</div>
+              <div style="position:relative; border-radius:10px; background:#0A1024;"><button data-copy="curl -1sLf 'https://dl.cloudsmith.io/public/loglensai/loglensai-363o/setup.deb.sh' | sudo -E bash&#10;sudo apt install loglens" data-label="Copy" aria-label="Copy Debian install commands" style="position:absolute; top:9px; right:9px; height:28px; padding:0 11px; border-radius:7px; border:1px solid rgba(140,160,220,0.25); background:#141D38; color:#C5CEE3; font-family:inherit; font-size:12px; font-weight:600; cursor:pointer;">Copy</button><div style="padding:15px 80px 15px 16px; font-family:'IBM Plex Mono',monospace; font-size:13px; line-height:1.8; color:#E6EDF7; overflow-x:auto; white-space:pre;"><div><span style="color:#5CA8FF;">$ </span>curl -1sLf 'https://dl.cloudsmith.io/public/loglensai/loglensai-363o/setup.deb.sh' | sudo -E bash</div><div><span style="color:#5CA8FF;">$ </span>sudo apt install loglens</div></div></div>
+              <div style="font-size:13.5px; font-weight:600; color:var(--body); margin-top:4px;">Fedora / RHEL</div>
+              <div style="position:relative; border-radius:10px; background:#0A1024;"><button data-copy="curl -1sLf 'https://dl.cloudsmith.io/public/loglensai/loglensai-363o/setup.rpm.sh' | sudo -E bash&#10;sudo dnf install loglens" data-label="Copy" aria-label="Copy Fedora install commands" style="position:absolute; top:9px; right:9px; height:28px; padding:0 11px; border-radius:7px; border:1px solid rgba(140,160,220,0.25); background:#141D38; color:#C5CEE3; font-family:inherit; font-size:12px; font-weight:600; cursor:pointer;">Copy</button><div style="padding:15px 80px 15px 16px; font-family:'IBM Plex Mono',monospace; font-size:13px; line-height:1.8; color:#E6EDF7; overflow-x:auto; white-space:pre;"><div><span style="color:#5CA8FF;">$ </span>curl -1sLf 'https://dl.cloudsmith.io/public/loglensai/loglensai-363o/setup.rpm.sh' | sudo -E bash</div><div><span style="color:#5CA8FF;">$ </span>sudo dnf install loglens</div></div></div>
+            </sc-if>
+            <sc-if value="{{ t1sel }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:13.5px; font-weight:600; color:var(--body);">Homebrew (Apple Silicon)</div>
+              <div style="position:relative; border-radius:10px; background:#0A1024;"><button data-copy="brew install loglensai/tap/loglens" data-label="Copy" aria-label="Copy Homebrew command" style="position:absolute; top:9px; right:9px; height:28px; padding:0 11px; border-radius:7px; border:1px solid rgba(140,160,220,0.25); background:#141D38; color:#C5CEE3; font-family:inherit; font-size:12px; font-weight:600; cursor:pointer;">Copy</button><div style="padding:15px 80px 15px 16px; font-family:'IBM Plex Mono',monospace; font-size:13px; line-height:1.8; color:#E6EDF7; overflow-x:auto; white-space:pre;"><div><span style="color:#5CA8FF;">$ </span>brew install loglensai/tap/loglens</div></div></div>
+            </sc-if>
+            <sc-if value="{{ t2sel }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:13.5px; font-weight:600; color:var(--body);">winget</div>
+              <div style="position:relative; border-radius:10px; background:#0A1024;"><button data-copy="winget install LoglensAI.LogLens" data-label="Copy" aria-label="Copy winget command" style="position:absolute; top:9px; right:9px; height:28px; padding:0 11px; border-radius:7px; border:1px solid rgba(140,160,220,0.25); background:#141D38; color:#C5CEE3; font-family:inherit; font-size:12px; font-weight:600; cursor:pointer;">Copy</button><div style="padding:15px 80px 15px 16px; font-family:'IBM Plex Mono',monospace; font-size:13px; line-height:1.8; color:#E6EDF7; overflow-x:auto; white-space:pre;"><div><span style="color:#5CA8FF;">&gt; </span>winget install LoglensAI.LogLens</div></div></div>
+            </sc-if>
+            <sc-if value="{{ t3sel }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:13.5px; font-weight:600; color:var(--body);">pipx (Python 3.10+), with optional neural extra</div>
+              <div style="position:relative; border-radius:10px; background:#0A1024;"><button data-copy="pipx install loglensai" data-label="Copy" aria-label="Copy pipx command" style="position:absolute; top:9px; right:9px; height:28px; padding:0 11px; border-radius:7px; border:1px solid rgba(140,160,220,0.25); background:#141D38; color:#C5CEE3; font-family:inherit; font-size:12px; font-weight:600; cursor:pointer;">Copy</button><div style="padding:15px 80px 15px 16px; font-family:'IBM Plex Mono',monospace; font-size:13px; line-height:1.8; color:#E6EDF7; overflow-x:auto; white-space:pre;"><div><span style="color:#5CA8FF;">$ </span>pipx install loglensai</div></div></div>
+              <div style="position:relative; border-radius:10px; background:#0A1024;"><button data-copy="pip install &quot;loglensai[deep]&quot;" data-label="Copy" aria-label="Copy pip deep command" style="position:absolute; top:9px; right:9px; height:28px; padding:0 11px; border-radius:7px; border:1px solid rgba(140,160,220,0.25); background:#141D38; color:#C5CEE3; font-family:inherit; font-size:12px; font-weight:600; cursor:pointer;">Copy</button><div style="padding:15px 80px 15px 16px; font-family:'IBM Plex Mono',monospace; font-size:13px; line-height:1.8; color:#E6EDF7; overflow-x:auto; white-space:pre;"><div><span style="color:#5CA8FF;">$ </span>pip install "loglensai[deep]"</div></div></div>
+            </sc-if>
+            <sc-if value="{{ t4sel }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:13.5px; font-weight:600; color:var(--body);">Multi-arch image (amd64 + arm64)</div>
+              <div style="position:relative; border-radius:10px; background:#0A1024;"><button data-copy="docker run --rm -v &quot;$PWD:/data&quot; loglensai/loglens analyze --source app.log" data-label="Copy" aria-label="Copy Docker command" style="position:absolute; top:9px; right:9px; height:28px; padding:0 11px; border-radius:7px; border:1px solid rgba(140,160,220,0.25); background:#141D38; color:#C5CEE3; font-family:inherit; font-size:12px; font-weight:600; cursor:pointer;">Copy</button><div style="padding:15px 80px 15px 16px; font-family:'IBM Plex Mono',monospace; font-size:13px; line-height:1.8; color:#E6EDF7; overflow-x:auto; white-space:pre;"><div><span style="color:#5CA8FF;">$ </span>docker run --rm -v "$PWD:/data" loglensai/loglens analyze --source app.log</div></div></div>
+            </sc-if>
+            <p style="margin:4px 0 0; font-size:13.5px; line-height:1.55; color:var(--mute);">Updates: <code style="font-family:'IBM Plex Mono',monospace;">apt upgrade</code>, <code style="font-family:'IBM Plex Mono',monospace;">brew upgrade</code>, <code style="font-family:'IBM Plex Mono',monospace;">winget upgrade</code> or <code style="font-family:'IBM Plex Mono',monospace;">pip install -U loglensai</code>.</p>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:20px; min-width:0;">
+          <div data-reveal style="opacity:0; transform:translateY(12px); transition:opacity .6s ease .08s, transform .6s ease .08s; border-radius:14px; border:1px solid var(--line); background:var(--card); box-shadow:var(--shadow); padding:22px;">
+            <h3 style="margin:0 0 6px; font-size:18px; font-weight:600;">Runs as a managed service</h3>
+            <p style="margin:0 0 14px; font-size:14.5px; line-height:1.55; color:var(--body);">Native installs register the warm daemon with systemd, launchd or Windows. If it is ever down, the CLI silently runs in-process with identical output.</p>
+            <div style="border-radius:10px; background:#0A1024; padding:14px 16px; font-family:'IBM Plex Mono',monospace; font-size:13px; line-height:1.8; color:#E6EDF7; overflow-x:auto; white-space:pre;"><div><span style="color:#5CA8FF;">$ </span>systemctl --user status loglens</div><div><span style="color:#5CA8FF;">$ </span>loglens daemon status</div></div>
+          </div>
+          <div data-reveal style="opacity:0; transform:translateY(12px); transition:opacity .6s ease .16s, transform .6s ease .16s; border-radius:14px; border:1px solid var(--line); background:var(--card); box-shadow:var(--shadow); padding:22px;">
+            <h3 style="margin:0 0 6px; font-size:18px; font-weight:600;">Gates your pipelines</h3>
+            <p style="margin:0 0 14px; font-size:14.5px; line-height:1.55; color:var(--body);">Stable exit codes, JSON output and an official GitHub Action with job summaries and annotations.</p>
+            <table style="width:100%; border-collapse:collapse; font-size:14px;">
+              <caption style="position:absolute; left:-9999px;">LogLens exit codes</caption>
+              <tbody>
+                <tr><th scope="row" style="text-align:left; padding:8px 12px 8px 0; font-family:'IBM Plex Mono',monospace; font-weight:600; border-bottom:1px solid var(--line); width:48px;">0</th><td style="padding:8px 0; color:var(--body); border-bottom:1px solid var(--line);">Success, no gate tripped</td></tr>
+                <tr><th scope="row" style="text-align:left; padding:8px 12px 8px 0; font-family:'IBM Plex Mono',monospace; font-weight:600; border-bottom:1px solid var(--line);">1</th><td style="padding:8px 0; color:var(--body); border-bottom:1px solid var(--line);">Error: bad source, model or input</td></tr>
+                <tr><th scope="row" style="text-align:left; padding:8px 12px 8px 0; font-family:'IBM Plex Mono',monospace; font-weight:600;">2</th><td style="padding:8px 0; color:var(--body);"><code style="font-family:'IBM Plex Mono',monospace; font-size:13px;">--fail-on</code> gate tripped: fail the build</td></tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 3. VIDEO 1 -->
-  <section aria-labelledby="v1-h" style="max-width:1200px; margin:0 auto; padding:clamp(40px,6vw,72px) 20px 0;">
-    <div data-reveal style="opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,300px),1fr)); gap:clamp(24px,4vw,48px); align-items:center;">
-      <div style="grid-column:span 2; min-width:0; max-width:100%;">
-        <div style="position:relative; border-radius:18px; overflow:hidden; border:1px solid var(--line); background:#05070C; box-shadow:0 40px 100px -40px rgba(59,130,246,0.5);">
-          <video src="{{ video1 }}" controls="" preload="metadata" playsinline="" aria-label="What is LogLens AI - product overview video" style="display:block; width:100%; aspect-ratio:16/9; background:#05070C; object-fit:cover;"></video>
-        </div>
+  <!-- VIDEOS -->
+  <section id="watch" aria-labelledby="watch-h" style="max-width:1200px; margin:0 auto; padding:clamp(72px,9vw,112px) 20px; scroll-margin-top:68px;">
+    <div data-reveal style="opacity:0; transform:translateY(12px); transition:opacity .6s ease, transform .6s ease; max-width:720px; margin-bottom:36px;">
+      <div style="font-size:13px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--link);">See it working</div>
+      <h2 id="watch-h" style="margin:12px 0 0; font-size:clamp(30px,3.8vw,44px); line-height:1.12; letter-spacing:-0.02em; font-weight:600;">Watch before you install.</h2>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,440px),1fr)); gap:24px;">
+      <figure data-reveal style="opacity:0; transform:translateY(12px); transition:opacity .6s ease, transform .6s ease; margin:0; min-width:0;">
+        <div style="border-radius:14px; overflow:hidden; border:1px solid var(--line); background:#000; box-shadow:var(--shadow);"><video src="{{ video1 }}" controls="controls" preload="metadata" playsinline="" aria-label="What is LogLens AI, product overview video" style="display:block; width:100%; aspect-ratio:16/9; background:#000;"></video></div>
+        <figcaption style="margin-top:14px;"><div style="font-size:17px; font-weight:600;">Product overview</div><div style="margin-top:4px; font-size:14.5px; color:var(--body);">What LogLens is and how it keeps log analysis on your own machines.</div></figcaption>
+      </figure>
+      <figure data-reveal style="opacity:0; transform:translateY(12px); transition:opacity .6s ease .08s, transform .6s ease .08s; margin:0; min-width:0;">
+        <div style="border-radius:14px; overflow:hidden; border:1px solid var(--line); background:#000; box-shadow:var(--shadow);"><video src="{{ video2 }}" controls="controls" preload="metadata" playsinline="" aria-label="LogLens AI command walkthrough video" style="display:block; width:100%; aspect-ratio:16/9; background:#000;"></video></div>
+        <figcaption style="margin-top:14px;"><div style="font-size:17px; font-weight:600;">Command walkthrough</div><div style="margin-top:4px; font-size:14.5px; color:var(--body);">Analyze, turbo, deep, train, the warm daemon and the CI gate, end to end.</div></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" aria-labelledby="price-h" style="background:var(--alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line); scroll-margin-top:68px;">
+    <div style="max-width:1200px; margin:0 auto; padding:clamp(72px,9vw,112px) 20px;">
+      <div data-reveal style="opacity:0; transform:translateY(12px); transition:opacity .6s ease, transform .6s ease; text-align:center; max-width:680px; margin:0 auto 44px;">
+        <div style="font-size:13px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--link);">Pricing</div>
+        <h2 id="price-h" style="margin:12px 0 14px; font-size:clamp(30px,3.8vw,44px); line-height:1.12; letter-spacing:-0.02em; font-weight:600;">Free today. Team and Enterprise on the way.</h2>
+        <p style="margin:0; font-size:17px; line-height:1.65; color:var(--body);">The Individual edition is complete and free. Team and Enterprise are in development and not yet available.</p>
       </div>
-      <div style="min-width:0;">
-        <div style="font-family:'JetBrains Mono',monospace; font-size:12.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--acc);">Product overview</div>
-        <h2 id="v1-h" style="margin:12px 0 14px; font-size:clamp(28px,3.4vw,40px); line-height:1.08; letter-spacing:-0.035em; font-weight:700;">What is LogLens AI</h2>
-        <p style="margin:0 0 20px; font-size:16px; line-height:1.6; color:var(--mute);">A local, open-source alternative to Datadog, Splunk and Sentry. Your logs never leave your machine.</p>
-        <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px;">
-          <li style="display:flex; gap:10px; font-size:15px; line-height:1.5;"><span aria-hidden="true" style="color:#3FB950; font-weight:700;">✓</span><span>Surfaces the few lines that matter out of millions</span></li>
-          <li style="display:flex; gap:10px; font-size:15px; line-height:1.5;"><span aria-hidden="true" style="color:#3FB950; font-weight:700;">✓</span><span>Every anomaly comes with a score and a reason</span></li>
-          <li style="display:flex; gap:10px; font-size:15px; line-height:1.5;"><span aria-hidden="true" style="color:#3FB950; font-weight:700;">✓</span><span>Runs offline, gates CI, costs nothing per GB</span></li>
-        </ul>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,320px),1fr)); gap:20px; align-items:stretch;">
+        <article data-reveal style="opacity:0; transform:translateY(12px); transition:opacity .5s ease, transform .5s ease; display:flex; flex-direction:column; padding:30px 28px; border-radius:16px; border:2px solid #1F6BFF; background:var(--card); box-shadow:var(--shadow);">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;"><h3 style="margin:0; font-size:20px; font-weight:600;">Individual</h3><span style="font-size:12px; font-weight:600; padding:3px 10px; border-radius:100px; background:var(--okbg); color:var(--ok); white-space:nowrap;">Available now</span></div>
+          <p style="margin:6px 0 20px; font-size:14.5px; color:var(--mute);">For engineers and single servers</p>
+          <div style="display:flex; align-items:baseline; gap:8px; margin-bottom:24px;"><span style="font-size:44px; font-weight:600; letter-spacing:-0.03em;">$0</span><span style="font-size:14.5px; color:var(--mute);">forever · MIT</span></div>
+          <a href="#deploy" style="display:flex; align-items:center; justify-content:center; height:48px; border-radius:10px; background:#1F6BFF; color:#FFFFFF; font-weight:600; font-size:15px; margin-bottom:26px;" style-hover="background:#1557D6; color:#FFFFFF;">Install free</a>
+          <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:11px; font-size:14.5px; line-height:1.45; color:var(--body);">
+            <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:var(--ok); font-weight:700;">✓</span>Fast, turbo and deep detection</li>
+            <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:var(--ok); font-weight:700;">✓</span>Explainable anomalies and incident families</li>
+            <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:var(--ok); font-weight:700;">✓</span>Warm daemon and live watch</li>
+            <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:var(--ok); font-weight:700;">✓</span>CI/CD gate and GitHub Action</li>
+            <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:var(--ok); font-weight:700;">✓</span>JSON and offline HTML reports</li>
+            <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:var(--ok); font-weight:700;">✓</span>Community support on GitHub</li>
+          </ul>
+        </article>
+        <article data-reveal style="opacity:0; transform:translateY(12px); transition:opacity .5s ease .08s, transform .5s ease .08s; display:flex; flex-direction:column; padding:30px 28px; border-radius:16px; border:1px solid var(--line); background:var(--card); box-shadow:var(--shadow);">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;"><h3 style="margin:0; font-size:20px; font-weight:600;">Team</h3><span style="font-size:12px; font-weight:600; padding:3px 10px; border-radius:100px; background:var(--warnbg); color:var(--warn); white-space:nowrap;">In development</span></div>
+          <p style="margin:6px 0 20px; font-size:14.5px; color:var(--mute);">For engineering teams and fleets</p>
+          <div style="display:flex; align-items:baseline; gap:8px; margin-bottom:24px;"><span style="font-size:28px; font-weight:600; letter-spacing:-0.02em; line-height:1.6;">Per seat</span><span style="font-size:14.5px; color:var(--mute);">pricing at launch</span></div>
+          <a href="#contact" onClick="{{ pickTeam }}" style="display:flex; align-items:center; justify-content:center; height:48px; border-radius:10px; border:1px solid var(--line); background:var(--card); color:var(--ink); font-weight:600; font-size:15px; margin-bottom:26px;" style-hover="border-color:#1F6BFF; color:var(--ink);">Join the waitlist</a>
+          <div style="font-size:13px; font-weight:600; color:var(--mute); margin-bottom:12px;">Planned, on top of Individual:</div>
+          <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:11px; font-size:14.5px; line-height:1.45; color:var(--body);">
+            <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:var(--mute);">○</span>Multi-core parallel engine</li>
+            <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:var(--mute);">○</span>Streaming detection with Slack, Teams and webhook alerts</li>
+            <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:var(--mute);">○</span>Shared baselines and team configuration</li>
+            <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:var(--mute);">○</span>Central dashboard across services and hosts</li>
+            <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:var(--mute);">○</span>Priority support</li>
+          </ul>
+        </article>
+        <article data-reveal style="opacity:0; transform:translateY(12px); transition:opacity .5s ease .16s, transform .5s ease .16s; display:flex; flex-direction:column; padding:30px 28px; border-radius:16px; border:1px solid var(--line); background:var(--card); box-shadow:var(--shadow);">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;"><h3 style="margin:0; font-size:20px; font-weight:600;">Enterprise</h3><span style="font-size:12px; font-weight:600; padding:3px 10px; border-radius:100px; background:var(--warnbg); color:var(--warn); white-space:nowrap;">In development</span></div>
+          <p style="margin:6px 0 20px; font-size:14.5px; color:var(--mute);">For regulated and large estates</p>
+          <div style="display:flex; align-items:baseline; gap:8px; margin-bottom:24px;"><span style="font-size:28px; font-weight:600; letter-spacing:-0.02em; line-height:1.6;">Custom</span><span style="font-size:14.5px; color:var(--mute);">annual agreement</span></div>
+          <a href="#contact" onClick="{{ pickEnt }}" style="display:flex; align-items:center; justify-content:center; height:48px; border-radius:10px; border:1px solid var(--line); background:var(--card); color:var(--ink); font-weight:600; font-size:15px; margin-bottom:26px;" style-hover="border-color:#1F6BFF; color:var(--ink);">Talk to us</a>
+          <div style="font-size:13px; font-weight:600; color:var(--mute); margin-bottom:12px;">Planned, on top of Team:</div>
+          <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:11px; font-size:14.5px; line-height:1.45; color:var(--body);">
+            <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:var(--mute);">○</span>Distributed coordinator and worker engine</li>
+            <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:var(--mute);">○</span>RBAC with SSO, SAML and OIDC</li>
+            <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:var(--mute);">○</span>Audit logging for compliance programs</li>
+            <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:var(--mute);">○</span>On-prem, VPC and air-gapped deployment support</li>
+            <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:var(--mute);">○</span>Self-hosted LLM root-cause</li>
+            <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:var(--mute);">○</span>SLA-backed support and onboarding</li>
+          </ul>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- 4. FEATURES -->
-  <section id="features" aria-labelledby="feat-h" style="max-width:1200px; margin:0 auto; padding:clamp(80px,10vw,120px) 20px 0; scroll-margin-top:70px;">
-    <div data-reveal style="opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; max-width:720px; margin-bottom:40px;">
-      <div style="font-family:'JetBrains Mono',monospace; font-size:12.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--acc);">Features</div>
-      <h2 id="feat-h" style="margin:12px 0 14px; font-size:clamp(30px,4.2vw,48px); line-height:1.05; letter-spacing:-0.035em; font-weight:700; text-wrap:balance;">Everything you need to go from noise to cause.</h2>
-      <p style="margin:0; font-size:17px; line-height:1.6; color:var(--mute);">Built for developers and SRE teams who want answers, not another dashboard bill.</p>
+  <!-- FAQ -->
+  <section id="faq" aria-labelledby="faq-h" style="max-width:880px; margin:0 auto; padding:clamp(72px,9vw,112px) 20px; scroll-margin-top:68px;">
+    <div data-reveal style="opacity:0; transform:translateY(12px); transition:opacity .6s ease, transform .6s ease; margin-bottom:28px;">
+      <div style="font-size:13px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--link);">Questions from IT leaders</div>
+      <h2 id="faq-h" style="margin:12px 0 0; font-size:clamp(30px,3.8vw,44px); line-height:1.12; letter-spacing:-0.02em; font-weight:600;">The short answers.</h2>
     </div>
-    <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(min(100%,260px),1fr)); gap:14px;">
-      <article data-reveal style="opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease, border-color .2s ease; padding:22px; border-radius:16px; border:1px solid var(--line); background:var(--card);" style-hover="border-color:rgba(34,211,238,0.45);">
-        <div style="width:40px; height:40px; border-radius:11px; display:flex; align-items:center; justify-content:center; background:rgba(139,92,246,0.14); color:#A78BFA; margin-bottom:16px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2"></circle><circle cx="5" cy="19" r="2"></circle><circle cx="19" cy="19" r="2"></circle><path d="M12 7v4M7 18l4-6M17 18l-4-6"></path></svg></div>
-        <h3 style="margin:0 0 6px; font-size:16px; font-weight:700;">Semantic / neural detection</h3>
-        <p style="margin:0; font-size:14px; line-height:1.55; color:var(--mute);">MiniLM embeddings group log lines by meaning, not by string match.</p>
-      </article>
-      <article data-reveal style="opacity:0; transform:translateY(18px); transition:opacity .6s ease .05s, transform .6s ease .05s, border-color .2s ease; padding:22px; border-radius:16px; border:1px solid var(--line); background:var(--card);" style-hover="border-color:rgba(34,211,238,0.45);">
-        <div style="width:40px; height:40px; border-radius:11px; display:flex; align-items:center; justify-content:center; background:rgba(34,211,238,0.12); color:#22D3EE; margin-bottom:16px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v4M12 16h.01"></path></svg></div>
-        <h3 style="margin:0 0 6px; font-size:16px; font-weight:700;">Explainable results</h3>
-        <p style="margin:0; font-size:14px; line-height:1.55; color:var(--mute);">Each anomaly carries a 0-1 score and human-readable reasons.</p>
-      </article>
-      <article data-reveal style="opacity:0; transform:translateY(18px); transition:opacity .6s ease .1s, transform .6s ease .1s, border-color .2s ease; padding:22px; border-radius:16px; border:1px solid var(--line); background:var(--card);" style-hover="border-color:rgba(34,211,238,0.45);">
-        <div style="width:40px; height:40px; border-radius:11px; display:flex; align-items:center; justify-content:center; background:rgba(255,159,67,0.13); color:#FF9F43; margin-bottom:16px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><path d="M17.5 14v7M14 17.5h7"></path></svg></div>
-        <h3 style="margin:0 0 6px; font-size:16px; font-weight:700;">Incident grouping</h3>
-        <p style="margin:0; font-size:14px; line-height:1.55; color:var(--mute);">Repeats collapse into incident families, with an INCIDENT flag when a run is severe.</p>
-      </article>
-      <article data-reveal style="opacity:0; transform:translateY(18px); transition:opacity .6s ease .15s, transform .6s ease .15s, border-color .2s ease; padding:22px; border-radius:16px; border:1px solid var(--line); background:var(--card);" style-hover="border-color:rgba(34,211,238,0.45);">
-        <div style="width:40px; height:40px; border-radius:11px; display:flex; align-items:center; justify-content:center; background:rgba(59,130,246,0.14); color:#60A5FA; margin-bottom:16px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M4 12h16M4 17h7"></path></svg></div>
-        <h3 style="margin:0 0 6px; font-size:16px; font-weight:700;">Three modes</h3>
-        <p style="margin:0; font-size:14px; line-height:1.55; color:var(--mute);"><code style="font-family:'JetBrains Mono',monospace;">fast</code> TF-IDF, <code style="font-family:'JetBrains Mono',monospace;">turbo</code> multiprocess for huge files, <code style="font-family:'JetBrains Mono',monospace;">deep</code> neural.</p>
-      </article>
-      <article data-reveal style="opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease, border-color .2s ease; padding:22px; border-radius:16px; border:1px solid var(--line); background:var(--card);" style-hover="border-color:rgba(34,211,238,0.45);">
-        <div style="width:40px; height:40px; border-radius:11px; display:flex; align-items:center; justify-content:center; background:rgba(255,201,64,0.12); color:#FFC940; margin-bottom:16px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z"></path></svg></div>
-        <h3 style="margin:0 0 6px; font-size:16px; font-weight:700;">Warm daemon, ~7× faster</h3>
-        <p style="margin:0; font-size:14px; line-height:1.55; color:var(--mute);">A resident process keeps the ML stack loaded: about 2.4s down to 0.33s per run.</p>
-      </article>
-      <article data-reveal style="opacity:0; transform:translateY(18px); transition:opacity .6s ease .05s, transform .6s ease .05s, border-color .2s ease; padding:22px; border-radius:16px; border:1px solid var(--line); background:var(--card);" style-hover="border-color:rgba(34,211,238,0.45);">
-        <div style="width:40px; height:40px; border-radius:11px; display:flex; align-items:center; justify-content:center; background:rgba(63,185,80,0.13); color:#3FB950; margin-bottom:16px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4"></path><path d="M12 2l8 3v6c0 5-3.4 9.3-8 11-4.6-1.7-8-6-8-11V5z"></path></svg></div>
-        <h3 style="margin:0 0 6px; font-size:16px; font-weight:700;">CI/CD gating</h3>
-        <p style="margin:0; font-size:14px; line-height:1.55; color:var(--mute);"><code style="font-family:'JetBrains Mono',monospace;">--format json</code> + <code style="font-family:'JetBrains Mono',monospace;">--fail-on</code> gate builds, plus an official GitHub Action.</p>
-      </article>
-      <article data-reveal style="opacity:0; transform:translateY(18px); transition:opacity .6s ease .1s, transform .6s ease .1s, border-color .2s ease; padding:22px; border-radius:16px; border:1px solid var(--line); background:var(--card);" style-hover="border-color:rgba(34,211,238,0.45);">
-        <div style="width:40px; height:40px; border-radius:11px; display:flex; align-items:center; justify-content:center; background:rgba(34,211,238,0.12); color:#22D3EE; margin-bottom:16px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h4l3-8 4 16 3-8h6"></path></svg></div>
-        <h3 style="margin:0 0 6px; font-size:16px; font-weight:700;">Real-time <code style="font-family:'JetBrains Mono',monospace;">watch</code></h3>
-        <p style="margin:0; font-size:14px; line-height:1.55; color:var(--mute);">Tail a live stream and see only the anomalies as they happen.</p>
-      </article>
-      <article data-reveal style="opacity:0; transform:translateY(18px); transition:opacity .6s ease .15s, transform .6s ease .15s, border-color .2s ease; padding:22px; border-radius:16px; border:1px solid var(--line); background:var(--card);" style-hover="border-color:rgba(34,211,238,0.45);">
-        <div style="width:40px; height:40px; border-radius:11px; display:flex; align-items:center; justify-content:center; background:rgba(59,130,246,0.14); color:#60A5FA; margin-bottom:16px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V9z"></path><path d="M14 3v6h6M8 13h8M8 17h5"></path></svg></div>
-        <h3 style="margin:0 0 6px; font-size:16px; font-weight:700;">Offline HTML reports</h3>
-        <p style="margin:0; font-size:14px; line-height:1.55; color:var(--mute);">Self-contained incident reports you can attach to a postmortem.</p>
-      </article>
-      <article data-reveal style="opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease, border-color .2s ease; padding:22px; border-radius:16px; border:1px solid var(--line); background:var(--card);" style-hover="border-color:rgba(34,211,238,0.45);">
-        <div style="width:40px; height:40px; border-radius:11px; display:flex; align-items:center; justify-content:center; background:rgba(139,92,246,0.14); color:#A78BFA; margin-bottom:16px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M5 9l7-6 7 6M5 15h14"></path></svg></div>
-        <h3 style="margin:0 0 6px; font-size:16px; font-weight:700;">Train your own model</h3>
-        <p style="margin:0; font-size:14px; line-height:1.55; color:var(--mute);"><code style="font-family:'JetBrains Mono',monospace;">loglens train</code> on your logs, then analyze with <code style="font-family:'JetBrains Mono',monospace;">--model</code>.</p>
-      </article>
-      <article data-reveal style="opacity:0; transform:translateY(18px); transition:opacity .6s ease .05s, transform .6s ease .05s, border-color .2s ease; padding:22px; border-radius:16px; border:1px solid var(--line); background:var(--card);" style-hover="border-color:rgba(34,211,238,0.45);">
-        <div style="width:40px; height:40px; border-radius:11px; display:flex; align-items:center; justify-content:center; background:rgba(255,93,93,0.12); color:#FF7B72; margin-bottom:16px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 22h4M12 2a7 7 0 00-4 12.7V17h8v-2.3A7 7 0 0012 2z"></path></svg></div>
-        <h3 style="margin:0 0 6px; font-size:16px; font-weight:700;">Optional AI root-cause</h3>
-        <p style="margin:0; font-size:14px; line-height:1.55; color:var(--mute);">Bring your own LLM key for a plain-language "why it broke" summary.</p>
-      </article>
+    <div data-reveal style="opacity:0; transform:translateY(12px); transition:opacity .6s ease, transform .6s ease; border-top:1px solid var(--line);">
+      <details style="border-bottom:1px solid var(--line);"><summary style="list-style:none; cursor:pointer; padding:22px 0; display:flex; align-items:center; justify-content:space-between; gap:16px; font-size:17px; font-weight:600;">Does any of our log data leave our servers?<span aria-hidden="true" style="flex-shrink:0; font-size:22px; font-weight:400; color:var(--mute);">+</span></summary><p style="margin:0 0 22px; font-size:15.5px; line-height:1.7; color:var(--body);">Not for detection. Logs are read, parsed and analyzed on the host. Only if you turn on AI root-cause or <code style="font-family:'IBM Plex Mono',monospace;">ask</code> does LogLens send anomaly summaries, never the full log, to the LLM provider you configure. The report tells you how many summaries were sent and the token usage.</p></details>
+      <details style="border-bottom:1px solid var(--line);"><summary style="list-style:none; cursor:pointer; padding:22px 0; display:flex; align-items:center; justify-content:space-between; gap:16px; font-size:17px; font-weight:600;">Can it run in an air-gapped environment?<span aria-hidden="true" style="flex-shrink:0; font-size:22px; font-weight:400; color:var(--mute);">+</span></summary><p style="margin:0 0 22px; font-size:15.5px; line-height:1.7; color:var(--body);">Yes. Native installs bundle the neural model, so even deep mode runs fully offline. For pip installs, point <code style="font-family:'IBM Plex Mono',monospace;">LOGLENS_MODEL_DIR</code> at a local model directory.</p></details>
+      <details style="border-bottom:1px solid var(--line);"><summary style="list-style:none; cursor:pointer; padding:22px 0; display:flex; align-items:center; justify-content:space-between; gap:16px; font-size:17px; font-weight:600;">What does it cost?<span aria-hidden="true" style="flex-shrink:0; font-size:22px; font-weight:400; color:var(--mute);">+</span></summary><p style="margin:0 0 22px; font-size:15.5px; line-height:1.7; color:var(--body);">The Individual edition is free under the MIT license, with no per-GB or per-host fees. Team and Enterprise are in development; pricing will be announced at launch. <a href="#contact" style="color:var(--link); font-weight:600;">Join the waitlist</a> to hear first.</p></details>
+      <details style="border-bottom:1px solid var(--line);"><summary style="list-style:none; cursor:pointer; padding:22px 0; display:flex; align-items:center; justify-content:space-between; gap:16px; font-size:17px; font-weight:600;">How is it installed and kept up to date?<span aria-hidden="true" style="flex-shrink:0; font-size:22px; font-weight:400; color:var(--mute);">+</span></summary><p style="margin:0 0 22px; font-size:15.5px; line-height:1.7; color:var(--body);">Through your normal package manager: apt, dnf, Homebrew or winget, plus pipx and a Docker image. Updates arrive through the same channel, and the installer registers the warm daemon as an OS service.</p></details>
+      <details style="border-bottom:1px solid var(--line);"><summary style="list-style:none; cursor:pointer; padding:22px 0; display:flex; align-items:center; justify-content:space-between; gap:16px; font-size:17px; font-weight:600;">Could it disrupt our existing scripts or CI?<span aria-hidden="true" style="flex-shrink:0; font-size:22px; font-weight:400; color:var(--mute);">+</span></summary><p style="margin:0 0 22px; font-size:15.5px; line-height:1.7; color:var(--body);">It is designed not to. Exit codes are fixed (0, 1, 2), JSON output is machine-readable, and if the daemon is unavailable the CLI falls back to running in-process with identical results.</p></details>
+      <details style="border-bottom:1px solid var(--line);"><summary style="list-style:none; cursor:pointer; padding:22px 0; display:flex; align-items:center; justify-content:space-between; gap:16px; font-size:17px; font-weight:600;">Can we audit the code?<span aria-hidden="true" style="flex-shrink:0; font-size:22px; font-weight:400; color:var(--mute);">+</span></summary><p style="margin:0 0 22px; font-size:15.5px; line-height:1.7; color:var(--body);">Yes. The full source is public on <a href="https://github.com/LoglensAI/LogLens-AI" target="_blank" rel="noopener" style="color:var(--link); font-weight:600;">GitHub</a> under the MIT license.</p></details>
+      <details style="border-bottom:1px solid var(--line);"><summary style="list-style:none; cursor:pointer; padding:22px 0; display:flex; align-items:center; justify-content:space-between; gap:16px; font-size:17px; font-weight:600;">Who builds and supports LogLens?<span aria-hidden="true" style="flex-shrink:0; font-size:22px; font-weight:400; color:var(--mute);">+</span></summary><p style="margin:0 0 22px; font-size:15.5px; line-height:1.7; color:var(--body);">LogLens is built by Paras Rajput. Today, support is through GitHub Issues. Priority and SLA-backed support are planned for Team and Enterprise.</p></details>
     </div>
   </section>
 
-  <!-- 5. VIDEO 2 + CHEATSHEET -->
-  <section id="demo" aria-labelledby="v2-h" style="max-width:1200px; margin:0 auto; padding:clamp(80px,10vw,120px) 20px 0; scroll-margin-top:70px;">
-    <div data-reveal style="opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; max-width:720px; margin-bottom:36px;">
-      <div style="font-family:'JetBrains Mono',monospace; font-size:12.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--acc);">Demo</div>
-      <h2 id="v2-h" style="margin:12px 0 0; font-size:clamp(30px,4.2vw,48px); line-height:1.05; letter-spacing:-0.035em; font-weight:700;">See every command in action.</h2>
-    </div>
-    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,340px),1fr)); gap:20px; align-items:start;">
-      <div data-reveal style="opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; grid-column:span 2; min-width:0; max-width:100%; border-radius:18px; overflow:hidden; border:1px solid var(--line); background:#05070C; box-shadow:0 40px 100px -40px rgba(139,92,246,0.5);">
-        <video src="{{ video2 }}" controls="" preload="metadata" playsinline="" aria-label="LogLens AI demo showing the analyze, turbo, deep, train, daemon and CI commands" style="display:block; width:100%; aspect-ratio:16/9; background:#05070C; object-fit:cover;"></video>
+  <!-- CONTACT -->
+  <section id="contact" aria-labelledby="contact-h" style="background:var(--alt); border-top:1px solid var(--line); scroll-margin-top:68px;">
+    <div style="max-width:1200px; margin:0 auto; padding:clamp(72px,9vw,112px) 20px; display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,400px),1fr)); gap:clamp(36px,5vw,64px); align-items:start;">
+      <div data-reveal style="opacity:0; transform:translateY(12px); transition:opacity .6s ease, transform .6s ease; min-width:0;">
+        <div style="font-size:13px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--link);">Contact</div>
+        <h2 id="contact-h" style="margin:12px 0 14px; font-size:clamp(30px,3.8vw,44px); line-height:1.12; letter-spacing:-0.02em; font-weight:600;">Planning a rollout? Let's talk.</h2>
+        <p style="margin:0 0 30px; font-size:17px; line-height:1.65; color:var(--body);">Tell us about your environment. Your message goes straight to Paras Rajput, who builds LogLens.</p>
+        <ol style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:18px;">
+          <li style="display:flex; gap:14px;"><span style="flex-shrink:0; width:30px; height:30px; border-radius:50%; background:var(--soft); color:var(--link); display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:600;">1</span><div><div style="font-size:15.5px; font-weight:600;">Share your setup</div><div style="font-size:14.5px; color:var(--body); margin-top:2px;">Server count, log sources and any compliance needs.</div></div></li>
+          <li style="display:flex; gap:14px;"><span style="flex-shrink:0; width:30px; height:30px; border-radius:50%; background:var(--soft); color:var(--link); display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:600;">2</span><div><div style="font-size:15.5px; font-weight:600;">Get a personal reply</div><div style="font-size:14.5px; color:var(--body); margin-top:2px;">By email, from the person who builds the product.</div></div></li>
+          <li style="display:flex; gap:14px;"><span style="flex-shrink:0; width:30px; height:30px; border-radius:50%; background:var(--soft); color:var(--link); display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:600;">3</span><div><div style="font-size:15.5px; font-weight:600;">Early access</div><div style="font-size:14.5px; color:var(--body); margin-top:2px;">You hear first when Team and Enterprise open.</div></div></li>
+        </ol>
       </div>
-      <aside data-reveal aria-label="Command cheatsheet" style="opacity:0; transform:translateY(18px); transition:opacity .7s ease .1s, transform .7s ease .1s; min-width:0; border-radius:18px; border:1px solid var(--line); background:var(--card); padding:18px;">
-        <div style="font-size:15px; font-weight:700; margin:2px 4px 14px;">Command cheatsheet</div>
-        <div style="display:flex; flex-direction:column; gap:10px;">
-          <div><div style="font-size:12px; color:var(--dim); margin:0 4px 5px;">Fast (default)</div><div style="display:flex; align-items:center; gap:8px; padding:10px 10px 10px 12px; border-radius:10px; background:#0A0E18; border:1px solid rgba(130,150,210,0.14);"><code style="flex:1; min-width:0; overflow-x:auto; white-space:nowrap; font-family:'JetBrains Mono',monospace; font-size:12.5px; color:#E6EDF7;">loglens analyze --source app.log</code><button data-copy="loglens analyze --source app.log" data-label="copy" aria-label="Copy command" style="flex-shrink:0; height:26px; padding:0 9px; border-radius:6px; border:1px solid rgba(130,150,210,0.22); background:transparent; color:#9AA6C4; font-size:11px; font-family:inherit; cursor:pointer;">copy</button></div></div>
-          <div><div style="font-size:12px; color:var(--dim); margin:0 4px 5px;">Turbo, for huge files</div><div style="display:flex; align-items:center; gap:8px; padding:10px 10px 10px 12px; border-radius:10px; background:#0A0E18; border:1px solid rgba(130,150,210,0.14);"><code style="flex:1; min-width:0; overflow-x:auto; white-space:nowrap; font-family:'JetBrains Mono',monospace; font-size:12.5px; color:#E6EDF7;">loglens analyze --source huge.log --turbo</code><button data-copy="loglens analyze --source huge.log --turbo" data-label="copy" aria-label="Copy command" style="flex-shrink:0; height:26px; padding:0 9px; border-radius:6px; border:1px solid rgba(130,150,210,0.22); background:transparent; color:#9AA6C4; font-size:11px; font-family:inherit; cursor:pointer;">copy</button></div></div>
-          <div><div style="font-size:12px; color:var(--dim); margin:0 4px 5px;">Deep, neural</div><div style="display:flex; align-items:center; gap:8px; padding:10px 10px 10px 12px; border-radius:10px; background:#0A0E18; border:1px solid rgba(130,150,210,0.14);"><code style="flex:1; min-width:0; overflow-x:auto; white-space:nowrap; font-family:'JetBrains Mono',monospace; font-size:12.5px; color:#E6EDF7;">loglens analyze --source app.log --deep</code><button data-copy="loglens analyze --source app.log --deep" data-label="copy" aria-label="Copy command" style="flex-shrink:0; height:26px; padding:0 9px; border-radius:6px; border:1px solid rgba(130,150,210,0.22); background:transparent; color:#9AA6C4; font-size:11px; font-family:inherit; cursor:pointer;">copy</button></div></div>
-          <div><div style="font-size:12px; color:var(--dim); margin:0 4px 5px;">Train on your logs</div><div style="display:flex; align-items:flex-start; gap:8px; padding:10px 10px 10px 12px; border-radius:10px; background:#0A0E18; border:1px solid rgba(130,150,210,0.14);"><code style="flex:1; min-width:0; overflow-x:auto; white-space:pre; font-family:'JetBrains Mono',monospace; font-size:12.5px; line-height:1.7; color:#E6EDF7;"><div>loglens train dataset.log -o model.pkl</div><div>loglens analyze --source app.log --model model.pkl</div></code><button data-copy="loglens train dataset.log -o model.pkl&#10;loglens analyze --source app.log --model model.pkl" data-label="copy" aria-label="Copy commands" style="flex-shrink:0; height:26px; padding:0 9px; border-radius:6px; border:1px solid rgba(130,150,210,0.22); background:transparent; color:#9AA6C4; font-size:11px; font-family:inherit; cursor:pointer;">copy</button></div></div>
-          <div><div style="font-size:12px; color:var(--dim); margin:0 4px 5px;">CI/CD gate</div><div style="display:flex; align-items:center; gap:8px; padding:10px 10px 10px 12px; border-radius:10px; background:#0A0E18; border:1px solid rgba(130,150,210,0.14);"><code style="flex:1; min-width:0; overflow-x:auto; white-space:nowrap; font-family:'JetBrains Mono',monospace; font-size:12.5px; color:#E6EDF7;">loglens analyze --source app.log --format json --fail-on error</code><button data-copy="loglens analyze --source app.log --format json --fail-on error" data-label="copy" aria-label="Copy command" style="flex-shrink:0; height:26px; padding:0 9px; border-radius:6px; border:1px solid rgba(130,150,210,0.22); background:transparent; color:#9AA6C4; font-size:11px; font-family:inherit; cursor:pointer;">copy</button></div></div>
-          <div><div style="font-size:12px; color:var(--dim); margin:0 4px 5px;">Warm daemon</div><div style="display:flex; align-items:center; gap:8px; padding:10px 10px 10px 12px; border-radius:10px; background:#0A0E18; border:1px solid rgba(130,150,210,0.14);"><code style="flex:1; min-width:0; overflow-x:auto; white-space:nowrap; font-family:'JetBrains Mono',monospace; font-size:12.5px; color:#E6EDF7;">loglens daemon start</code><button data-copy="loglens daemon start" data-label="copy" aria-label="Copy command" style="flex-shrink:0; height:26px; padding:0 9px; border-radius:6px; border:1px solid rgba(130,150,210,0.22); background:transparent; color:#9AA6C4; font-size:11px; font-family:inherit; cursor:pointer;">copy</button></div></div>
-        </div>
-      </aside>
-    </div>
-  </section>
-
-  <!-- 6. HOW IT WORKS -->
-  <section id="how" aria-labelledby="how-h" style="max-width:1200px; margin:0 auto; padding:clamp(80px,10vw,120px) 20px 0; scroll-margin-top:70px;">
-    <div data-reveal style="opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; text-align:center; max-width:680px; margin:0 auto 52px;">
-      <div style="font-family:'JetBrains Mono',monospace; font-size:12.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--acc);">How it works</div>
-      <h2 id="how-h" style="margin:12px 0 0; font-size:clamp(30px,4.2vw,48px); line-height:1.05; letter-spacing:-0.035em; font-weight:700;">Seven steps, all on your machine.</h2>
-    </div>
-    <div style="position:relative;">
-      <div aria-hidden="true" class="ll-hide-m" data-draw style="position:absolute; top:27px; left:7%; right:7%; height:2px; transform:scaleX(0); transform-origin:left; transition:transform 1.6s cubic-bezier(.2,.7,.2,1) .2s; background:linear-gradient(90deg,#22D3EE,#3B82F6,#8B5CF6,#FF9F43,#3FB950);"></div>
-      <ol style="list-style:none; margin:0; padding:0; position:relative; display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,140px),1fr)); gap:28px 14px;">
-        <li data-reveal style="opacity:0; transform:translateY(14px); transition:opacity .5s ease .1s, transform .5s ease .1s; text-align:center;"><div style="width:56px; height:56px; margin:0 auto 14px; border-radius:16px; display:flex; align-items:center; justify-content:center; background:var(--bg2); border:1px solid rgba(34,211,238,0.5); box-shadow:0 0 26px -8px rgba(34,211,238,0.7); font-family:'JetBrains Mono',monospace; font-weight:600; color:#22D3EE;">01</div><h3 style="margin:0 0 5px; font-size:16px; font-weight:700;">Parse</h3><p style="margin:0; font-size:13px; line-height:1.5; color:var(--mute);">Format auto-detected, lines streamed.</p></li>
-        <li data-reveal style="opacity:0; transform:translateY(14px); transition:opacity .5s ease .25s, transform .5s ease .25s; text-align:center;"><div style="width:56px; height:56px; margin:0 auto 14px; border-radius:16px; display:flex; align-items:center; justify-content:center; background:var(--bg2); border:1px solid rgba(34,211,238,0.5); box-shadow:0 0 26px -8px rgba(34,211,238,0.7); font-family:'JetBrains Mono',monospace; font-weight:600; color:#22D3EE;">02</div><h3 style="margin:0 0 5px; font-size:16px; font-weight:700;">Templates</h3><p style="margin:0; font-size:13px; line-height:1.5; color:var(--mute);">Messages mined into templates.</p></li>
-        <li data-reveal style="opacity:0; transform:translateY(14px); transition:opacity .5s ease .4s, transform .5s ease .4s; text-align:center;"><div style="width:56px; height:56px; margin:0 auto 14px; border-radius:16px; display:flex; align-items:center; justify-content:center; background:var(--bg2); border:1px solid rgba(59,130,246,0.55); box-shadow:0 0 26px -8px rgba(59,130,246,0.7); font-family:'JetBrains Mono',monospace; font-weight:600; color:#60A5FA;">03</div><h3 style="margin:0 0 5px; font-size:16px; font-weight:700;">Represent</h3><p style="margin:0; font-size:13px; line-height:1.5; color:var(--mute);">TF-IDF or neural vectors.</p></li>
-        <li data-reveal style="opacity:0; transform:translateY(14px); transition:opacity .5s ease .55s, transform .5s ease .55s; text-align:center;"><div style="width:56px; height:56px; margin:0 auto 14px; border-radius:16px; display:flex; align-items:center; justify-content:center; background:var(--bg2); border:1px solid rgba(139,92,246,0.55); box-shadow:0 0 26px -8px rgba(139,92,246,0.7); font-family:'JetBrains Mono',monospace; font-weight:600; color:#A78BFA;">04</div><h3 style="margin:0 0 5px; font-size:16px; font-weight:700;">Detect</h3><p style="margin:0; font-size:13px; line-height:1.5; color:var(--mute);">Every line scored 0 to 1.</p></li>
-        <li data-reveal style="opacity:0; transform:translateY(14px); transition:opacity .5s ease .7s, transform .5s ease .7s; text-align:center;"><div style="width:56px; height:56px; margin:0 auto 14px; border-radius:16px; display:flex; align-items:center; justify-content:center; background:var(--bg2); border:1px solid rgba(255,159,67,0.55); box-shadow:0 0 26px -8px rgba(255,159,67,0.7); font-family:'JetBrains Mono',monospace; font-weight:600; color:#FF9F43;">05</div><h3 style="margin:0 0 5px; font-size:16px; font-weight:700;">Group</h3><p style="margin:0; font-size:13px; line-height:1.5; color:var(--mute);">Repeats become incident families.</p></li>
-        <li data-reveal style="opacity:0; transform:translateY(14px); transition:opacity .5s ease .85s, transform .5s ease .85s; text-align:center;"><div style="width:56px; height:56px; margin:0 auto 14px; border-radius:16px; display:flex; align-items:center; justify-content:center; background:var(--bg2); border:1px solid rgba(255,159,67,0.55); box-shadow:0 0 26px -8px rgba(255,159,67,0.7); font-family:'JetBrains Mono',monospace; font-weight:600; color:#FF9F43;">06</div><h3 style="margin:0 0 5px; font-size:16px; font-weight:700;">Explain</h3><p style="margin:0; font-size:13px; line-height:1.5; color:var(--mute);">Reasons, plus optional AI root-cause.</p></li>
-        <li data-reveal style="opacity:0; transform:translateY(14px); transition:opacity .5s ease 1s, transform .5s ease 1s; text-align:center;"><div style="width:56px; height:56px; margin:0 auto 14px; border-radius:16px; display:flex; align-items:center; justify-content:center; background:var(--bg2); border:1px solid rgba(63,185,80,0.55); box-shadow:0 0 26px -8px rgba(63,185,80,0.7); font-family:'JetBrains Mono',monospace; font-weight:600; color:#3FB950;">07</div><h3 style="margin:0 0 5px; font-size:16px; font-weight:700;">Deliver</h3><p style="margin:0; font-size:13px; line-height:1.5; color:var(--mute);">Terminal, JSON, HTML or CI gate.</p></li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- 7. INSTALL -->
-  <section id="install" aria-labelledby="inst-h" style="max-width:920px; margin:0 auto; padding:clamp(80px,10vw,120px) 20px 0; scroll-margin-top:70px;">
-    <div data-reveal style="opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; text-align:center; margin-bottom:32px;">
-      <div style="font-family:'JetBrains Mono',monospace; font-size:12.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--acc);">Install</div>
-      <h2 id="inst-h" style="margin:12px 0 0; font-size:clamp(30px,4.2vw,48px); line-height:1.05; letter-spacing:-0.035em; font-weight:700;">Up and running in 30 seconds.</h2>
-    </div>
-    <div data-reveal style="opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; border-radius:18px; border:1px solid var(--line); background:var(--card); overflow:hidden;">
-      <div role="tablist" aria-label="Install method" style="display:flex; gap:4px; padding:8px; border-bottom:1px solid var(--line); overflow-x:auto;">
-        <button role="tab" aria-selected="{{ t0sel }}" onClick="{{ tab0 }}" style="flex-shrink:0; height:36px; padding:0 16px; border-radius:9px; border:1px solid {{ t0bd }}; background:{{ t0bg }}; color:{{ t0fg }}; font-family:inherit; font-size:14px; font-weight:600; cursor:pointer;">Linux</button>
-        <button role="tab" aria-selected="{{ t1sel }}" onClick="{{ tab1 }}" style="flex-shrink:0; height:36px; padding:0 16px; border-radius:9px; border:1px solid {{ t1bd }}; background:{{ t1bg }}; color:{{ t1fg }}; font-family:inherit; font-size:14px; font-weight:600; cursor:pointer;">macOS</button>
-        <button role="tab" aria-selected="{{ t2sel }}" onClick="{{ tab2 }}" style="flex-shrink:0; height:36px; padding:0 16px; border-radius:9px; border:1px solid {{ t2bd }}; background:{{ t2bg }}; color:{{ t2fg }}; font-family:inherit; font-size:14px; font-weight:600; cursor:pointer;">Windows</button>
-        <button role="tab" aria-selected="{{ t3sel }}" onClick="{{ tab3 }}" style="flex-shrink:0; height:36px; padding:0 16px; border-radius:9px; border:1px solid {{ t3bd }}; background:{{ t3bg }}; color:{{ t3fg }}; font-family:inherit; font-size:14px; font-weight:600; cursor:pointer;">pip</button>
-        <button role="tab" aria-selected="{{ t4sel }}" onClick="{{ tab4 }}" style="flex-shrink:0; height:36px; padding:0 16px; border-radius:9px; border:1px solid {{ t4bd }}; background:{{ t4bg }}; color:{{ t4fg }}; font-family:inherit; font-size:14px; font-weight:600; cursor:pointer;">Docker</button>
-      </div>
-      <div role="tabpanel" style="padding:18px; display:flex; flex-direction:column; gap:14px;">
-        <sc-if value="{{ t0sel }}" hint-placeholder-val="{{ true }}">
-          <div style="font-size:13px; font-weight:600; color:var(--mute);">Debian / Ubuntu</div>
-          <div style="position:relative; border-radius:12px; border:1px solid rgba(130,150,210,0.16); background:#0A0E18;"><button data-copy="curl -1sLf 'https://dl.cloudsmith.io/public/loglensai/loglensai-363o/setup.deb.sh' | sudo -E bash&#10;sudo apt install loglens" data-label="copy" aria-label="Copy Debian install commands" style="position:absolute; top:10px; right:10px; height:28px; padding:0 11px; border-radius:7px; border:1px solid rgba(130,150,210,0.22); background:#141B2E; color:#9AA6C4; font-family:inherit; font-size:11.5px; font-weight:600; cursor:pointer;">copy</button><div style="padding:16px 80px 16px 18px; font-family:'JetBrains Mono',monospace; font-size:13px; line-height:1.8; color:#E6EDF7; overflow-x:auto; white-space:pre;"><div><span style="color:#22D3EE;">$ </span>curl -1sLf 'https://dl.cloudsmith.io/public/loglensai/loglensai-363o/setup.deb.sh' | sudo -E bash</div><div><span style="color:#22D3EE;">$ </span>sudo apt install loglens</div></div></div>
-          <div style="font-size:13px; font-weight:600; color:var(--mute);">Fedora / RHEL</div>
-          <div style="position:relative; border-radius:12px; border:1px solid rgba(130,150,210,0.16); background:#0A0E18;"><button data-copy="curl -1sLf 'https://dl.cloudsmith.io/public/loglensai/loglensai-363o/setup.rpm.sh' | sudo -E bash&#10;sudo dnf install loglens" data-label="copy" aria-label="Copy Fedora install commands" style="position:absolute; top:10px; right:10px; height:28px; padding:0 11px; border-radius:7px; border:1px solid rgba(130,150,210,0.22); background:#141B2E; color:#9AA6C4; font-family:inherit; font-size:11.5px; font-weight:600; cursor:pointer;">copy</button><div style="padding:16px 80px 16px 18px; font-family:'JetBrains Mono',monospace; font-size:13px; line-height:1.8; color:#E6EDF7; overflow-x:auto; white-space:pre;"><div><span style="color:#22D3EE;">$ </span>curl -1sLf 'https://dl.cloudsmith.io/public/loglensai/loglensai-363o/setup.rpm.sh' | sudo -E bash</div><div><span style="color:#22D3EE;">$ </span>sudo dnf install loglens</div></div></div>
+      <div data-reveal style="opacity:0; transform:translateY(12px); transition:opacity .6s ease .08s, transform .6s ease .08s; min-width:0; padding:clamp(22px,3vw,32px); border-radius:16px; border:1px solid var(--line); background:var(--card); box-shadow:var(--shadow);">
+        <sc-if value="{{ formDone }}" hint-placeholder-val="{{ false }}">
+          <div role="status" style="padding:22px; border-radius:12px; background:var(--okbg); color:var(--ink); font-size:15.5px; line-height:1.6;"><strong style="color:var(--ok);">Thank you, we've got your message.</strong><br />You'll hear back by email about {{ interest }}.</div>
         </sc-if>
-        <sc-if value="{{ t1sel }}" hint-placeholder-val="{{ false }}">
-          <div style="font-size:13px; font-weight:600; color:var(--mute);">Homebrew</div>
-          <div style="position:relative; border-radius:12px; border:1px solid rgba(130,150,210,0.16); background:#0A0E18;"><button data-copy="brew install loglensai/tap/loglens" data-label="copy" aria-label="Copy Homebrew command" style="position:absolute; top:10px; right:10px; height:28px; padding:0 11px; border-radius:7px; border:1px solid rgba(130,150,210,0.22); background:#141B2E; color:#9AA6C4; font-family:inherit; font-size:11.5px; font-weight:600; cursor:pointer;">copy</button><div style="padding:16px 80px 16px 18px; font-family:'JetBrains Mono',monospace; font-size:13px; line-height:1.8; color:#E6EDF7; overflow-x:auto; white-space:pre;"><div><span style="color:#22D3EE;">$ </span>brew install loglensai/tap/loglens</div></div></div>
+        <sc-if value="{{ formOpen }}" hint-placeholder-val="{{ true }}">
+          <form action="{{ endpoint }}" method="POST" onSubmit="{{ submitForm }}" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,220px),1fr)); gap:16px;">
+            <input type="hidden" name="_subject" value="New LogLens AI enquiry" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="text" name="_honey" tabindex="-1" autoComplete="off" aria-hidden="true" style="position:absolute; left:-9999px; width:1px; height:1px; opacity:0;" />
+            <label style="display:flex; flex-direction:column; gap:6px; font-size:13.5px; font-weight:600; color:var(--ink);">Full name<input name="name" required="" autoComplete="name" style="height:46px; padding:0 14px; border-radius:9px; border:1px solid var(--line); background:var(--bg); color:var(--ink); font-family:inherit; font-size:15px;" style-focus="border-color:#1F6BFF;" /></label>
+            <label style="display:flex; flex-direction:column; gap:6px; font-size:13.5px; font-weight:600; color:var(--ink);">Work email<input name="email" type="email" required="" autoComplete="email" style="height:46px; padding:0 14px; border-radius:9px; border:1px solid var(--line); background:var(--bg); color:var(--ink); font-family:inherit; font-size:15px;" style-focus="border-color:#1F6BFF;" /></label>
+            <label style="display:flex; flex-direction:column; gap:6px; font-size:13.5px; font-weight:600; color:var(--ink);">Company<input name="company" autoComplete="organization" style="height:46px; padding:0 14px; border-radius:9px; border:1px solid var(--line); background:var(--bg); color:var(--ink); font-family:inherit; font-size:15px;" style-focus="border-color:#1F6BFF;" /></label>
+            <label style="display:flex; flex-direction:column; gap:6px; font-size:13.5px; font-weight:600; color:var(--ink);">Servers in scope<select name="servers" style="height:46px; padding:0 12px; border-radius:9px; border:1px solid var(--line); background:var(--bg); color:var(--ink); font-family:inherit; font-size:15px;"><option value="1-10">1 to 10</option><option value="11-50">11 to 50</option><option value="51-250">51 to 250</option><option value="250+">More than 250</option></select></label>
+            <fieldset style="grid-column:1 / -1; margin:0; padding:0; border:0; display:flex; flex-wrap:wrap; align-items:center; gap:10px 20px;">
+              <legend style="float:left; margin-right:8px; font-size:13.5px; font-weight:600; color:var(--ink);">Interested in</legend>
+              <label style="display:inline-flex; align-items:center; gap:8px; font-size:15px; cursor:pointer; color:var(--body);"><input type="radio" name="interest" value="Team" checked="{{ isTeam }}" onChange="{{ pickTeam }}" style="accent-color:#1F6BFF; width:17px; height:17px;" />Team</label>
+              <label style="display:inline-flex; align-items:center; gap:8px; font-size:15px; cursor:pointer; color:var(--body);"><input type="radio" name="interest" value="Enterprise" checked="{{ isEnt }}" onChange="{{ pickEnt }}" style="accent-color:#1F6BFF; width:17px; height:17px;" />Enterprise</label>
+            </fieldset>
+            <label style="grid-column:1 / -1; display:flex; flex-direction:column; gap:6px; font-size:13.5px; font-weight:600; color:var(--ink);">Anything we should know? <span style="font-weight:400; color:var(--mute);">(optional)</span><textarea name="message" rows="4" style="padding:12px 14px; border-radius:9px; border:1px solid var(--line); background:var(--bg); color:var(--ink); font-family:inherit; font-size:15px; resize:vertical;" style-focus="border-color:#1F6BFF;"></textarea></label>
+            <button type="submit" disabled="{{ sending }}" style="grid-column:1 / -1; height:50px; border:0; border-radius:10px; background:#1F6BFF; color:#FFFFFF; font-family:inherit; font-size:15.5px; font-weight:600; cursor:pointer;" style-hover="background:#1557D6;">{{ submitLabel }}</button>
+            <sc-if value="{{ formError }}" hint-placeholder-val="{{ false }}"><p role="alert" style="grid-column:1 / -1; margin:0; font-size:14px; color:#B42318;">Something went wrong. Please try again, or email pr8101999@gmail.com.</p></sc-if>
+            <p style="grid-column:1 / -1; margin:0; font-size:13px; color:var(--mute);">We only use your details to reply to you.</p>
+          </form>
         </sc-if>
-        <sc-if value="{{ t2sel }}" hint-placeholder-val="{{ false }}">
-          <div style="font-size:13px; font-weight:600; color:var(--mute);">winget</div>
-          <div style="position:relative; border-radius:12px; border:1px solid rgba(130,150,210,0.16); background:#0A0E18;"><button data-copy="winget install LoglensAI.LogLens" data-label="copy" aria-label="Copy winget command" style="position:absolute; top:10px; right:10px; height:28px; padding:0 11px; border-radius:7px; border:1px solid rgba(130,150,210,0.22); background:#141B2E; color:#9AA6C4; font-family:inherit; font-size:11.5px; font-weight:600; cursor:pointer;">copy</button><div style="padding:16px 80px 16px 18px; font-family:'JetBrains Mono',monospace; font-size:13px; line-height:1.8; color:#E6EDF7; overflow-x:auto; white-space:pre;"><div><span style="color:#22D3EE;">&gt; </span>winget install LoglensAI.LogLens</div></div></div>
-        </sc-if>
-        <sc-if value="{{ t3sel }}" hint-placeholder-val="{{ false }}">
-          <div style="font-size:13px; font-weight:600; color:var(--mute);">pipx (recommended) or pip with neural mode</div>
-          <div style="position:relative; border-radius:12px; border:1px solid rgba(130,150,210,0.16); background:#0A0E18;"><button data-copy="pipx install loglensai" data-label="copy" aria-label="Copy pipx command" style="position:absolute; top:10px; right:10px; height:28px; padding:0 11px; border-radius:7px; border:1px solid rgba(130,150,210,0.22); background:#141B2E; color:#9AA6C4; font-family:inherit; font-size:11.5px; font-weight:600; cursor:pointer;">copy</button><div style="padding:16px 80px 16px 18px; font-family:'JetBrains Mono',monospace; font-size:13px; line-height:1.8; color:#E6EDF7; overflow-x:auto; white-space:pre;"><div><span style="color:#22D3EE;">$ </span>pipx install loglensai</div></div></div>
-          <div style="position:relative; border-radius:12px; border:1px solid rgba(130,150,210,0.16); background:#0A0E18;"><button data-copy="pip install &quot;loglensai[deep]&quot;" data-label="copy" aria-label="Copy pip deep command" style="position:absolute; top:10px; right:10px; height:28px; padding:0 11px; border-radius:7px; border:1px solid rgba(130,150,210,0.22); background:#141B2E; color:#9AA6C4; font-family:inherit; font-size:11.5px; font-weight:600; cursor:pointer;">copy</button><div style="padding:16px 80px 16px 18px; font-family:'JetBrains Mono',monospace; font-size:13px; line-height:1.8; color:#E6EDF7; overflow-x:auto; white-space:pre;"><div><span style="color:#22D3EE;">$ </span>pip install "loglensai[deep]"</div></div></div>
-        </sc-if>
-        <sc-if value="{{ t4sel }}" hint-placeholder-val="{{ false }}">
-          <div style="font-size:13px; font-weight:600; color:var(--mute);">Multi-arch image (amd64 + arm64)</div>
-          <div style="position:relative; border-radius:12px; border:1px solid rgba(130,150,210,0.16); background:#0A0E18;"><button data-copy="docker run --rm -v &quot;$PWD:/data&quot; loglensai/loglens analyze --source app.log" data-label="copy" aria-label="Copy Docker command" style="position:absolute; top:10px; right:10px; height:28px; padding:0 11px; border-radius:7px; border:1px solid rgba(130,150,210,0.22); background:#141B2E; color:#9AA6C4; font-family:inherit; font-size:11.5px; font-weight:600; cursor:pointer;">copy</button><div style="padding:16px 80px 16px 18px; font-family:'JetBrains Mono',monospace; font-size:13px; line-height:1.8; color:#E6EDF7; overflow-x:auto; white-space:pre;"><div><span style="color:#22D3EE;">$ </span>docker run --rm -v "$PWD:/data" loglensai/loglens analyze --source app.log</div></div></div>
-        </sc-if>
-      </div>
-    </div>
-    <p style="margin:16px 0 0; text-align:center; font-size:14px; color:var(--mute);">Native installs bundle neural mode and start a warm daemon automatically.</p>
-  </section>
-
-  <!-- 8. BENCHMARKS -->
-  <section id="benchmarks" aria-labelledby="bench-h" style="max-width:1200px; margin:0 auto; padding:clamp(80px,10vw,120px) 20px 0; scroll-margin-top:70px;">
-    <h2 id="bench-h" style="position:absolute; left:-9999px;">Benchmarks</h2>
-    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,240px),1fr)); gap:14px;">
-      <div data-reveal style="opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease; padding:24px; border-radius:16px; border:1px solid var(--line); background:var(--card);">
-        <div style="font-size:clamp(32px,3.6vw,42px); font-weight:800; letter-spacing:-0.04em; line-height:1; background:linear-gradient(90deg,#22D3EE,#A78BFA); -webkit-background-clip:text; background-clip:text; color:transparent;">~<span data-count="7">0</span>× faster</div>
-        <div style="margin-top:10px; font-size:14px; color:var(--mute);">warm runs (~2.4s → ~0.33s)</div>
-      </div>
-      <div data-reveal style="opacity:0; transform:translateY(16px); transition:opacity .6s ease .08s, transform .6s ease .08s; padding:24px; border-radius:16px; border:1px solid var(--line); background:var(--card);">
-        <div style="font-size:clamp(32px,3.6vw,42px); font-weight:800; letter-spacing:-0.04em; line-height:1; color:#3FB950;">Offline</div>
-        <div style="margin-top:10px; font-size:14px; color:var(--mute);">runs fully offline, air-gap friendly</div>
-      </div>
-      <div data-reveal style="opacity:0; transform:translateY(16px); transition:opacity .6s ease .16s, transform .6s ease .16s; padding:24px; border-radius:16px; border:1px solid var(--line); background:var(--card);">
-        <div style="font-size:clamp(32px,3.6vw,42px); font-weight:800; letter-spacing:-0.04em; line-height:1; color:var(--ink);">Turbo</div>
-        <div style="margin-top:10px; font-size:14px; color:var(--mute);">handles large files with a multiprocess scan</div>
-      </div>
-      <div data-reveal style="opacity:0; transform:translateY(16px); transition:opacity .6s ease .24s, transform .6s ease .24s; padding:24px; border-radius:16px; border:1px solid var(--line); background:var(--card); display:flex; flex-direction:column;">
-        <div style="font-size:clamp(24px,2.6vw,30px); font-weight:800; letter-spacing:-0.03em; line-height:1.1; color:var(--ink);">Accuracy</div>
-        <div style="margin-top:10px; font-size:14px; color:var(--mute);">measured on the public BGL dataset</div>
-        <a href="https://github.com/LoglensAI/LogLens-AI#benchmarks" target="_blank" rel="noopener" style="margin-top:auto; padding-top:12px; font-size:14px; font-weight:600; color:var(--acc);">See benchmarks →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- 9. PRICING -->
-  <section id="pricing" aria-labelledby="price-h" style="position:relative; max-width:1200px; margin:0 auto; padding:clamp(80px,10vw,120px) 20px 0; scroll-margin-top:70px;">
-    <div data-reveal style="opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; text-align:center; max-width:700px; margin:0 auto 28px;">
-      <div style="font-family:'JetBrains Mono',monospace; font-size:12.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--acc);">Pricing</div>
-      <h2 id="price-h" style="margin:12px 0 14px; font-size:clamp(30px,4.2vw,48px); line-height:1.05; letter-spacing:-0.035em; font-weight:700;">Free for you. Built to scale with your team.</h2>
-    </div>
-    <div data-reveal style="opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:10px 14px; padding:14px 18px; margin:0 auto 28px; max-width:760px; border-radius:14px; border:1px solid rgba(255,201,64,0.35); background:rgba(255,201,64,0.07); text-align:center;">
-      <span style="flex-shrink:0; white-space:nowrap; font-size:11px; font-weight:700; letter-spacing:0.05em; padding:3px 9px; border-radius:100px; background:rgba(255,201,64,0.16); color:#FFC940; border:1px solid rgba(255,201,64,0.4);">IN PIPELINE</span>
-      <span style="font-size:14.5px; color:var(--ink);">Team &amp; Enterprise are in the pipeline, not yet available.</span>
-      <a href="#waitlist" style="flex-shrink:0; white-space:nowrap; font-size:14.5px; font-weight:700; color:#FFC940;">Join the waitlist →</a>
-    </div>
-
-    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,320px),1fr)); gap:18px; align-items:stretch;">
-      <article data-reveal style="opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; position:relative; display:flex; flex-direction:column; padding:28px 26px; border-radius:20px; border:1px solid rgba(34,211,238,0.5); background:linear-gradient(180deg, rgba(34,211,238,0.08), var(--card) 40%); box-shadow:0 30px 70px -40px rgba(34,211,238,0.6);">
-        <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:6px;"><h3 style="margin:0; font-size:20px; font-weight:700;">Individual</h3><span style="font-size:11px; font-weight:700; padding:3px 9px; border-radius:100px; background:rgba(63,185,80,0.14); color:#3FB950; border:1px solid rgba(63,185,80,0.4); white-space:nowrap;">Available now</span></div>
-        <p style="margin:0 0 18px; font-size:14px; color:var(--mute);">For solo devs &amp; open source</p>
-        <div style="display:flex; align-items:baseline; gap:8px; margin-bottom:22px;"><span style="font-size:44px; font-weight:800; letter-spacing:-0.04em;">$0</span><span style="font-size:14px; color:var(--mute);">forever · MIT</span></div>
-        <a href="#install" style="display:flex; align-items:center; justify-content:center; height:48px; border-radius:12px; background:linear-gradient(100deg,#22D3EE,#3B82F6 60%,#8B5CF6); color:#041018; font-weight:700; font-size:15px; margin-bottom:24px;" style-hover="filter:brightness(1.1); color:#041018;">Install free</a>
-        <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; font-size:14px; line-height:1.45;">
-          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:#22D3EE; font-weight:700;">✓</span>All 3 detection modes: fast, turbo, deep (neural)</li>
-          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:#22D3EE; font-weight:700;">✓</span>Warm daemon for near-instant repeat runs</li>
-          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:#22D3EE; font-weight:700;">✓</span>Explainable anomalies + incident grouping</li>
-          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:#22D3EE; font-weight:700;">✓</span>CI/CD gating (--fail-on) + official GitHub Action</li>
-          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:#22D3EE; font-weight:700;">✓</span>JSON output + offline HTML reports</li>
-          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:#22D3EE; font-weight:700;">✓</span>Train your own model on your logs</li>
-          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:#22D3EE; font-weight:700;">✓</span>CLI + Python SDK</li>
-          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:#22D3EE; font-weight:700;">✓</span>100% local &amp; private, single machine</li>
-          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:#22D3EE; font-weight:700;">✓</span>Community support · MIT license</li>
-        </ul>
-      </article>
-
-      <article data-reveal style="opacity:0; transform:translateY(18px); transition:opacity .6s ease .08s, transform .6s ease .08s; position:relative; display:flex; flex-direction:column; padding:28px 26px; border-radius:20px; border:1px solid var(--line); background:var(--card);">
-        <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:6px;"><h3 style="margin:0; font-size:20px; font-weight:700;">Team</h3><span style="font-size:11px; font-weight:700; padding:3px 9px; border-radius:100px; background:rgba(255,201,64,0.14); color:#FFC940; border:1px solid rgba(255,201,64,0.4); white-space:nowrap;">In pipeline</span></div>
-        <p style="margin:0 0 18px; font-size:14px; color:var(--mute);">For growing engineering teams</p>
-        <div style="display:flex; align-items:baseline; gap:8px; margin-bottom:22px;"><span style="font-size:32px; font-weight:800; letter-spacing:-0.03em; line-height:1.4;">Per seat</span><span style="font-size:14px; color:var(--mute);">pricing at launch</span></div>
-        <a href="#waitlist" onClick="{{ pickTeam }}" style="display:flex; align-items:center; justify-content:center; height:48px; border-radius:12px; border:1px solid rgba(255,201,64,0.45); background:rgba(255,201,64,0.08); color:var(--ink); font-weight:700; font-size:15px; margin-bottom:24px;" style-hover="background:rgba(255,201,64,0.16);">Join the waitlist</a>
-        <div style="font-size:13px; font-weight:600; color:var(--dim); margin-bottom:12px;">Everything in Individual, plus:</div>
-        <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; font-size:14px; line-height:1.45;">
-          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:#FFC940; font-weight:700;">+</span>Multi-core parallel engine (turbo across all cores)</li>
-          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:#FFC940; font-weight:700;">+</span>Real-time streaming detection with Slack / Teams / webhook alerts</li>
-          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:#FFC940; font-weight:700;">+</span>Shared baselines &amp; team config</li>
-          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:#FFC940; font-weight:700;">+</span>Centralized team dashboard across services &amp; hosts</li>
-          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:#FFC940; font-weight:700;">+</span>Managed custom model training pipeline</li>
-          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:#FFC940; font-weight:700;">+</span>Multiple machines / seats</li>
-          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:#FFC940; font-weight:700;">+</span>Priority support</li>
-        </ul>
-      </article>
-
-      <article data-reveal style="opacity:0; transform:translateY(18px); transition:opacity .6s ease .16s, transform .6s ease .16s; position:relative; display:flex; flex-direction:column; padding:28px 26px; border-radius:20px; border:1px solid rgba(139,92,246,0.45); background:linear-gradient(180deg, rgba(139,92,246,0.1), var(--card) 40%);">
-        <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:6px;"><h3 style="margin:0; font-size:20px; font-weight:700;">Enterprise</h3><span style="font-size:11px; font-weight:700; padding:3px 9px; border-radius:100px; background:rgba(139,92,246,0.16); color:#C4B5FD; border:1px solid rgba(139,92,246,0.45); white-space:nowrap;">In pipeline</span></div>
-        <p style="margin:0 0 18px; font-size:14px; color:var(--mute);">For orgs running at scale</p>
-        <div style="display:flex; align-items:baseline; gap:8px; margin-bottom:22px;"><span style="font-size:32px; font-weight:800; letter-spacing:-0.03em; line-height:1.4;">Custom</span><span style="font-size:14px; color:var(--mute);">11 flagship features</span></div>
-        <a href="#waitlist" onClick="{{ pickEnt }}" style="display:flex; align-items:center; justify-content:center; height:48px; border-radius:12px; border:1px solid rgba(139,92,246,0.5); background:rgba(139,92,246,0.12); color:var(--ink); font-weight:700; font-size:15px; margin-bottom:24px;" style-hover="background:rgba(139,92,246,0.2);">Talk to us</a>
-        <div style="font-size:13px; font-weight:600; color:var(--dim); margin-bottom:12px;">Everything in Team, plus:</div>
-        <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; font-size:14px; line-height:1.45;">
-          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:#A78BFA; font-weight:700;">★</span>Distributed coordinator + worker engine</li>
-          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:#A78BFA; font-weight:700;">★</span>Horizontal scale-out ingestion across a cluster</li>
-          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:#A78BFA; font-weight:700;">★</span>RBAC + SSO / SAML / OIDC</li>
-          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:#A78BFA; font-weight:700;">★</span>Audit logging &amp; compliance (SOC 2 / ISO-ready)</li>
-          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:#A78BFA; font-weight:700;">★</span>On-prem / air-gapped / VPC deployment</li>
-          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:#A78BFA; font-weight:700;">★</span>Private-LLM root-cause (self-hosted)</li>
-          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:#A78BFA; font-weight:700;">★</span>SIEM &amp; observability integrations (Splunk, Datadog, Elastic, PagerDuty)</li>
-          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:#A78BFA; font-weight:700;">★</span>Long-term baselines &amp; regression detection</li>
-          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:#A78BFA; font-weight:700;">★</span>Multi-tenant team workspaces</li>
-          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:#A78BFA; font-weight:700;">★</span>SLA-backed dedicated support + onboarding</li>
-          <li style="display:flex; gap:10px;"><span aria-hidden="true" style="color:#A78BFA; font-weight:700;">★</span>Custom retention &amp; data-residency controls</li>
-        </ul>
-      </article>
-    </div>
-
-    <div data-reveal style="opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; margin-top:40px; overflow-x:auto; border-radius:18px; border:1px solid var(--line); background:var(--card);" tabindex="0" aria-label="Plan comparison table, scrolls horizontally on small screens">
-      <table style="width:100%; min-width:640px; border-collapse:collapse; font-size:14px;">
-        <caption style="position:absolute; left:-9999px;">Feature comparison across Individual, Team and Enterprise plans</caption>
-        <thead>
-          <tr>
-            <th scope="col" style="text-align:left; padding:16px 20px; font-size:12.5px; font-weight:500; color:var(--dim); font-family:'JetBrains Mono',monospace; border-bottom:1px solid var(--line);">feature</th>
-            <th scope="col" style="padding:16px 14px; font-weight:700; border-bottom:1px solid var(--line); color:var(--acc);">Individual</th>
-            <th scope="col" style="padding:16px 14px; font-weight:700; border-bottom:1px solid var(--line);">Team <span style="font-size:11px; color:#FFC940; font-weight:600;">soon</span></th>
-            <th scope="col" style="padding:16px 14px; font-weight:700; border-bottom:1px solid var(--line);">Enterprise <span style="font-size:11px; color:#C4B5FD; font-weight:600;">soon</span></th>
-          </tr>
-        </thead>
-        <tbody>{{ cmpRows }}</tbody>
-      </table>
-    </div>
-
-    <div id="waitlist" data-reveal style="opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; scroll-margin-top:80px; margin:40px auto 0; max-width:760px; padding:clamp(24px,4vw,36px); border-radius:20px; border:1px solid var(--line); background:linear-gradient(160deg, rgba(34,211,238,0.07), var(--card) 45%, rgba(139,92,246,0.08));">
-      <h3 style="margin:0 0 6px; font-size:22px; font-weight:700; letter-spacing:-0.02em;">Join the Team &amp; Enterprise waitlist</h3>
-      <p style="margin:0 0 22px; font-size:14.5px; color:var(--mute);">We'll email you once, when early access opens. No spam.</p>
-      <sc-if value="{{ formDone }}" hint-placeholder-val="{{ false }}">
-        <div role="status" style="padding:18px; border-radius:12px; border:1px solid rgba(63,185,80,0.45); background:rgba(63,185,80,0.1); font-size:15px;"><strong style="color:#3FB950;">You're on the list.</strong> We'll be in touch when {{ interest }} opens up.</div>
-      </sc-if>
-      <sc-if value="{{ formOpen }}" hint-placeholder-val="{{ true }}">
-        <form action="{{ endpoint }}" method="POST" onSubmit="{{ submitWaitlist }}" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,220px),1fr)); gap:14px;">
-          <label style="display:flex; flex-direction:column; gap:6px; font-size:13px; font-weight:600; color:var(--mute);">Name<input name="name" required="" autoComplete="name" placeholder="Ada Lovelace" style="height:46px; padding:0 14px; border-radius:10px; border:1px solid var(--line); background:var(--bg); color:var(--ink); font-family:inherit; font-size:15px;" /></label>
-          <label style="display:flex; flex-direction:column; gap:6px; font-size:13px; font-weight:600; color:var(--mute);">Work email<input name="email" type="email" required="" autoComplete="email" placeholder="you@company.com" style="height:46px; padding:0 14px; border-radius:10px; border:1px solid var(--line); background:var(--bg); color:var(--ink); font-family:inherit; font-size:15px;" /></label>
-          <input type="hidden" name="_subject" value="New LogLens AI waitlist signup" /><input type="hidden" name="_template" value="table" /><input type="hidden" name="_captcha" value="false" /><input type="text" name="_honey" tabindex="-1" autoComplete="off" aria-hidden="true" style="position:absolute; left:-9999px; width:1px; height:1px; opacity:0;" />
-          <fieldset style="grid-column:1 / -1; margin:0; padding:0; border:0; display:flex; flex-wrap:wrap; align-items:center; gap:10px 18px;">
-            <legend style="float:left; margin-right:6px; font-size:13px; font-weight:600; color:var(--mute);">I'm interested in:</legend>
-            <label style="display:inline-flex; align-items:center; gap:8px; font-size:14.5px; cursor:pointer;"><input type="radio" name="interest" value="Team" checked="{{ isTeam }}" onChange="{{ pickTeam }}" style="accent-color:#FFC940; width:17px; height:17px;" />Team</label>
-            <label style="display:inline-flex; align-items:center; gap:8px; font-size:14.5px; cursor:pointer;"><input type="radio" name="interest" value="Enterprise" checked="{{ isEnt }}" onChange="{{ pickEnt }}" style="accent-color:#A78BFA; width:17px; height:17px;" />Enterprise</label>
-          </fieldset>
-          <button type="submit" disabled="{{ sending }}" style="grid-column:1 / -1; height:50px; border:0; border-radius:12px; background:linear-gradient(100deg,#22D3EE,#3B82F6 60%,#8B5CF6); color:#041018; font-family:inherit; font-size:15.5px; font-weight:700; cursor:pointer;" style-hover="filter:brightness(1.1);">{{ submitLabel }}</button>
-          <sc-if value="{{ formError }}" hint-placeholder-val="{{ false }}"><p role="alert" style="grid-column:1 / -1; margin:0; font-size:14px; color:#FF8A80;">Something went wrong. Please try again.</p></sc-if>
-        </form>
-      </sc-if>
-    </div>
-  </section>
-
-  <!-- 10. FINAL CTA -->
-  <section aria-labelledby="cta-h" style="position:relative; overflow:hidden; margin-top:clamp(80px,10vw,120px); border-top:1px solid var(--line);">
-    <div aria-hidden="true" style="position:absolute; left:50%; bottom:-360px; width:1100px; height:700px; transform:translateX(-50%); border-radius:50%; background:radial-gradient(ellipse, rgba(59,130,246,0.3), rgba(139,92,246,0.14) 42%, transparent 70%); filter:blur(30px);"></div>
-    <div data-reveal style="opacity:0; transform:translateY(18px); transition:opacity .8s ease, transform .8s ease; position:relative; max-width:860px; margin:0 auto; padding:clamp(72px,10vw,112px) 20px; text-align:center;">
-      <img src="assets/loglens-mark.png" alt="" width="64" height="64" loading="lazy" style="width:64px; height:64px; border-radius:50%; margin-bottom:24px; box-shadow:0 0 50px rgba(34,211,238,0.45);" />
-      <h2 id="cta-h" style="margin:0 0 16px; font-size:clamp(32px,5vw,56px); line-height:1.03; letter-spacing:-0.04em; font-weight:800; text-wrap:balance;">Ship faster, catch incidents earlier. <span style="background:linear-gradient(95deg,#22D3EE,#A78BFA); -webkit-background-clip:text; background-clip:text; color:transparent;">Start locally in 30 seconds.</span></h2>
-      <div style="display:flex; align-items:center; gap:10px; max-width:460px; margin:32px auto 0; padding:8px 8px 8px 18px; border-radius:14px; border:1px solid rgba(130,150,210,0.2); background:#0A0E18;">
-        <code style="flex:1; min-width:0; text-align:left; overflow-x:auto; white-space:nowrap; font-family:'JetBrains Mono',monospace; font-size:15px; color:#E6EDF7;"><span style="color:#22D3EE;">$ </span>pipx install loglensai</code>
-        <button data-copy="pipx install loglensai" data-label="copy" aria-label="Copy install command" style="flex-shrink:0; height:40px; padding:0 16px; border:0; border-radius:10px; background:linear-gradient(100deg,#22D3EE,#3B82F6 60%,#8B5CF6); color:#041018; font-family:inherit; font-weight:700; font-size:14px; cursor:pointer;">copy</button>
-      </div>
-      <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:22px;">
-        <a href="https://github.com/LoglensAI/LogLens-AI" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:8px; height:46px; padding:0 18px; border-radius:12px; border:1px solid var(--line); background:var(--card); color:var(--ink); font-weight:600; font-size:15px; white-space:nowrap;" style-hover="border-color:rgba(34,211,238,0.55);"><span aria-hidden="true" style="color:#FFC940;">★</span> Star on GitHub</a>
       </div>
     </div>
   </section>
   </main>
 
-  <!-- 11. FOOTER -->
-  <footer style="border-top:1px solid var(--line); background:var(--bg2);">
-    <div style="max-width:1200px; margin:0 auto; padding:52px 20px 28px; display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,160px),1fr)); gap:32px;">
+  <footer style="background:#05080F; color:#B4BED6;">
+    <div style="max-width:1200px; margin:0 auto; padding:56px 20px 32px; display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,170px),1fr)); gap:32px;">
       <div style="grid-column:span 2; min-width:0;">
-        <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;"><img src="assets/loglens-mark.png" alt="" width="28" height="28" loading="lazy" style="width:28px; height:28px; border-radius:50%;" /><span style="font-weight:700; font-size:16px;">LogLens AI</span></div>
-        <p style="margin:0 0 14px; max-width:320px; font-size:14px; line-height:1.6; color:var(--mute);">Find the log lines that actually matter. Local, explainable, open source.</p>
-        <p style="margin:0; font-size:13px; color:var(--mute);">Enterprise &amp; Team plans coming soon - <a href="#waitlist" style="color:var(--acc); font-weight:600;">join the waitlist</a></p>
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;"><img src="/assets/loglens-mark.png" alt="" width="28" height="28" loading="lazy" style="width:28px; height:28px; border-radius:50%;" /><span style="font-weight:700; font-size:16px; color:#FFFFFF;">LogLens AI</span></div>
+        <p style="margin:0; max-width:320px; font-size:14px; line-height:1.6;">Self-hosted, explainable log anomaly detection. Your logs never leave your servers.</p>
       </div>
-      <nav aria-label="Product" style="display:flex; flex-direction:column; gap:10px; font-size:14px;"><span style="font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--dim);">Product</span><a href="#features" style="color:var(--mute);" style-hover="color:var(--ink);">Features</a><a href="#how" style="color:var(--mute);" style-hover="color:var(--ink);">How it works</a><a href="#pricing" style="color:var(--mute);" style-hover="color:var(--ink);">Pricing</a><a href="#benchmarks" style="color:var(--mute);" style-hover="color:var(--ink);">Benchmarks</a></nav>
-      <nav aria-label="Docs" style="display:flex; flex-direction:column; gap:10px; font-size:14px;"><span style="font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--dim);">Docs</span><a href="#install" style="color:var(--mute);" style-hover="color:var(--ink);">Install</a><a href="#demo" style="color:var(--mute);" style-hover="color:var(--ink);">Cheatsheet</a><a href="/docs" style="color:var(--mute);" style-hover="color:var(--ink);">Documentation</a></nav>
-      <nav aria-label="Community" style="display:flex; flex-direction:column; gap:10px; font-size:14px;"><span style="font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--dim);">Community</span><a href="https://github.com/LoglensAI/LogLens-AI" target="_blank" rel="noopener" style="color:var(--mute);" style-hover="color:var(--ink);">GitHub</a><a href="https://pypi.org/project/loglensai/" target="_blank" rel="noopener" style="color:var(--mute);" style-hover="color:var(--ink);">PyPI</a><a href="https://hub.docker.com/r/loglensai/loglens" target="_blank" rel="noopener" style="color:var(--mute);" style-hover="color:var(--ink);">Docker Hub</a><a href="https://github.com/LoglensAI/LogLens-AI/issues" target="_blank" rel="noopener" style="color:var(--mute);" style-hover="color:var(--ink);">Issues</a></nav>
-      <nav aria-label="Company" style="display:flex; flex-direction:column; gap:10px; font-size:14px;"><span style="font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--dim);">Company</span><a href="#waitlist" style="color:var(--mute);" style-hover="color:var(--ink);">Waitlist</a><a href="https://github.com/LoglensAI/LogLens-AI/releases" target="_blank" rel="noopener" style="color:var(--mute);" style-hover="color:var(--ink);">Changelog</a><a href="https://github.com/LoglensAI/LogLens-AI/blob/main/LICENSE" target="_blank" rel="noopener" style="color:var(--mute);" style-hover="color:var(--ink);">MIT License</a></nav>
+      <nav aria-label="Product" style="display:flex; flex-direction:column; gap:10px; font-size:14px;"><span style="font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#7E8AA8;">Product</span><a href="#product" style="color:#D5DCEC;" style-hover="color:#FFFFFF;">Overview</a><a href="#security" style="color:#D5DCEC;" style-hover="color:#FFFFFF;">Security</a><a href="#pricing" style="color:#D5DCEC;" style-hover="color:#FFFFFF;">Pricing</a><a href="#faq" style="color:#D5DCEC;" style-hover="color:#FFFFFF;">FAQ</a></nav>
+      <nav aria-label="Resources" style="display:flex; flex-direction:column; gap:10px; font-size:14px;"><span style="font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#7E8AA8;">Resources</span><a href="docs.html" style="color:#D5DCEC;" style-hover="color:#FFFFFF;">Documentation</a><a href="#deploy" style="color:#D5DCEC;" style-hover="color:#FFFFFF;">Install</a><a href="https://github.com/LoglensAI/LogLens-AI/releases" target="_blank" rel="noopener" style="color:#D5DCEC;" style-hover="color:#FFFFFF;">Changelog</a></nav>
+      <nav aria-label="Community" style="display:flex; flex-direction:column; gap:10px; font-size:14px;"><span style="font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#7E8AA8;">Community</span><a href="https://github.com/LoglensAI/LogLens-AI" target="_blank" rel="noopener" style="color:#D5DCEC;" style-hover="color:#FFFFFF;">GitHub</a><a href="https://pypi.org/project/loglensai/" target="_blank" rel="noopener" style="color:#D5DCEC;" style-hover="color:#FFFFFF;">PyPI</a><a href="https://hub.docker.com/r/loglensai/loglens" target="_blank" rel="noopener" style="color:#D5DCEC;" style-hover="color:#FFFFFF;">Docker Hub</a><a href="#contact" style="color:#D5DCEC;" style-hover="color:#FFFFFF;">Contact</a></nav>
     </div>
-    <div style="max-width:1200px; margin:0 auto; padding:18px 20px 30px; border-top:1px solid var(--line); display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; font-size:13px; color:var(--dim);">
-      <span>© 2026 LogLens AI · Built by Paras Rajput · MIT License</span>
-      <span style="font-family:'JetBrains Mono',monospace;">v0.12 · loglensai.com</span>
+    <div style="max-width:1200px; margin:0 auto; padding:18px 20px 32px; border-top:1px solid rgba(140,160,220,0.14); display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; font-size:13px; color:#7E8AA8;">
+      <span>© 2026 LogLens AI · Built by Paras Rajput · <a href="https://github.com/LoglensAI/LogLens-AI/blob/main/LICENSE" target="_blank" rel="noopener" style="color:#B4BED6;">MIT License</a></span>
+      <span style="font-family:'IBM Plex Mono',monospace;">v0.12 · loglensai.com</span>
     </div>
   </footer>
-
-  <!-- demo modal -->
-  <sc-if value="{{ demoOpen }}" hint-placeholder-val="{{ false }}">
-    <div role="dialog" aria-modal="true" aria-label="LogLens AI demo video" onClick="{{ closeDemo }}" style="position:fixed; inset:0; z-index:200; background:rgba(2,4,8,0.82); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); display:flex; align-items:center; justify-content:center; padding:20px;">
-      <div onClick="{{ stop }}" style="position:relative; width:min(1100px,100%); border-radius:16px; overflow:hidden; border:1px solid rgba(130,150,210,0.25); background:#000; box-shadow:0 40px 120px -20px rgba(0,0,0,0.9);">
-        <video src="{{ video2 }}" controls="" autoPlay="" playsinline="" style="display:block; width:100%; aspect-ratio:16/9; background:#000;"></video>
-        <button ref="{{ closeRef }}" onClick="{{ closeDemo }}" aria-label="Close video" style="position:absolute; top:10px; right:10px; width:38px; height:38px; border-radius:50%; border:1px solid rgba(255,255,255,0.25); background:rgba(0,0,0,0.6); color:#fff; font-size:18px; cursor:pointer;">✕</button>
-      </div>
-    </div>
-  </sc-if>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;video1Url&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/video-overview.mp4&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Media (VIDEO_1_URL / VIDEO_2_URL)&quot;},&quot;video2Url&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/video-demo.mp4&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Media (VIDEO_1_URL / VIDEO_2_URL)&quot;},&quot;waitlistEndpoint&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://formsubmit.co/ajax/pr8101999@gmail.com&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Waitlist form&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;default&quot;:&quot;light&quot;,&quot;tsType&quot;:&quot;'light' | 'dark'&quot;,&quot;section&quot;:&quot;Look&quot;},&quot;heroVisual&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;diagram&quot;,&quot;video&quot;],&quot;default&quot;:&quot;diagram&quot;,&quot;tsType&quot;:&quot;'diagram' | 'video'&quot;,&quot;section&quot;:&quot;Look&quot;},&quot;formEndpoint&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://formsubmit.co/ajax/pr8101999@gmail.com&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contact form&quot;},&quot;video1Url&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;/assets/video-overview.mp4&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Media&quot;},&quot;video2Url&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;/assets/video-demo.mp4&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Media&quot;}}">
 class Component extends DCLogic {
-  state = { theme: 'dark', menuOpen: false, tab: 0, demoOpen: false, lines: [], run: 0, interest: 'Team', form: 'idle' };
+  state = { menuOpen: false, tab: 0, interest: 'Team', form: 'idle' };
 
-  themes = {
-    dark: { '--bg':'#06080E','--bg2':'#0A0E18','--card':'rgba(15,21,36,0.72)','--line':'rgba(130,150,210,0.14)','--ink':'#EAF0FF','--mute':'#A3AECB','--dim':'#7582A3','--acc':'#22D3EE','--nav':'rgba(6,8,14,0.72)','--chip':'rgba(130,150,210,0.1)' },
-    light: { '--bg':'#F6F8FC','--bg2':'#EDF1F8','--card':'#FFFFFF','--line':'rgba(20,30,70,0.12)','--ink':'#0B1124','--mute':'#46516E','--dim':'#5B6785','--acc':'#0369A1','--nav':'rgba(246,248,252,0.82)','--chip':'rgba(20,30,70,0.06)' }
-  };
-
-  script = [
-    { k:'cmd', t:'loglens analyze --source app.log' },
-    { k:'log', t:'14:02:11.204 INFO  api     GET /health 200 3ms' },
-    { k:'log', t:'14:02:11.387 INFO  api     GET /orders?page=2 200 41ms' },
-    { k:'log', t:'14:02:11.902 INFO  worker  job 8812 completed' },
-    { k:'hot', t:'14:02:12.018 ERROR db      connection pool exhausted (max=50)' },
-    { k:'log', t:'14:02:12.044 INFO  api     GET /cart 200 38ms' },
-    { k:'log', t:'14:02:12.310 WARN  api     upstream latency 2140ms /checkout' },
-    { k:'out', c:'#7582A3', t:'✓ format auto-detected · mode fast · daemon warm' },
-    { k:'fam', i:0 }, { k:'fam', i:1 }, { k:'inc' }
-  ];
-  fams = [
-    { lvl:'CRITICAL', col:'#FF5D5D', score:'0.94', svc:'db', msg:'connection pool exhausted', n:'×47', why:'rare template, ERROR severity, burst of 47 in 3s' },
-    { lvl:'WARN', col:'#FFC940', score:'0.71', svc:'api', msg:'upstream latency > 2s on /checkout', n:'×12', why:'new template, starts right after the db family' }
-  ];
-
-  cmp = [
-    ['Fast, turbo & deep (neural) modes', 1, 1, 1], ['Warm daemon', 1, 1, 1], ['Explainable anomalies + incident grouping', 1, 1, 1],
-    ['CI/CD gating + GitHub Action', 1, 1, 1], ['JSON output + offline HTML reports', 1, 1, 1], ['Train your own model', 1, 1, 1],
-    ['AI root-cause (bring your own key)', 1, 1, 1], ['CLI + Python SDK', 1, 1, 1], ['Machines', 'Single', 'Multiple seats', 'Cluster'],
-    ['Multi-core parallel engine', 0, 1, 1], ['Streaming detection + Slack / Teams / webhook alerts', 0, 1, 1], ['Shared baselines & team config', 0, 1, 1],
-    ['Centralized team dashboard', 0, 1, 1], ['Managed model training pipeline', 0, 1, 1], ['Distributed coordinator + worker engine', 0, 0, 1],
-    ['Horizontal scale-out ingestion', 0, 0, 1], ['RBAC + SSO / SAML / OIDC', 0, 0, 1], ['Audit logging & compliance', 0, 0, 1],
-    ['On-prem / VPC deployment', 'Local machine', 0, 1], ['Private-LLM root-cause', 0, 0, 1], ['SIEM & observability integrations', 0, 0, 1],
-    ['Long-term baselines & regression detection', 0, 0, 1], ['Multi-tenant workspaces', 0, 0, 1], ['Custom retention & data residency', 0, 0, 1],
-    ['Support', 'Community', 'Priority', 'SLA + dedicated'], ['Availability', 'Now', 'Waitlist', 'Waitlist']
-  ];
+  light = { '--bg':'#FFFFFF','--alt':'#F5F7FB','--ink':'#0B1530','--body':'#3D4966','--mute':'#5B6785','--line':'#E3E8F1','--card':'#FFFFFF','--link':'#1F6BFF','--soft':'#EEF3FF','--ok':'#137A43','--okbg':'#E8F5EE','--warn':'#8A5A00','--warnbg':'#FFF4DC','--vio':'#5B3FD9','--viobg':'#F1EDFF','--nav':'rgba(255,255,255,0.9)','--shadow':'0 1px 2px rgba(11,21,48,0.05), 0 12px 32px -18px rgba(11,21,48,0.18)' };
+  dark = { '--bg':'#05080F','--alt':'#0A0F1C','--ink':'#EAF0FF','--body':'#B4BED6','--mute':'#8E9AB8','--line':'rgba(140,160,220,0.16)','--card':'#0D1322','--link':'#5CA8FF','--soft':'rgba(31,107,255,0.16)','--ok':'#4CC37E','--okbg':'rgba(19,122,67,0.2)','--warn':'#FFC940','--warnbg':'rgba(255,201,64,0.12)','--vio':'#A78BFA','--viobg':'rgba(124,92,255,0.18)','--nav':'rgba(5,8,15,0.85)','--shadow':'0 12px 32px -18px rgba(0,0,0,0.8)' };
 
   componentDidMount() {
-    let saved = null; try { saved = localStorage.getItem('ll-theme'); } catch (e) {}
-    if (saved === 'light' || saved === 'dark') this.applyTheme(saved);
     this._reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-    this._key = (e) => { if (e.key === 'Escape') this.setState({ demoOpen: false, menuOpen: false }); };
+    this.applyTheme();
+    this._key = (e) => { if (e.key === 'Escape') this.setState({ menuOpen: false }); };
     window.addEventListener('keydown', this._key);
     setTimeout(() => { this.setupReveal(); this.setupCopy(); }, 50);
-    this.play();
   }
-  componentWillUnmount() { this._dead = true; window.removeEventListener('keydown', this._key); if (this._io) this._io.disconnect(); }
-  componentDidUpdate(pp, ps) { if (this.state.demoOpen && !ps.demoOpen && this._close) this._close.focus(); }
+  componentDidUpdate(pp) { if (pp.theme !== this.props.theme) this.applyTheme(); }
+  componentWillUnmount() { window.removeEventListener('keydown', this._key); if (this._io) this._io.disconnect(); }
 
-  applyTheme(theme) {
-    this.setState({ theme });
-    const el = this._root; if (el) { const t = this.themes[theme]; for (const k in t) el.style.setProperty(k, t[k]); }
-    try { localStorage.setItem('ll-theme', theme); } catch (e) {}
+  applyTheme() {
+    const el = this._root; if (!el) return;
+    const t = this.props.theme === 'dark' ? this.dark : this.light;
+    for (const k in t) el.style.setProperty(k, t[k]);
   }
 
   setupCopy() {
@@ -544,132 +527,72 @@ class Component extends DCLogic {
     root.addEventListener('click', (ev) => {
       const b = ev.target.closest && ev.target.closest('[data-copy]'); if (!b) return;
       try { navigator.clipboard.writeText(b.getAttribute('data-copy')); } catch (e) {}
-      const orig = b.getAttribute('data-label') || 'copy';
-      b.textContent = 'copied ✓'; clearTimeout(b._t); b._t = setTimeout(() => { b.textContent = orig; }, 1500);
+      const orig = b.getAttribute('data-label') || 'Copy';
+      b.textContent = 'Copied'; clearTimeout(b._t); b._t = setTimeout(() => { b.textContent = orig; }, 1500);
     });
-  }
-
-  countUp(el) {
-    const target = parseFloat(el.dataset.count);
-    if (this._reduce) { el.textContent = String(target); return; }
-    const t0 = performance.now(), dur = 1200;
-    const step = (t) => { const p = Math.min(1, (t - t0) / dur); el.textContent = String(Math.round(target * (1 - Math.pow(1 - p, 3)))); if (p < 1) requestAnimationFrame(step); };
-    requestAnimationFrame(step);
   }
 
   setupReveal() {
     const root = this._root; if (!root) return;
-    const show = (el) => {
-      if (el.hasAttribute('data-count')) return this.countUp(el);
-      if (el.hasAttribute('data-draw')) { el.style.transform = 'scaleX(1)'; return; }
-      el.style.opacity = '1'; el.style.transform = 'none';
-    };
-    const els = root.querySelectorAll('[data-reveal],[data-count],[data-draw]');
+    const show = (el) => { el.style.opacity = '1'; el.style.transform = 'none'; };
+    const els = root.querySelectorAll('[data-reveal]');
     if (this._reduce || !('IntersectionObserver' in window)) { els.forEach(show); return; }
-    this._io = new IntersectionObserver((ents) => ents.forEach(e => { if (e.isIntersecting) { show(e.target); this._io.unobserve(e.target); } }), { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+    this._io = new IntersectionObserver((ents) => ents.forEach(e => { if (e.isIntersecting) { show(e.target); this._io.unobserve(e.target); } }), { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
     els.forEach(el => this._io.observe(el));
   }
 
-  async play() {
-    const run = this.state.run + 1;
-    this.setState({ run, lines: [] });
-    const alive = () => !this._dead && this.state.run === run;
-    const sleep = (ms) => new Promise(r => setTimeout(r, this._reduce ? 0 : ms));
-    await sleep(450);
-    let lines = [];
-    for (const s of this.script) {
-      if (!alive()) return;
-      const typing = s.k === 'cmd' && !this._reduce;
-      lines = [...lines, { ...s, shown: typing ? 0 : (s.t || '').length }];
-      this.setState({ lines });
-      if (typing) {
-        for (let c = 1; c <= s.t.length; c++) { if (!alive()) return; lines = lines.map((l, i) => i === lines.length - 1 ? { ...l, shown: c } : l); this.setState({ lines }); await sleep(32); }
-        await sleep(350);
-      } else await sleep(s.k === 'log' ? 140 : s.k === 'hot' ? 420 : 480);
-    }
-  }
-
-  submitWaitlist = (e) => {
+  submitForm = (e) => {
     e.preventDefault();
-    const ep = (this.props.waitlistEndpoint || '').trim() || 'https://formsubmit.co/ajax/pr8101999@gmail.com';
+    // ─────────────────────────────────────────────────────────────────────
+    // PASTE YOUR FREE WEB3FORMS KEY HERE (get it at https://web3forms.com —
+    // enter pr8101999@gmail.com, it emails you a key instantly, no activation).
+    const WEB3FORMS_KEY = '46e9991b-a417-446f-b583-805c7b4b4365';
+    // ─────────────────────────────────────────────────────────────────────
     const fd = new FormData(e.currentTarget);
-    if (fd.get('_honey')) { this.setState({ form: 'done' }); return; }
+    if (fd.get('_honey')) { this.setState({ form: 'done' }); return; }  // silent honeypot
+    if (!WEB3FORMS_KEY || WEB3FORMS_KEY === 'YOUR_WEB3FORMS_ACCESS_KEY') {
+      console.warn('LogLens: Web3Forms key not set — add it in submitForm.');
+      this.setState({ form: 'error' }); return;
+    }
+    fd.append('access_key', WEB3FORMS_KEY);
+    fd.append('subject', 'New LogLens AI enquiry');
+    fd.append('from_name', 'LogLens AI website');
     this.setState({ form: 'sending' });
-    fetch(ep, { method: 'POST', headers: { Accept: 'application/json' }, body: fd })
-      .then(r => this.setState({ form: r.ok ? 'done' : 'error' }))
+    fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { Accept: 'application/json' }, body: fd })
+      .then(r => r.json())
+      .then(d => this.setState({ form: d.success ? 'done' : 'error' }))
       .catch(() => this.setState({ form: 'error' }));
   };
 
   renderVals() {
-    const h = React.createElement, mono = "'JetBrains Mono',monospace";
-    const terminal = h(React.Fragment, null, ...this.state.lines.map((l, i) => {
-      if (l.k === 'cmd') {
-        const typing = l.shown < l.t.length;
-        return h('div', { key:i, style:{ whiteSpace:'pre', marginBottom:'6px' } }, h('span', { style:{ color:'#22D3EE' } }, '$ '), l.t.slice(0, l.shown),
-          typing ? h('span', { style:{ display:'inline-block', width:'8px', height:'15px', background:'#22D3EE', verticalAlign:'-3px', marginLeft:'1px', animation:'ll-blink 1s step-end infinite' } }) : null);
-      }
-      if (l.k === 'log') return h('div', { key:i, style:{ whiteSpace:'pre', color:'#4F5B78', overflow:'hidden', textOverflow:'ellipsis', animation:'ll-pop .25s ease-out both' } }, l.t);
-      if (l.k === 'hot') return h('div', { key:i, style:{ whiteSpace:'pre', color:'#FFD7D4', background:'rgba(255,93,93,0.14)', boxShadow:'inset 3px 0 0 #FF5D5D, 0 0 24px -6px rgba(255,93,93,0.6)', margin:'1px -18px', padding:'0 18px', overflow:'hidden', textOverflow:'ellipsis', animation:'ll-pop .3s ease-out both' } }, l.t);
-      if (l.k === 'out') return h('div', { key:i, style:{ color:l.c, margin:'8px 0 6px', animation:'ll-pop .3s ease-out both' } }, l.t);
-      if (l.k === 'fam') {
-        const f = this.fams[l.i];
-        return h('div', { key:i, style:{ margin:'6px 0', padding:'9px 12px', borderRadius:'10px', border:'1px solid ' + f.col + '55', background:'linear-gradient(135deg,' + f.col + '1a, rgba(10,14,24,0.6) 70%)', animation:'ll-pop .4s ease-out both', fontFamily:mono } },
-          h('div', { style:{ display:'flex', alignItems:'center', gap:'8px', flexWrap:'wrap' } },
-            h('span', { style:{ fontSize:'10.5px', fontWeight:700, color:f.col, background:f.col + '22', border:'1px solid ' + f.col + '55', padding:'1px 7px', borderRadius:'5px' } }, f.lvl),
-            h('span', { style:{ color:'#EAF0FF', fontWeight:600 } }, f.score),
-            h('span', { style:{ color:'#A3AECB' } }, f.svc + ' · ' + f.msg),
-            h('span', { style:{ marginLeft:'auto', color:'#EAF0FF', fontWeight:700 } }, f.n)),
-          h('div', { style:{ color:'#8C97B2', marginTop:'3px' } }, h('span', { style:{ color:'#A78BFA' } }, '↳ why: '), f.why));
-      }
-      return h('div', { key:i, style:{ marginTop:'8px', display:'flex', alignItems:'center', gap:'8px', flexWrap:'wrap', animation:'ll-pop .4s ease-out both' } },
-        h('span', { style:{ fontSize:'10.5px', fontWeight:800, letterSpacing:'0.06em', color:'#06080E', background:'#FF5D5D', padding:'2px 8px', borderRadius:'5px' } }, 'INCIDENT'),
-        h('span', { style:{ color:'#A3AECB' } }, '2 families · 59 of 48,210 lines flagged'));
-    }));
-
-    const yes = h('span', { 'aria-label':'Included', style:{ display:'inline-flex', width:'22px', height:'22px', borderRadius:'50%', alignItems:'center', justifyContent:'center', background:'rgba(63,185,80,0.15)', color:'#3FB950', fontWeight:800, fontSize:'12px' } }, '✓');
-    const no = h('span', { 'aria-label':'Not included', style:{ color:'var(--dim)' } }, '-');
-    const td = { padding:'13px 14px', textAlign:'center', borderBottom:'1px solid var(--line)' };
-    const cmpRows = h(React.Fragment, null, ...this.cmp.map((r, i) => h('tr', { key:i },
-      h('th', { scope:'row', style:{ ...td, textAlign:'left', padding:'13px 20px', fontWeight:500, color:'var(--ink)' } }, r[0]),
-      ...[1, 2, 3].map(j => h('td', { key:j, style:{ ...td, color:'var(--mute)', fontSize:'13.5px', background: j === 1 ? 'rgba(34,211,238,0.04)' : 'transparent' } }, r[j] === 1 ? yes : r[j] === 0 ? no : r[j])))));
-
     const tabs = {};
     [0, 1, 2, 3, 4].forEach(i => {
       const on = this.state.tab === i;
       tabs['t' + i + 'sel'] = on;
-      tabs['t' + i + 'bg'] = on ? 'rgba(34,211,238,0.12)' : 'transparent';
-      tabs['t' + i + 'bd'] = on ? 'rgba(34,211,238,0.5)' : 'transparent';
+      tabs['t' + i + 'bg'] = on ? 'var(--soft)' : 'transparent';
+      tabs['t' + i + 'bd'] = on ? '#1F6BFF' : 'transparent';
       tabs['t' + i + 'fg'] = on ? 'var(--ink)' : 'var(--mute)';
       tabs['tab' + i] = () => this.setState({ tab: i });
     });
-
-    const dark = this.state.theme === 'dark', f = this.state.form;
+    const f = this.state.form;
+    const heroVideo = this.props.heroVisual === 'video';
     return {
       ...tabs,
       rootRef: (el) => { this._root = el; },
-      closeRef: (el) => { this._close = el; },
-      terminal, cmpRows,
-      replay: () => this.play(),
-      isDark: dark, isLight: !dark,
-      themeLabel: dark ? 'Switch to light theme' : 'Switch to dark theme',
-      toggleTheme: () => this.applyTheme(dark ? 'light' : 'dark'),
       menuOpen: this.state.menuOpen,
       toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
       closeMenu: () => this.setState({ menuOpen: false }),
-      demoOpen: this.state.demoOpen,
-      openDemo: () => this.setState({ demoOpen: true }),
-      closeDemo: () => this.setState({ demoOpen: false }),
-      stop: (e) => e.stopPropagation(),
-      video1: this.props.video1Url || 'assets/video-overview.mp4',
-      video2: this.props.video2Url || 'assets/video-demo.mp4',
-      endpoint: (this.props.waitlistEndpoint || '').trim() || 'https://formsubmit.co/ajax/pr8101999@gmail.com',
-      submitWaitlist: this.submitWaitlist,
+      showDiagram: !heroVideo, showHeroVideo: heroVideo,
+      video1: this.props.video1Url || '/assets/video-overview.mp4',
+      video2: this.props.video2Url || '/assets/video-demo.mp4',
+      endpoint: (this.props.formEndpoint || '').trim() || 'https://formsubmit.co/ajax/pr8101999@gmail.com',
+      submitForm: this.submitForm,
       interest: this.state.interest,
       isTeam: this.state.interest === 'Team', isEnt: this.state.interest === 'Enterprise',
       pickTeam: () => this.setState({ interest: 'Team' }),
       pickEnt: () => this.setState({ interest: 'Enterprise' }),
       formDone: f === 'done', formOpen: f !== 'done', formError: f === 'error', sending: f === 'sending',
-      submitLabel: f === 'sending' ? 'Joining...' : 'Join the waitlist'
+      submitLabel: f === 'sending' ? 'Sending...' : 'Send message'
     };
   }
 }

@@ -1,19 +1,19 @@
-# LogLens AI site
+# loglensai.com
 
-Static, no build step.
+Static site, no build step.
 
-Deploy: drag this folder into vercel.com/new, or run `vercel --prod` inside it.
+## Deploy
+- Vercel dashboard: vercel.com/new, drag this folder in (Framework preset: Other).
+- CLI: run `vercel --prod` inside this folder.
 
-- index.html - landing page (v0.9.0)
-- docs.html - documentation (/docs)
-- 404.html - not found page
+## Files
+- index.html - landing page
+- docs.html - Administrator Guide (/docs)
+- 404.html - not-found page
 - support.js - page runtime (required)
-- assets/loglens-mark.png - logo
-- og-image.png - social share image
+- assets/ - logo, favicon, both videos
+- og-image.png, sitemap.xml, robots.txt, vercel.json
 
-Before publishing: set your GitHub repo in index.html (search `githubRepo`) and confirm the Docker image name.
-
-## Waitlist form
-
-Submissions go to pr8101999@gmail.com via FormSubmit (free, no account).
-The FIRST submission after deploying sends an activation email to that inbox - click "Activate Form" once, then every signup arrives as an email.
+## Contact form
+Submissions go to pr8101999@gmail.com via FormSubmit (free).
+After deploying, send ONE test message from the live site, then click "Activate Form" in the email FormSubmit sends.
