@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>LogLens AI Tour: Product Overview &amp; Walkthrough Videos</title>
+<meta name="description" content="Watch the LogLens AI product overview and walkthrough. Chapters, a terminal that types along, try-it-yourself hotspots and quick quizzes. 90 seconds, no signup.">
+<link rel="canonical" href="https://www.loglensai.com/tour">
+<meta name="theme-color" content="#05080F">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#05080F;color:#A7B3C6;font-family:'IBM Plex Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#5CC8FF;text-decoration:none}
+a:hover{color:#E6EDF7}
+*{box-sizing:border-box}
+::selection{background:#9B8CFF;color:#05080F}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:radial-gradient(1000px 520px at 20% -10%, rgba(155,140,255,.08), transparent 60%), #05080F;filter:{{ rootFilter }};">
+
+<nav style="position:sticky;top:0;z-index:50;background:rgba(5,8,15,.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(148,163,184,.12);">
+<div style="max-width:1280px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:24px;">
+<a href="LogLens Home.dc.html" style="display:flex;align-items:center;gap:10px;color:#E6EDF7;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:15px;flex-shrink:0;">
+<img src="assets/loglens-mark.png" alt="LogLens AI logo" width="28" height="28" style="width:28px;height:28px;border-radius:50%;filter:{{ rootFilter }};">
+<span>LogLens AI</span>
+</a>
+<div style="display:flex;gap:20px;font-size:14px;flex:1;min-width:0;overflow:hidden;white-space:nowrap;">
+<a href="LogLens Home.dc.html#product" style="color:#A7B3C6;">Product</a>
+<a href="LogLens Home.dc.html#sandbox" style="color:#A7B3C6;">Playground</a>
+<a href="LogLens Academy.dc.html" style="color:#A7B3C6;">Academy</a>
+<a href="LogLens Docs.dc.html" style="color:#A7B3C6;">Docs</a>
+<span style="color:#E6EDF7;">Tour</span>
+<a href="LogLens Pricing.dc.html" style="color:#A7B3C6;">Pricing</a>
+<a href="LogLens Compare.dc.html" style="color:#A7B3C6;">Compare</a>
+</div>
+<div style="display:flex;align-items:center;gap:10px;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9B8CFF;border:1px solid rgba(155,140,255,.35);border-radius:999px;padding:5px 10px;font-variant-numeric:tabular-nums;white-space:nowrap;">XP {{ xp }}</span>
+<button onClick="{{ toggleTheme }}" aria-label="Toggle light/dark theme" style="font-size:15px;color:#E6EDF7;background:transparent;border:1px solid rgba(148,163,184,.2);border-radius:10px;width:36px;height:36px;cursor:pointer;">{{ themeIcon }}</button>
+<a href="LogLens Home.dc.html#sandbox" style="font-size:14px;font-weight:600;color:#05080F;background:#E6EDF7;border-radius:10px;padding:8px 14px;white-space:nowrap;" style-hover="background:#5CC8FF;color:#05080F">Try it free</a>
+</div>
+</div>
+</nav>
+
+<main style="max-width:1280px;margin:0 auto;padding:48px 24px 96px;display:flex;flex-direction:column;gap:28px;">
+
+<nav aria-label="Breadcrumb" style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6B7A90;display:flex;gap:8px;"><a href="LogLens Home.dc.html" style="color:#6B7A90;">Home</a><span>/</span><span style="color:#A7B3C6;">Tour</span></nav>
+
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;">
+<div style="display:flex;flex-direction:column;gap:14px;max-width:720px;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9B8CFF;letter-spacing:.08em;">THE LOGLENS TOUR</span>
+<h1 style="margin:0;font-family:'Geist',sans-serif;font-weight:600;font-size:clamp(36px,4.6vw,60px);line-height:1.03;letter-spacing:-.03em;color:#E6EDF7;text-wrap:balance;">Watch it. Then try it yourself, mid-video.</h1>
+<p style="margin:0;font-size:17px;line-height:1.6;text-wrap:pretty;">A terminal types along with every chapter. The video pauses at key moments so you can run the command yourself, and you earn XP for each chapter.</p>
+</div>
+<div role="tablist" style="display:flex;gap:4px;background:#0B111C;border:1px solid rgba(148,163,184,.14);border-radius:14px;padding:4px;">
+<sc-for list="{{ vidTabs }}" as="v" hint-placeholder-count="2">
+<button role="tab" aria-selected="{{ v.on }}" onClick="{{ v.pick }}" style="display:flex;flex-direction:column;align-items:flex-start;gap:2px;font-family:inherit;background:{{ v.bg }};border:0;border-radius:10px;padding:10px 16px;cursor:pointer;">
+<span style="font-size:15px;font-weight:600;color:{{ v.color }};">{{ v.title }}</span>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:{{ v.sub }};">{{ v.meta }}</span>
+</button>
+</sc-for>
+</div>
+</div>
+
+<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+<span style="font-size:14px;color:#6B7A90;">Jump to what matters to you:</span>
+<sc-for list="{{ personas }}" as="p" hint-placeholder-count="3">
+<button onClick="{{ p.pick }}" style="white-space:nowrap;font-family:inherit;font-size:14px;color:#E6EDF7;background:#0B111C;border:1px solid rgba(148,163,184,.18);border-radius:999px;padding:8px 14px;cursor:pointer;transition:border-color .2s;" style-hover="border-color:rgba(92,200,255,.6)">{{ p.label }} <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6B7A90;">→ {{ p.dest }}</span></button>
+</sc-for>
+</div>
+
+<div style="display:flex;flex-wrap:wrap;gap:20px;align-items:flex-start;">
+
+<div style="flex:999 1 620px;min-width:0;display:flex;flex-direction:column;gap:12px;">
+<div ref="{{ slotRef }}" style="position:relative;aspect-ratio:16/9;border-radius:20px;background:#0B111C;">
+<div style="position:{{ pipPos }};right:{{ pipRight }};bottom:{{ pipBottom }};width:{{ pipWidth }};inset:{{ pipInset }};z-index:{{ pipZ }};aspect-ratio:16/9;border-radius:{{ pipRadius }};overflow:hidden;border:1px solid rgba(148,163,184,.16);background:#000;box-shadow:{{ pipShadow }};">
+<video ref="{{ vidRef }}" src="{{ src }}" poster="{{ poster }}" preload="metadata" playsinline="" onClick="{{ togglePlay }}" onTimeUpdate="{{ onTime }}" onPlay="{{ onPlay }}" onPause="{{ onPause }}" onEnded="{{ onEnded }}" onLoadedMetadata="{{ onMeta }}" style="width:100%;height:100%;display:block;object-fit:cover;cursor:pointer;filter:{{ rootFilter }};"></video>
+
+<sc-if value="{{ pipOn }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;top:8px;right:8px;display:flex;gap:6px;">
+<button onClick="{{ togglePlay }}" style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#E6EDF7;background:rgba(5,8,15,.8);border:0;border-radius:8px;padding:6px 10px;cursor:pointer;">{{ playIcon }}</button>
+<button onClick="{{ closePip }}" aria-label="Close mini player" style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#E6EDF7;background:rgba(5,8,15,.8);border:0;border-radius:8px;padding:6px 10px;cursor:pointer;">✕</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ showBigPlay }}" hint-placeholder-val="{{ true }}">
+<button onClick="{{ togglePlay }}" aria-label="Play video" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:linear-gradient(180deg,rgba(5,8,15,.1),rgba(5,8,15,.7));border:0;cursor:pointer;font-family:inherit;">
+<span style="width:84px;height:84px;border-radius:50%;background:#E6EDF7;display:flex;align-items:center;justify-content:center;color:#05080F;font-size:28px;padding-left:6px;box-shadow:0 0 0 10px rgba(230,237,247,.12), 0 0 80px rgba(92,200,255,.4);">▶</span>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#E6EDF7;background:rgba(5,8,15,.7);border-radius:8px;padding:6px 10px;">{{ bigPlayLabel }}</span>
+</button>
+</sc-if>
+
+<sc-if value="{{ hotOn }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;background:rgba(5,8,15,.82);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:clamp(12px,3vw,32px);">
+<div style="width:min(100%,560px);background:#070B14;border:1px solid rgba(92,200,255,.45);border-radius:16px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6);">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid rgba(148,163,184,.12);font-family:'IBM Plex Mono',monospace;font-size:12px;">
+<span style="color:#5CC8FF;">⏸ PAUSED · TRY THIS YOURSELF</span><span style="color:#9B8CFF;">+15 XP</span>
+</div>
+<div style="padding:14px;display:flex;flex-direction:column;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:1.6;max-height:220px;overflow:auto;">
+<span style="font-family:'IBM Plex Sans',sans-serif;font-size:15px;color:#E6EDF7;margin-bottom:4px;">{{ hotPrompt }}</span>
+<sc-for list="{{ hotOut }}" as="o" hint-placeholder-count="0"><div style="color:{{ o.c }};white-space:pre-wrap;">{{ o.t }}</div></sc-for>
+<div style="display:flex;gap:8px;align-items:center;">
+<span style="color:#3DDC97;">$</span>
+<input ref="{{ hotInRef }}" value="{{ hotInput }}" onChange="{{ onHotInput }}" onKeyDown="{{ onHotKey }}" spellCheck="false" aria-label="Try the command" style="flex:1;background:transparent;border:0;outline:0;color:#E6EDF7;font:inherit;caret-color:#5CC8FF;">
+</div>
+</div>
+<div style="display:flex;gap:10px;justify-content:flex-end;padding:10px 14px;border-top:1px solid rgba(148,163,184,.12);">
+<button onClick="{{ hotRun }}" style="font-family:inherit;font-size:13px;font-weight:600;color:#05080F;background:#5CC8FF;border:0;border-radius:8px;padding:8px 14px;cursor:pointer;">Run ⏎</button>
+<button onClick="{{ resume }}" style="font-family:inherit;font-size:13px;color:#E6EDF7;background:transparent;border:1px solid rgba(148,163,184,.25);border-radius:8px;padding:8px 14px;cursor:pointer;">{{ hotResumeLabel }}</button>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ quizOn }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;background:rgba(5,8,15,.84);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:clamp(12px,3vw,32px);">
+<div style="width:min(100%,520px);background:#0B111C;border:1px solid rgba(155,140,255,.5);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:12px;">
+<div style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:12px;"><span style="color:#9B8CFF;">QUICK CHECK</span><span style="color:#6B7A90;">+20 XP if right</span></div>
+<span style="font-family:'Geist',sans-serif;font-size:21px;font-weight:600;color:#E6EDF7;line-height:1.25;">{{ quizQ }}</span>
+<div style="display:flex;flex-direction:column;gap:8px;">
+<sc-for list="{{ quizOpts }}" as="o" hint-placeholder-count="3">
+<button onClick="{{ o.pick }}" style="text-align:left;font-family:inherit;font-size:15px;color:#E6EDF7;background:{{ o.bg }};border:1px solid {{ o.border }};border-radius:10px;padding:11px 14px;cursor:pointer;transition:background .2s, border-color .2s;">{{ o.label }}</button>
+</sc-for>
+</div>
+<sc-if value="{{ quizAnswered }}" hint-placeholder-val="{{ false }}">
+<p style="margin:0;font-size:14px;line-height:1.55;color:{{ quizResultColor }};">{{ quizExplain }}</p>
+<button onClick="{{ resume }}" style="align-self:flex-end;font-family:inherit;font-size:14px;font-weight:600;color:#05080F;background:#E6EDF7;border:0;border-radius:10px;padding:9px 16px;cursor:pointer;">Keep watching ▶</button>
+</sc-if>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ endOn }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;background:rgba(5,8,15,.88);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:24px;text-align:center;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#3DDC97;">✓ {{ endLabel }}</span>
+<span style="font-family:'Geist',sans-serif;font-size:clamp(22px,3vw,34px);font-weight:600;color:#E6EDF7;">What's next, operator?</span>
+<div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+<a href="LogLens Home.dc.html#sandbox" style="font-size:14px;font-weight:600;color:#05080F;background:#E6EDF7;border-radius:10px;padding:11px 16px;">Try it in the sandbox</a>
+<a href="LogLens Academy.dc.html" style="font-size:14px;color:#05080F;background:#9B8CFF;border-radius:10px;padding:11px 16px;font-weight:600;">Start Level 1</a>
+<a href="LogLens Pricing.dc.html#waitlist" style="font-size:14px;color:#C9A7FF;border:1px dashed #C9A7FF;border-radius:10px;padding:10px 16px;">Join Premium waitlist</a>
+</div>
+<button onClick="{{ nextVideo }}" style="font-family:inherit;font-size:14px;color:#5CC8FF;background:transparent;border:0;cursor:pointer;">{{ nextVideoLabel }}</button>
+</div>
+</sc-if>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px;background:#0B111C;border:1px solid rgba(148,163,184,.12);border-radius:16px;padding:12px 14px;">
+<div ref="{{ barRef }}" onClick="{{ seekBar }}" onMouseMove="{{ hoverBar }}" onMouseLeave="{{ leaveBar }}" style="position:relative;height:22px;cursor:pointer;display:flex;align-items:center;">
+<div style="position:absolute;left:0;right:0;height:5px;border-radius:4px;background:rgba(148,163,184,.18);"></div>
+<div style="position:absolute;left:0;height:5px;border-radius:4px;width:{{ playedPct }}%;background:linear-gradient(90deg,#5CC8FF,#9B8CFF);"></div>
+<sc-for list="{{ ticks }}" as="k" hint-placeholder-count="6">
+<div style="position:absolute;left:{{ k.left }}%;width:3px;height:11px;margin-left:-1px;border-radius:2px;background:{{ k.color }};"></div>
+</sc-for>
+<sc-for list="{{ eventDots }}" as="d" hint-placeholder-count="0">
+<div title="{{ d.label }}" style="position:absolute;left:{{ d.left }}%;top:-4px;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:{{ d.color }};box-shadow:0 0 8px {{ d.color }};"></div>
+</sc-for>
+<sc-if value="{{ hovOn }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;bottom:30px;left:{{ hovLeft }}%;transform:translateX(-50%);width:200px;background:#05080F;border:1px solid rgba(148,163,184,.25);border-radius:10px;overflow:hidden;pointer-events:none;z-index:5;box-shadow:0 16px 40px rgba(0,0,0,.5);">
+<img src="{{ hovThumb }}" alt="" width="200" height="112" style="width:200px;height:112px;display:block;object-fit:cover;filter:{{ rootFilter }};">
+<div style="display:flex;justify-content:space-between;gap:8px;padding:6px 8px;font-family:'IBM Plex Mono',monospace;font-size:11px;"><span style="color:#E6EDF7;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ hovTitle }}</span><span style="color:#6B7A90;">{{ hovTime }}</span></div>
+</div>
+</sc-if>
+</div>
+<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+<button onClick="{{ togglePlay }}" aria-label="Play or pause" style="font-size:14px;color:#05080F;background:#E6EDF7;border:0;border-radius:8px;width:36px;height:32px;cursor:pointer;">{{ playIcon }}</button>
+<button onClick="{{ back10 }}" style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#E6EDF7;background:transparent;border:1px solid rgba(148,163,184,.2);border-radius:8px;padding:6px 10px;cursor:pointer;">↺ 10s</button>
+<button onClick="{{ toggleMute }}" style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#E6EDF7;background:transparent;border:1px solid rgba(148,163,184,.2);border-radius:8px;padding:6px 10px;cursor:pointer;">{{ muteLabel }}</button>
+<button onClick="{{ cycleRate }}" style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#E6EDF7;background:transparent;border:1px solid rgba(148,163,184,.2);border-radius:8px;padding:6px 10px;cursor:pointer;">{{ rateLabel }}</button>
+<button onClick="{{ toggleInteractive }}" title="Pause for hotspots and quizzes" style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:{{ interColor }};background:transparent;border:1px solid {{ interBorder }};border-radius:8px;padding:6px 10px;cursor:pointer;">{{ interLabel }}</button>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#E6EDF7;font-variant-numeric:tabular-nums;">{{ timeLabel }}</span>
+<span style="flex:1;min-width:120px;text-align:right;font-size:14px;color:#A7B3C6;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ curChapterTitle }}</span>
+</div>
+</div>
+
+<div style="display:grid;grid-auto-flow:column;grid-auto-columns:minmax(150px,1fr);gap:10px;overflow-x:auto;padding-bottom:6px;">
+<sc-for list="{{ chapters }}" as="c" hint-placeholder-count="6">
+<button onClick="{{ c.seek }}" style="text-align:left;font-family:inherit;display:flex;flex-direction:column;gap:8px;background:{{ c.bg }};border:1px solid {{ c.border }};border-radius:12px;padding:8px;cursor:pointer;transition:border-color .2s, transform .2s;" style-hover="transform:translateY(-2px)">
+<div style="position:relative;border-radius:8px;overflow:hidden;aspect-ratio:16/9;background:#05080F;">
+<img src="{{ c.thumb }}" alt="{{ c.title }}" loading="lazy" width="200" height="112" style="width:100%;height:100%;object-fit:cover;display:block;filter:{{ rootFilter }};">
+<span style="position:absolute;left:6px;bottom:6px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#E6EDF7;background:rgba(5,8,15,.8);border-radius:4px;padding:2px 5px;">{{ c.time }}</span>
+<sc-if value="{{ c.watched }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;right:6px;top:6px;font-size:11px;color:#05080F;background:#3DDC97;border-radius:4px;padding:1px 5px;font-weight:600;">✓</span></sc-if>
+<div style="position:absolute;left:0;bottom:0;height:3px;width:{{ c.prog }}%;background:#5CC8FF;"></div>
+</div>
+<span style="font-size:13px;line-height:1.35;color:{{ c.color }};padding:0 2px 2px;">{{ c.title }}</span>
+</button>
+</sc-for>
+</div>
+</div>
+
+<aside style="flex:1 1 320px;display:flex;flex-direction:column;gap:16px;min-width:0;">
+<div style="background:#070B14;border:1px solid rgba(148,163,184,.14);border-radius:18px;overflow:hidden;">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:11px 14px;border-bottom:1px solid rgba(148,163,184,.12);font-family:'IBM Plex Mono',monospace;font-size:12px;">
+<span style="color:#E6EDF7;">Typing along · {{ curChapterShort }}</span>
+<span style="color:{{ syncColor }};">● {{ syncLabel }}</span>
+</div>
+<div style="height:250px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:14px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:1.65;" aria-live="polite">
+<sc-for list="{{ termLines }}" as="t" hint-placeholder-count="3">
+<div style="color:{{ t.c }};white-space:pre-wrap;word-break:break-word;">{{ t.t }}</div>
+</sc-for>
+</div>
+</div>
+
+<div style="background:#0B111C;border:1px solid rgba(148,163,184,.12);border-radius:18px;display:flex;flex-direction:column;overflow:hidden;">
+<div style="display:flex;flex-direction:column;gap:10px;padding:14px 14px 10px;border-bottom:1px solid rgba(148,163,184,.12);">
+<div style="display:flex;justify-content:space-between;align-items:center;">
+<span style="font-size:15px;font-weight:600;color:#E6EDF7;">Chapter notes</span>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#FFB547;border:1px solid rgba(255,181,71,.35);border-radius:5px;padding:2px 6px;white-space:nowrap;" title="Replace with the real transcript from your .vtt captions file">TRANSCRIPT PENDING</span>
+</div>
+<input value="{{ q }}" onChange="{{ onQ }}" placeholder="Search notes…" aria-label="Search chapter notes" style="font:inherit;font-size:14px;color:#E6EDF7;background:#05080F;border:1px solid rgba(148,163,184,.2);border-radius:8px;padding:8px 10px;outline:0;">
+</div>
+<div style="max-height:300px;overflow:auto;display:flex;flex-direction:column;">
+<sc-for list="{{ notes }}" as="n" hint-placeholder-count="5">
+<button onClick="{{ n.seek }}" style="text-align:left;font-family:inherit;display:flex;gap:12px;background:{{ n.bg }};border:0;border-left:2px solid {{ n.bar }};padding:10px 14px;cursor:pointer;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#5CC8FF;padding-top:2px;">{{ n.time }}</span>
+<span style="display:flex;flex-direction:column;gap:3px;"><span style="font-size:14px;font-weight:500;color:#E6EDF7;">{{ n.title }}</span><span style="font-size:13px;line-height:1.5;color:{{ n.color }};">{{ n.note }}</span></span>
+</button>
+</sc-for>
+<sc-if value="{{ noNotes }}" hint-placeholder-val="{{ false }}"><span style="padding:14px;font-size:14px;color:#6B7A90;">No chapter mentions that.</span></sc-if>
+</div>
+</div>
+
+<div style="background:#0B111C;border:1px solid rgba(148,163,184,.12);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:10px;">
+<div style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:12px;"><span style="color:#E6EDF7;">Your progress</span><span style="color:#9B8CFF;">{{ watchedLabel }}</span></div>
+<div style="height:6px;border-radius:4px;background:rgba(148,163,184,.15);overflow:hidden;"><div style="height:100%;width:{{ watchedPct }}%;background:#3DDC97;border-radius:4px;transition:width .4s;"></div></div>
+<span style="font-size:13px;line-height:1.5;">+20 XP per chapter, +15 per try-it, +20 per correct answer. Saved only in this browser.</span>
+</div>
+</aside>
+</div>
+
+<section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px;margin-top:24px;">
+<a href="LogLens Home.dc.html#sandbox" style="display:flex;flex-direction:column;gap:8px;background:#0B111C;border:1px solid rgba(148,163,184,.12);border-radius:16px;padding:20px;color:#A7B3C6;" style-hover="border-color:rgba(92,200,255,.5);color:#A7B3C6"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5CC8FF;">PLAYGROUND</span><span style="font-family:'Geist',sans-serif;font-size:19px;font-weight:600;color:#E6EDF7;">Run the Checkout-is-down mission</span><span style="font-size:14px;">3 minutes, in your browser.</span></a>
+<a href="LogLens Academy.dc.html" style="display:flex;flex-direction:column;gap:8px;background:#0B111C;border:1px solid rgba(148,163,184,.12);border-radius:16px;padding:20px;color:#A7B3C6;" style-hover="border-color:rgba(155,140,255,.5);color:#A7B3C6"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#9B8CFF;">ACADEMY</span><span style="font-family:'Geist',sans-serif;font-size:19px;font-weight:600;color:#E6EDF7;">Start Level 1: Install</span><span style="font-size:14px;">4 minutes. Rookie Operator path.</span></a>
+<a href="LogLens Home.dc.html#install" style="display:flex;flex-direction:column;gap:8px;background:#0B111C;border:1px solid rgba(148,163,184,.12);border-radius:16px;padding:20px;color:#A7B3C6;" style-hover="border-color:rgba(61,220,151,.5);color:#A7B3C6"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#3DDC97;">INSTALL</span><span style="font-family:'Geist',sans-serif;font-size:19px;font-weight:600;color:#E6EDF7;">pipx install loglensai</span><span style="font-size:14px;">Or apt, dnf, brew, winget, Scoop, MSI, Docker.</span></a>
+</section>
+</main>
+
+<footer style="border-top:1px solid rgba(148,163,184,.12);">
+<div style="max-width:1280px;margin:0 auto;padding:24px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6B7A90;">
+<span>© 2026 LogLens AI · Built by Paras Rajput · MIT License</span>
+<span>v0.13.0 · www.loglensai.com/tour</span>
+</div>
+</footer>
+</div>
+
+<sc-if value="{{ toastOn }}" hint-placeholder-val="{{ false }}">
+<div role="status" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:100;background:#111A29;border:1px solid rgba(155,140,255,.5);border-radius:12px;padding:12px 18px;font-family:'IBM Plex Mono',monospace;font-size:13px;color:#E6EDF7;box-shadow:0 20px 60px rgba(0,0,0,.5);">{{ toast }}</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;dark&quot;,&quot;light&quot;],&quot;default&quot;:&quot;dark&quot;,&quot;tsType&quot;:&quot;'dark'|'light'&quot;,&quot;section&quot;:&quot;Page&quot;},&quot;interactivePauses&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Video&quot;},&quot;miniPlayer&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Video&quot;}}">
+const C = { ok:'#3DDC97', warn:'#FFB547', crit:'#FF5C7A', info:'#5CC8FF', ai:'#9B8CFF', ink:'#E6EDF7', body:'#A7B3C6', muted:'#6B7A90' };
+const VIDS = {
+  ov: { title:'Product Overview', src:'assets/video/overview.mp4', dur:75.6, poster:'assets/thumbs/ov-24.png', next:'wt', chapters:[
+    { t:0, th:1, title:'Drowning in log noise', note:'Millions of lines scroll past. The one that matters is buried somewhere inside.', cmd:'tail -f /var/log/app.log', out:[['… 1,204 lines/s, mostly INFO',C.muted]] },
+    { t:12, th:12, title:'grep is not a strategy', note:'Searching by keyword returns thousands of hits and still misses failures that never say ERROR.', cmd:'grep -ci error app.log', out:[['10,482',C.warn]] },
+    { t:24, th:24, title:'LogLens reads the logs', note:'Point LogLens at the file. It parses, templates and scores every line on your host.', cmd:'loglens analyze --source app.log', out:[['ERROR db ×47 score 0.95 connection refused',C.crit],['2 families · 59 of 48,210 lines flagged',C.ink]] },
+    { t:36, th:36, title:'Signals, not walls of text', note:'Repeats collapse into incident families with a count, a score and a reason.', cmd:'loglens watch kubectl logs -f checkout', out:[['● live · 1 new family in the last 60 s',C.info]] },
+    { t:48, th:48, title:'Your logs never leave', note:'Detection runs fully on your machine, even the neural deep mode. Nothing goes to a cloud.', cmd:'loglens analyze --source app.log --mode deep', out:[['neural model: bundled · offline',C.ai],['0 bytes uploaded',C.ok]] },
+    { t:60, th:60, title:'Secure by design', note:'Opt-in AI root-cause sends anomaly summaries only, to a provider you choose with your own key.', cmd:'loglens analyze --source app.log --rca', out:[['sent 2 summaries · 0 raw log lines',C.ok]] },
+    { t:70, th:70, title:'LogLens AI', note:'Free, MIT open source, self-hosted. Install in one line.', cmd:'pipx install loglensai', out:[['installed loglensai 0.13.0',C.ok]] }
+  ], events:[
+    { id:'ov-hot', type:'hot', at:27, prompt:'Your turn. Run LogLens on the sample log (just press Enter).', cmd:'loglens analyze --source app.log', out:[['format: auto-detected · 48,210 lines · 0.33 s',C.muted],['ERROR  db   ×47  score 0.95  connection refused | host=db-1',C.crit],['       why: severity ERROR, failure keyword, burst',C.ai],['2 families · 0 bytes uploaded',C.ok]] },
+    { id:'ov-quiz', type:'quiz', at:59.5, q:'Where does LogLens analyze your logs by default?', opts:['In the LogLens cloud','On your own host','In your LLM provider'], correct:1, explain:'Detection runs entirely on your host. Only opt-in AI root-cause sends summaries, never full logs.' }
+  ]},
+  wt: { title:'Product Walkthrough', src:'assets/video/walkthrough.mp4', dur:117.2, poster:'assets/thumbs/wt-1.png', next:'ov', chapters:[
+    { t:0, th:1, title:'3 a.m., something broke', note:'The on-call engineer is paged. Checkout is failing and nobody knows why yet.', cmd:'# pager: checkout 5xx rate ↑', out:[['on-call: acknowledged',C.warn]] },
+    { t:15, th:15, title:'A needle in a haystack', note:'Tens of thousands of lines. The real cause is one red needle in the pile.', cmd:'grep ERROR *.log | wc -l', out:[['48,210',C.crit]] },
+    { t:30, th:30, title:'Plugs into your pipeline', note:'LogLens sits between build, commit and deploy, gating releases on log anomalies.', cmd:'uses: LoglensAI/LogLens-AI@v0.13.0', out:[['fail-on: error · comment-on-pr: true · sarif: true',C.info]] },
+    { t:45, th:45, title:'Every server, every log', note:'Analyze many sources at once. New in v0.13.0: analyze-multi spreads load across cores and correlates results.', cmd:'loglens analyze-multi --source web.log --source db.log --source worker.log', out:[['3 pipelines · correlated · 1 shared incident',C.ink]] },
+    { t:60, th:60, title:'Critical surfaces first', note:'The critical family rises to the top with a score and plain-language reasons.', cmd:'loglens analyze --source app.log --fail-on high', out:[['CRITICAL api ×47 score 0.97 connection refused',C.crit],['exit 2 · gate tripped',C.crit]] },
+    { t:75, th:75, title:'Trained on your logs', note:'Optional: train a model on your own labelled logs and analyze with it.', cmd:'loglens train mylogs.labeled --out my_model.pkl', out:[['✓ trained on YOUR logs',C.ok],['$ loglens analyze --source app.log --model my_model.pkl',C.body]] },
+    { t:90, th:90, title:'Alerts that explain', note:'The phone buzzes with the cause, not just a symptom: connection refused, likely dependency down.', cmd:'loglens watch docker logs -f api', out:[['[api] CRITICAL connection refused',C.crit],['likely cause: dependency down',C.ai]] },
+    { t:105, th:105, title:'Secure and self-hosted', note:'Everything runs on your infrastructure. Air-gap ready, no data leaves.', cmd:'loglens analyze --source app.log --mode deep', out:[['0 bytes uploaded · air-gapped OK',C.ok]] },
+    { t:112, th:114, title:'Install in one line', note:'pipx install loglensai, or apt, dnf, brew, winget, Scoop, MSI and Docker.', cmd:'pipx install loglensai', out:[['installed loglensai 0.13.0',C.ok]] }
+  ], events:[
+    { id:'wt-hot1', type:'hot', at:63, prompt:'Try the CI gate. Press Enter, then type echo $?', cmd:'loglens analyze --source app.log --fail-on high', out:[['CRITICAL api ×47 score 0.97 connection refused | host=db-1',C.crit],['       why: failure keyword, burst, rare template',C.ai],['gate tripped: severity ≥ high',C.crit]], exit:2 },
+    { id:'wt-quiz1', type:'quiz', at:74.5, q:'What does "×47" next to an incident mean?', opts:['47 seconds until failure','47 repeats grouped into one family','Severity level 47'], correct:1, explain:'Repeats of the same template collapse into one incident family, with ×N showing how many lines it covers.' },
+    { id:'wt-hot2', type:'hot', at:78, prompt:'Train on your own labelled logs. Press Enter.', cmd:'loglens train mylogs.labeled --out my_model.pkl', out:[['reading 12,400 labelled lines…',C.muted],['✓ trained on YOUR logs → my_model.pkl',C.ok]] },
+    { id:'wt-quiz2', type:'quiz', at:111, q:'With default settings, how many log lines leave your server?', opts:['All of them, encrypted','Only the errors','Zero'], correct:2, explain:'Zero. Detection is local. AI root-cause is opt-in and sends summaries only.' }
+  ]}
+};
+const PERSONAS = [
+  { label:"I'm an SRE", vid:'wt', ch:4 },
+  { label:"I'm a developer", vid:'wt', ch:2 },
+  { label:"I'm an IT leader", vid:'ov', ch:4 }
+];
+const fmt = t=>{ t=Math.max(0,Math.floor(t||0)); return Math.floor(t/60)+':'+String(t%60).padStart(2,'0'); };
+const LS = { get(k,d){ try{ const v=localStorage.getItem(k); return v==null?d:JSON.parse(v); }catch(e){ return d; } }, set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} } };
+
+class Component extends DCLogic {
+  state = { blobs:{}, loading:false, vid:'ov', ct:0, dur:0, playing:false, started:false, muted:false, rate:1, ev:null, hotInput:'', hotOut:[], hotRan:false, lastExit:0, quizPick:null, ended:false, hov:null, q:'', xp:0, watched:{}, fired:{}, inter:true, pip:false, pipClosed:false, toast:null, theme:null };
+  vidRef=React.createRef(); slotRef=React.createRef(); barRef=React.createRef(); hotInRef=React.createRef();
+  lastT=0; lastSave=0;
+
+  componentDidMount(){
+    this.setState({ xp:LS.get('ll_xp',0), watched:LS.get('ll_tour_watched',{}), vid:LS.get('ll_tour_vid','ov') });
+    this.io = new IntersectionObserver(([e])=>{ this.setState({pip: !e.isIntersecting}); }, {threshold:0.25});
+    if(this.slotRef.current) this.io.observe(this.slotRef.current);
+    this.onKey = e=>{
+      const tag=(document.activeElement||{}).tagName; if(['INPUT','TEXTAREA','SELECT'].includes(tag)) return;
+      if(e.key===' '||e.key==='k'){ e.preventDefault(); this.toggle(); }
+      if(e.key==='ArrowLeft') this.seek(this.state.ct-5);
+      if(e.key==='ArrowRight') this.seek(this.state.ct+5);
+    };
+    addEventListener('keydown',this.onKey);
+    const loop=()=>{ const v=this.vidRef.current; if(v&&!v.paused&&Math.abs(v.currentTime-this.state.ct)>0.05) this.setState({ct:v.currentTime}); this.raf=requestAnimationFrame(loop); }; this.raf=requestAnimationFrame(loop);
+  }
+  componentWillUnmount(){ cancelAnimationFrame(this.raf); this.io&&this.io.disconnect(); removeEventListener('keydown',this.onKey); clearTimeout(this.tt); }
+
+  get V(){ return VIDS[this.state.vid]; }
+  addXp(n,msg){ const xp=this.state.xp+n; LS.set('ll_xp',xp); this.setState({xp}); if(msg) this.toastMsg(msg); }
+  toastMsg(t){ clearTimeout(this.tt); this.setState({toast:t}); this.tt=setTimeout(()=>this.setState({toast:null}),2600); }
+  ensure(seekT, play){ const id=this.state.vid; if(this.state.blobs[id]) return true;
+    if(seekT!=null) this.pendingSeek=seekT; if(play) this.pendingPlay=true;
+    if(this.loadingId===id) return false; this.loadingId=id; this.setState({loading:true});
+    fetch(VIDS[id].src).then(r=>r.blob()).then(b=>{ this.loadingId=null; if(this.state.vid!==id) return; this.setState(s=>({blobs:{...s.blobs,[id]:URL.createObjectURL(b)}, loading:false})); }).catch(()=>{ this.loadingId=null; this.setState({loading:false}); });
+    return false; }
+  toggle(){ if(this.state.ev) return; if(!this.ensure(null,true)) return; const v=this.vidRef.current; if(!v) return; if(v.paused){ if(this.state.ended){ v.currentTime=0; this.setState({ended:false}); } v.play().catch(()=>{}); } else v.pause(); }
+  seek(t, play){ t=Math.max(0,Math.min((this.state.dur||this.V.dur)-0.2,t)); if(!this.ensure(t,play)){ this.setState({ct:t}); return; } const v=this.vidRef.current; if(!v) return; v.currentTime=t; this.lastT=t; this.setState({ct:t, ended:false, ev:null}); if(play) v.play().catch(()=>{}); }
+  switchVid(id, ch){ if(id===this.state.vid){ if(ch!=null) this.seek(VIDS[id].chapters[ch].t+0.05,true); return; }
+    this.pendingSeek = ch!=null ? VIDS[id].chapters[ch].t+0.05 : null; this.pendingPlay = ch!=null;
+    LS.set('ll_tour_vid',id); this.setState({vid:id, ct:0, playing:false, started:false, ev:null, ended:false}, ()=>{ if(ch!=null) this.ensure(this.pendingSeek,true); }); }
+  chIndex(t){ const ch=this.V.chapters; let i=0; for(let k=0;k<ch.length;k++) if(t>=ch[k].t) i=k; return i; }
+  markWatched(i){ const key=this.state.vid+':'+i; if(this.state.watched[key]) return; const w={...this.state.watched,[key]:true}; LS.set('ll_tour_watched',w); this.setState({watched:w}); this.addXp(20,`Chapter watched: ${this.V.chapters[i].title} · +20 XP`); }
+
+  renderVals(){
+    const s=this.state, V=this.V, ch=V.chapters, dur=s.dur||V.dur, ct=s.ct;
+    const ci=this.chIndex(ct), cur=ch[ci];
+    const light=(s.theme ?? this.props.theme ?? 'dark')==='light';
+    const interactive = (this.props.interactivePauses ?? true) && s.inter;
+    // terminal typing synced to time
+    const lines=[];
+    const start=Math.max(0,ci-2);
+    for(let i=start;i<=ci;i++){
+      const c=ch[i];
+      if(i<ci){ lines.push({t:'$ '+c.cmd,c:C.ink}); c.out.forEach(o=>lines.push({t:o[0],c:o[1]})); continue; }
+      const el=ct-c.t, n=Math.floor(el*22);
+      const typed=c.cmd.slice(0,Math.min(c.cmd.length,n));
+      lines.push({t:'$ '+typed+(n<c.cmd.length?'▌':''),c:C.ink});
+      const after=el-(c.cmd.length/22)-0.4;
+      c.out.forEach((o,k)=>{ if(after>k*0.5) lines.push({t:o[0],c:o[1]}); });
+    }
+    const ev=s.ev;
+    const total=ch.length, watchedN=ch.filter((_,i)=>s.watched[s.vid+':'+i]).length;
+    const allW=Object.keys(VIDS).reduce((a,k)=>a+VIDS[k].chapters.filter((_,i)=>s.watched[k+':'+i]).length,0);
+    const allT=Object.keys(VIDS).reduce((a,k)=>a+VIDS[k].chapters.length,0);
+    const hovCh = s.hov!=null ? ch[this.chIndex(s.hov)] : null;
+    const pipOn = s.pip && s.playing && !s.pipClosed && (this.props.miniPlayer ?? true);
+    const ql=s.q.trim().toLowerCase();
+    const runHot=()=>{ if(!ev||ev.type!=='hot') return; const cmd=s.hotInput.trim();
+      if(!s.hotRan && (cmd===''||cmd===ev.cmd)){ this.setState({hotOut:[...s.hotOut,{t:'$ '+ev.cmd,c:C.ink},...ev.out.map(o=>({t:o[0],c:o[1]}))], hotInput:'', hotRan:true, lastExit:ev.exit||0}); this.addXp(15,'Try-it complete · +15 XP'); return; }
+      if(cmd==='echo $?'){ this.setState({hotOut:[...s.hotOut,{t:'$ echo $?',c:C.ink},{t:String(s.lastExit),c:s.lastExit?C.crit:C.ok}], hotInput:''}); return; }
+      if(s.hotRan){ this.setState({hotOut:[...s.hotOut,{t:'$ '+cmd,c:C.ink},{t:'Nice. Resume the video to keep going.',c:C.muted}], hotInput:''}); return; }
+      this.setState({hotOut:[...s.hotOut,{t:'$ '+cmd,c:C.ink},{t:`Try: ${ev.cmd}`,c:C.muted}], hotInput:''}); };
+    return {
+      rootFilter: light?'invert(1) hue-rotate(180deg)':'none',
+      themeIcon: light?'☾':'☀',
+      toggleTheme: ()=>this.setState({theme: light?'dark':'light'}),
+      xp: s.xp,
+      vidTabs: Object.keys(VIDS).map(k=>({ title:VIDS[k].title, meta:`${fmt(VIDS[k].dur)} · ${VIDS[k].chapters.length} chapters`, on:k===s.vid, bg:k===s.vid?'#E6EDF7':'transparent', color:k===s.vid?'#05080F':C.ink, sub:k===s.vid?'#334155':C.muted, pick:()=>this.switchVid(k) })),
+      personas: PERSONAS.map(p=>({ label:p.label, dest:VIDS[p.vid].chapters[p.ch].title, pick:()=>this.switchVid(p.vid,p.ch) })),
+      slotRef:this.slotRef, vidRef:this.vidRef, barRef:this.barRef, hotInRef:this.hotInRef,
+      src:s.blobs[s.vid], poster:V.poster,
+      onTime: e=>{ const t=e.target.currentTime, prev=this.lastT; this.lastT=t;
+        if(Math.abs(t-s.ct)>0.08) this.setState({ct:t});
+        const pi=this.chIndex(prev), ni=this.chIndex(t);
+        if(ni>pi && t-prev<1.5) this.markWatched(pi);
+        if(t-this.lastSave>2||t<this.lastSave){ this.lastSave=t; LS.set('ll_tour_pos_'+s.vid,t); }
+        if(interactive && !s.ev){ const hit=V.events.find(x=>!s.fired[x.id] && prev<x.at && t>=x.at && t-prev<1.5);
+          if(hit){ e.target.pause(); this.setState({ev:hit, fired:{...s.fired,[hit.id]:true}, hotInput:'', hotOut:[], hotRan:false, quizPick:null}); setTimeout(()=>this.hotInRef.current&&this.hotInRef.current.focus({preventScroll:true}),60); } } },
+      onPlay: ()=>this.setState({playing:true, started:true}),
+      onPause: ()=>this.setState({playing:false}),
+      onEnded: ()=>{ this.markWatched(ch.length-1); LS.set('ll_tour_pos_'+s.vid,0); this.setState({ended:true, playing:false}); },
+      onMeta: e=>{ const v=e.target; v.muted=s.muted; v.playbackRate=s.rate; let t=this.pendingSeek; if(t==null){ const saved=LS.get('ll_tour_pos_'+s.vid,0); if(saved>3 && saved<v.duration-3){ t=saved; this.toastMsg(`Resuming at ${fmt(saved)}`); } }
+        if(t!=null){ v.currentTime=t; this.lastT=t; } this.setState({dur:v.duration, ct:t||0}); if(this.pendingPlay){ v.play().catch(()=>{}); } this.pendingSeek=null; this.pendingPlay=false; },
+      togglePlay: ()=>this.toggle(),
+      playIcon: s.playing?'❚❚':'▶',
+      showBigPlay: !s.started && !s.ev,
+      bigPlayLabel: s.loading ? 'Loading video…' : s.ct>3 ? `Resume at ${fmt(s.ct)}` : `${fmt(V.dur)} · sound on · no signup`,
+      pipOn,
+      pipPos: pipOn?'fixed':'absolute', pipRight: pipOn?'20px':'auto', pipBottom: pipOn?'20px':'auto', pipWidth: pipOn?'min(360px,70vw)':'auto', pipInset: pipOn?'auto':'0', pipZ: pipOn?90:1, pipRadius: pipOn?'14px':'20px', pipShadow: pipOn?'0 24px 70px rgba(0,0,0,.6)':'none',
+      closePip: ()=>this.setState({pipClosed:true}),
+      hotOn: !!ev && ev.type==='hot', hotPrompt: ev&&ev.prompt, hotOut: s.hotOut, hotInput: s.hotInput,
+      onHotInput: e=>this.setState({hotInput:e.target.value}),
+      onHotKey: e=>{ if(e.key==='Enter'){ e.preventDefault(); runHot(); } else if(e.key==='Tab' && ev){ e.preventDefault(); this.setState({hotInput:ev.cmd}); } },
+      hotRun: runHot, hotResumeLabel: s.hotRan?'Resume video ▶':'Skip ▶',
+      resume: ()=>{ this.setState({ev:null}); const v=this.vidRef.current; v&&v.play().catch(()=>{}); },
+      quizOn: !!ev && ev.type==='quiz', quizQ: ev&&ev.q,
+      quizOpts: ev&&ev.type==='quiz' ? ev.opts.map((o,i)=>{ const picked=s.quizPick===i, ans=s.quizPick!=null, right=i===ev.correct;
+        return { label:o, bg: ans&&right?'rgba(61,220,151,.14)':(picked?'rgba(255,92,122,.14)':'#05080F'), border: ans&&right?C.ok:(picked?C.crit:'rgba(148,163,184,.2)'),
+          pick:()=>{ if(s.quizPick!=null) return; this.setState({quizPick:i}); if(right) this.addXp(20,'Correct · +20 XP'); } }; }) : [],
+      quizAnswered: !!ev && s.quizPick!=null,
+      quizExplain: ev&&ev.type==='quiz' ? ((s.quizPick===ev.correct?'Correct. ':'Not quite. ')+ev.explain) : '',
+      quizResultColor: ev&&s.quizPick===ev.correct ? C.ok : C.warn,
+      endOn: s.ended && !ev, endLabel: `${V.title} complete`,
+      nextVideo: ()=>this.switchVid(V.next,0), nextVideoLabel: `Or watch the ${VIDS[V.next].title} (${fmt(VIDS[V.next].dur)}) →`,
+      playedPct: (ct/dur*100).toFixed(2),
+      ticks: ch.map((c,i)=>({ left:(c.t/dur*100).toFixed(2), color: i<=ci?'#05080F':'rgba(148,163,184,.5)' })).slice(1),
+      eventDots: V.events.map(x=>({ left:(x.at/dur*100).toFixed(2), color: x.type==='quiz'?C.ai:C.info, label: x.type==='quiz'?'Quick check':'Try it yourself' })),
+      seekBar: e=>{ const r=this.barRef.current.getBoundingClientRect(); this.seek((e.clientX-r.left)/r.width*dur); },
+      hoverBar: e=>{ const r=this.barRef.current.getBoundingClientRect(); this.setState({hov:Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*dur}); },
+      leaveBar: ()=>this.setState({hov:null}),
+      hovOn: s.hov!=null, hovLeft: s.hov!=null ? Math.max(9,Math.min(91,s.hov/dur*100)).toFixed(2) : 0,
+      hovThumb: hovCh ? `assets/thumbs/${s.vid}-${hovCh.th}.png` : '', hovTitle: hovCh&&hovCh.title, hovTime: fmt(s.hov),
+      back10: ()=>this.seek(ct-10),
+      toggleMute: ()=>{ const m=!s.muted; if(this.vidRef.current) this.vidRef.current.muted=m; this.setState({muted:m}); },
+      muteLabel: s.muted?'🔇 muted':'🔊 sound',
+      cycleRate: ()=>{ const r={1:1.25,1.25:1.5,1.5:0.75,0.75:1}[s.rate]; if(this.vidRef.current) this.vidRef.current.playbackRate=r; this.setState({rate:r}); },
+      rateLabel: s.rate+'×',
+      toggleInteractive: ()=>this.setState({inter:!s.inter}),
+      interLabel: s.inter?'✦ interactive on':'✦ interactive off', interColor: s.inter?C.ai:C.muted, interBorder: s.inter?'rgba(155,140,255,.45)':'rgba(148,163,184,.2)',
+      timeLabel: `${fmt(ct)} / ${fmt(dur)}`,
+      curChapterTitle: `Ch ${ci+1} · ${cur.title}`, curChapterShort: `ch ${ci+1}/${total}`,
+      chapters: ch.map((c,i)=>{ const end=i<ch.length-1?ch[i+1].t:dur; const prog=ct>=end?100:(ct>c.t?((ct-c.t)/(end-c.t)*100):0);
+        return { title:c.title, time:fmt(c.t), thumb:`assets/thumbs/${s.vid}-${c.th}.png`, watched:!!s.watched[s.vid+':'+i], prog:prog.toFixed(1),
+          bg: i===ci?'#111A29':'#0B111C', border: i===ci?'rgba(92,200,255,.6)':'rgba(148,163,184,.12)', color: i===ci?C.ink:C.body, seek:()=>this.seek(c.t+0.05,true) }; }),
+      termLines: lines, syncColor: s.playing?C.ok:C.muted, syncLabel: s.playing?'in sync':'paused',
+      q: s.q, onQ: e=>this.setState({q:e.target.value}),
+      notes: ch.map((c,i)=>({c,i})).filter(({c})=>!ql || (c.title+' '+c.note+' '+c.cmd).toLowerCase().includes(ql)).map(({c,i})=>({ time:fmt(c.t), title:c.title, note:c.note,
+        bg: i===ci?'#111A29':'transparent', bar: i===ci?C.info:'transparent', color: i===ci?C.body:C.muted, seek:()=>this.seek(c.t+0.05,true) })),
+      noNotes: !!ql && !ch.some(c=>(c.title+' '+c.note+' '+c.cmd).toLowerCase().includes(ql)),
+      watchedLabel: `${allW}/${allT} chapters`, watchedPct: (allW/allT*100).toFixed(1),
+      toastOn: !!s.toast, toast: s.toast
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>LogLens AI: AI Log Analyzer &amp; Monitoring Tool</title>
+<meta name="description" content="LogLens AI is a free, open-source, self-hosted AI log analyzer. It flags the few lines that signal a real failure and explains them, without uploading a single log line.">
+<link rel="canonical" href="https://www.loglensai.com/">
+<meta name="theme-color" content="#05080F">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#05080F;color:#A7B3C6;font-family:'IBM Plex Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#5CC8FF;text-decoration:none}
+a:hover{color:#E6EDF7}
+*{box-sizing:border-box}
+::selection{background:#9B8CFF;color:#05080F}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:radial-gradient(1200px 600px at 70% -10%, rgba(92,200,255,.07), transparent 60%), #05080F;filter:{{ rootFilter }};">
+
+<sc-if value="{{ showDevfest }}" hint-placeholder-val="{{ true }}">
+<div style="background:#0B111C;border-bottom:1px solid rgba(148,163,184,.12);">
+<div style="max-width:1200px;margin:0 auto;padding:10px 24px;display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:13px;color:#A7B3C6;">
+<span style="color:#FFB547;">● DevFest · 10 Oct 2026</span>
+<span>Catch the LogLens talk, then try the sandbox.</span>
+<a href="#sandbox" style="color:#5CC8FF;">Open the playground →</a>
+</div>
+</div>
+</sc-if>
+
+<nav style="position:sticky;top:0;z-index:50;background:rgba(5,8,15,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(148,163,184,.12);">
+<div style="max-width:1200px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:24px;">
+<a href="#top" style="display:flex;align-items:center;gap:10px;color:#E6EDF7;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:15px;flex-shrink:0;">
+<img src="assets/loglens-mark.png" alt="LogLens AI logo" width="28" height="28" style="width:28px;height:28px;border-radius:50%;filter:{{ rootFilter }};">
+<span>LogLens AI</span>
+</a>
+<div style="display:flex;gap:20px;font-size:14px;flex:1;min-width:0;overflow-x:auto;white-space:nowrap;scrollbar-width:none;">
+<a href="#product" style="color:#A7B3C6;">Product</a>
+<a href="#sandbox" style="color:#A7B3C6;">Playground</a>
+<a href="#academy" style="color:#A7B3C6;">Academy</a>
+<a href="LogLens Docs.dc.html" style="color:#A7B3C6;">Docs</a>
+<a href="LogLens Tour.dc.html" style="color:#A7B3C6;">Tour</a>
+<a href="LogLens Pricing.dc.html" style="color:#A7B3C6;">Pricing</a>
+<a href="LogLens Compare.dc.html" style="color:#A7B3C6;">Compare</a>
+</div>
+<div style="display:flex;align-items:center;gap:10px;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9B8CFF;border:1px solid rgba(155,140,255,.35);border-radius:999px;padding:5px 10px;font-variant-numeric:tabular-nums;white-space:nowrap;" title="Your session XP, stored only in this browser">XP {{ xp }}</span>
+<button onClick="{{ toggleTheme }}" aria-label="Toggle light/dark theme" style="font-size:15px;color:#E6EDF7;background:transparent;border:1px solid rgba(148,163,184,.2);border-radius:10px;width:36px;height:36px;cursor:pointer;">{{ themeIcon }}</button>
+<a href="https://github.com/LoglensAI/LogLens-AI" style="font-size:14px;color:#E6EDF7;border:1px solid rgba(148,163,184,.2);border-radius:10px;padding:8px 12px;white-space:nowrap;">GitHub ★</a>
+<a href="#sandbox" style="font-size:14px;font-weight:600;color:#05080F;background:#E6EDF7;border-radius:10px;padding:8px 14px;" style-hover="background:#5CC8FF;color:#05080F">Try it free</a>
+</div>
+</div>
+</nav>
+
+<main id="top">
+
+<section style="max-width:1200px;margin:0 auto;padding:72px 24px 56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:48px;align-items:center;">
+<div style="display:flex;flex-direction:column;gap:24px;">
+<div style="display:inline-flex;align-self:flex-start;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#A7B3C6;border:1px solid rgba(148,163,184,.18);border-radius:999px;padding:6px 12px;background:#0B111C;white-space:nowrap;">
+<span style="width:7px;height:7px;border-radius:50%;background:#3DDC97;box-shadow:0 0 10px #3DDC97;"></span>
+<span>Engine v0.13.0 · MIT · 0 lines uploaded</span>
+</div>
+<h1 style="margin:0;font-family:'Geist',sans-serif;font-weight:600;font-size:clamp(40px,5.6vw,72px);line-height:1.02;letter-spacing:-.03em;color:#E6EDF7;text-wrap:balance;">The AI log analyzer that never ships your logs anywhere.</h1>
+<p style="margin:0;font-size:18px;line-height:1.6;max-width:540px;text-wrap:pretty;">LogLens AI reads logs where they already live, flags the few lines that signal a real failure, groups repeats into incident families and explains each one in plain language. No baselines, no labelling, no training. Install, point, read.</p>
+<div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#6B7A90;">Self-hosted · zero-touch · MIT open source · 0 log lines uploaded</div>
+<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+<a href="#sandbox" style="font-weight:600;font-size:16px;color:#05080F;background:#E6EDF7;border-radius:12px;padding:14px 22px;transition:transform .2s, background .2s;" style-hover="background:#5CC8FF;color:#05080F;transform:translateY(-2px)">Try it in your browser</a>
+<button onClick="{{ copyPipx }}" style="display:flex;gap:12px;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:14px;color:#E6EDF7;background:#0B111C;border:1px solid rgba(148,163,184,.2);border-radius:12px;padding:13px 16px;cursor:pointer;" style-hover="border-color:rgba(92,200,255,.6)">
+<span style="color:#6B7A90;">$</span><span>pipx install loglensai</span><span style="color:#3DDC97;font-size:12px;">{{ pipxLabel }}</span>
+</button>
+</div>
+<sc-if value="{{ pipxCopied }}" hint-placeholder-val="{{ false }}">
+<div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#3DDC97;">Copied · +10 XP. Next: loglens analyze --source app.log</div>
+</sc-if>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:1px;background:rgba(148,163,184,.12);border:1px solid rgba(148,163,184,.12);border-radius:14px;overflow:hidden;margin-top:8px;">
+<div style="background:#05080F;padding:14px 16px;display:flex;flex-direction:column;gap:4px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:22px;color:#E6EDF7;font-variant-numeric:tabular-nums;">1,400+</span><span style="font-size:12px;">PyPI downloads</span></div>
+<div style="background:#05080F;padding:14px 16px;display:flex;flex-direction:column;gap:4px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:22px;color:#E6EDF7;font-variant-numeric:tabular-nums;">450+</span><span style="font-size:12px;">Docker Hub pulls</span></div>
+<div style="background:#05080F;padding:14px 16px;display:flex;flex-direction:column;gap:4px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:22px;color:#E6EDF7;font-variant-numeric:tabular-nums;">~7×</span><span style="font-size:12px;">faster warm runs</span></div>
+<div style="background:#05080F;padding:14px 16px;display:flex;flex-direction:column;gap:4px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:22px;color:#3DDC97;font-variant-numeric:tabular-nums;">0</span><span style="font-size:12px;">lines uploaded</span></div>
+</div>
+<div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6B7A90;display:flex;gap:8px;align-items:center;"><span style="color:#3DDC97;border:1px solid rgba(61,220,151,.4);border-radius:6px;padding:2px 6px;">MEASURED</span><span>Warm daemon ≈2.4 s → ≈0.33 s. Downloads as of Oct 2026.</span></div>
+</div>
+
+<div style="position:relative;background:#0B111C;border:1px solid rgba(148,163,184,.14);border-radius:20px;overflow:hidden;box-shadow:0 40px 120px -40px rgba(92,200,255,.25);">
+<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid rgba(148,163,184,.12);font-family:'IBM Plex Mono',monospace;font-size:12px;">
+<span style="color:#E6EDF7;">loglens watch · kubectl logs -f checkout</span>
+<span style="color:#6B7A90;">{{ lensHint }}</span>
+</div>
+<div ref="{{ heroRef }}" onMouseMove="{{ heroMove }}" onMouseLeave="{{ heroLeave }}" style="position:relative;height:436px;padding:10px 16px;overflow:hidden;font-family:'IBM Plex Mono',monospace;font-size:12.5px;cursor:crosshair;">
+<sc-for list="{{ heroLines }}" as="l" hint-placeholder-count="16">
+<div style="height:26px;display:flex;gap:12px;align-items:center;white-space:nowrap;opacity:{{ l.op }};filter:blur({{ l.blur }}px);transition:opacity .25s, filter .25s;">
+<span style="color:#6B7A90;">{{ l.ts }}</span>
+<span style="color:{{ l.lvlColor }};width:40px;">{{ l.lvl }}</span>
+<span style="color:{{ l.msgColor }};text-shadow:{{ l.glow }};">{{ l.msg }}</span>
+<sc-if value="{{ l.tip }}" hint-placeholder-val="{{ false }}">
+<span style="color:#05080F;background:#FF5C7A;border-radius:6px;padding:2px 8px;font-size:11px;">score {{ l.score }} · why: {{ l.why }}</span>
+</sc-if>
+</div>
+</sc-for>
+<sc-if value="{{ lensOn }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:{{ lensX }}px;top:{{ lensY }}px;width:160px;height:160px;margin:-80px 0 0 -80px;border-radius:50%;border:1px solid {{ lensRing }};box-shadow:0 0 0 1px rgba(5,8,15,.6), 0 0 60px rgba(92,200,255,.18), inset 0 0 40px rgba(155,140,255,.12);pointer-events:none;transition:{{ lensTrans }};"></div>
+</sc-if>
+</div>
+<div style="display:flex;justify-content:space-between;padding:10px 16px;border-top:1px solid rgba(148,163,184,.12);font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6B7A90;">
+<span>Illustrative stream</span>
+<span style="color:#FF5C7A;">{{ anomalyCount }} anomalies flagged</span>
+</div>
+</div>
+</section>
+
+<section id="sandbox" style="max-width:1200px;margin:0 auto;padding:72px 24px;">
+<div style="display:flex;flex-direction:column;gap:14px;max-width:720px;margin-bottom:32px;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#5CC8FF;letter-spacing:.08em;">PLAYGROUND · NO INSTALL</span>
+<h2 style="margin:0;font-family:'Geist',sans-serif;font-weight:600;font-size:clamp(32px,4vw,52px);line-height:1.05;letter-spacing:-.02em;color:#E6EDF7;text-wrap:balance;">Feel it in 30 seconds. Pick a mission.</h2>
+<p style="margin:0;font-size:17px;line-height:1.6;">Run real LogLens commands against sample incidents. Press <span style="font-family:'IBM Plex Mono',monospace;color:#E6EDF7;border:1px solid rgba(148,163,184,.25);border-radius:5px;padding:1px 6px;">/</span> to focus the terminal.</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px;margin-bottom:16px;">
+<sc-for list="{{ missions }}" as="m" hint-placeholder-count="3">
+<button onClick="{{ m.pick }}" style="text-align:left;display:flex;flex-direction:column;gap:8px;background:{{ m.bg }};border:1px solid {{ m.border }};border-radius:14px;padding:16px;cursor:pointer;color:#A7B3C6;font-family:inherit;transition:border-color .2s, background .2s;">
+<div style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6B7A90;"><span>{{ m.diff }}</span><span>{{ m.time }}</span></div>
+<span style="font-family:'Geist',sans-serif;font-size:19px;font-weight:600;color:#E6EDF7;">{{ m.name }}</span>
+<span style="font-size:14px;line-height:1.5;">{{ m.desc }}</span>
+</button>
+</sc-for>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:16px;">
+<div style="background:#070B14;border:1px solid rgba(148,163,184,.14);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid rgba(148,163,184,.12);flex-wrap:wrap;">
+<div style="display:flex;gap:6px;"><span style="width:10px;height:10px;border-radius:50%;background:#FF5C7A;"></span><span style="width:10px;height:10px;border-radius:50%;background:#FFB547;"></span><span style="width:10px;height:10px;border-radius:50%;background:#3DDC97;"></span></div>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#FFB547;border:1px solid rgba(255,181,71,.35);border-radius:6px;padding:3px 8px;" title="v1 replays a recorded real run. v2 (target) runs LogLens in the browser via WebAssembly.">REPLAY MODE · recorded v0.13.0 run</span>
+</div>
+<div ref="{{ termBody }}" onClick="{{ focusTerm }}" style="height:340px;overflow:auto;padding:16px;font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:1.65;" aria-live="polite">
+<sc-for list="{{ term }}" as="t" hint-placeholder-count="3">
+<div style="color:{{ t.color }};white-space:pre-wrap;">{{ t.text }}</div>
+</sc-for>
+<div style="display:flex;gap:8px;align-items:center;">
+<span style="color:#3DDC97;">operator@lens</span><span style="color:#6B7A90;">$</span>
+<input ref="{{ inRef }}" value="{{ input }}" onChange="{{ onInput }}" onKeyDown="{{ onTermKey }}" spellcheck="false" aria-label="Sandbox terminal" style="flex:1;background:transparent;border:0;outline:0;color:#E6EDF7;font:inherit;caret-color:#5CC8FF;">
+</div>
+</div>
+<div style="display:flex;gap:10px;padding:12px 16px;border-top:1px solid rgba(148,163,184,.12);flex-wrap:wrap;align-items:center;">
+<button onClick="{{ runMission }}" style="font-family:inherit;font-weight:600;font-size:14px;color:#05080F;background:#5CC8FF;border:0;border-radius:10px;padding:10px 16px;cursor:pointer;">{{ runLabel }}</button>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6B7A90;">try: loglens --help · echo $? · whoami</span>
+</div>
+</div>
+<div style="background:#0B111C;border:1px solid rgba(148,163,184,.14);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:14px;min-height:420px;">
+<div style="display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:12px;">
+<span style="color:#E6EDF7;">Incidents</span>
+<span style="color:#6B7A90;">{{ canvasMeta }}</span>
+</div>
+<sc-if value="{{ noFound }}" hint-placeholder-val="{{ true }}">
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border:1px dashed rgba(148,163,184,.2);border-radius:14px;padding:24px;text-align:center;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#6B7A90;">{{ canvasIdle }}</span>
+</div>
+</sc-if>
+<sc-for list="{{ found }}" as="f" hint-placeholder-count="0">
+<div style="background:#05080F;border:1px solid {{ f.border }};border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px;">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:12px;">
+<span style="color:{{ f.color }};">{{ f.lvl }} · {{ f.svc }} · ×{{ f.count }}</span>
+<span style="color:#E6EDF7;font-variant-numeric:tabular-nums;">score {{ f.score }}</span>
+</div>
+<div style="height:4px;border-radius:4px;background:rgba(148,163,184,.12);overflow:hidden;"><div style="height:100%;width:{{ f.pct }}%;background:{{ f.color }};border-radius:4px;"></div></div>
+<div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#E6EDF7;">{{ f.msg }}</div>
+<div style="font-size:13px;color:#9B8CFF;">why: {{ f.why }}</div>
+</div>
+</sc-for>
+<sc-if value="{{ missionDone }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top:auto;display:flex;gap:10px;flex-wrap:wrap;align-items:center;border-top:1px solid rgba(148,163,184,.12);padding-top:14px;">
+<span style="font-size:14px;color:#E6EDF7;flex:1;min-width:200px;">Run this on your own servers.</span>
+<a href="#install" style="font-size:14px;font-weight:600;color:#05080F;background:#E6EDF7;border-radius:10px;padding:9px 14px;">Install</a>
+<a href="#pricing" style="font-size:14px;color:#C9A7FF;border:1px dashed #C9A7FF;border-radius:10px;padding:8px 14px;">Get Premium early</a>
+</div>
+</sc-if>
+</div>
+</div>
+</section>
+
+<section ref="{{ collRef }}" style="height:240vh;position:relative;">
+<div style="position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;max-width:1200px;margin:0 auto;padding:60px 24px;gap:28px;">
+<div style="display:flex;flex-direction:column;gap:14px;max-width:720px;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#FF5C7A;letter-spacing:.08em;">INCIDENT FAMILIES</span>
+<h2 style="margin:0;font-family:'Geist',sans-serif;font-weight:600;font-size:clamp(32px,4vw,52px);line-height:1.05;letter-spacing:-.02em;color:#E6EDF7;"><span style="font-variant-numeric:tabular-nums;">{{ collCount }}</span> errors → 1 incident.</h2>
+<p style="margin:0;font-size:17px;line-height:1.6;">Your engineers see one incident with a count, a score and a reason, not a wall of red. Keep scrolling.</p>
+</div>
+<div style="position:relative;height:min(46vh,420px);border:1px solid rgba(148,163,184,.12);border-radius:20px;background:#070B14;overflow:hidden;">
+<sc-for list="{{ bars }}" as="b" hint-placeholder-count="0">
+<div style="position:absolute;left:{{ b.l }}%;top:{{ b.t }}%;width:{{ b.w }}px;height:3px;border-radius:2px;background:#FF5C7A;opacity:{{ b.o }};"></div>
+</sc-for>
+<div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale({{ cardScale }});opacity:{{ cardOp }};width:min(88%,440px);background:#0B111C;border:1px solid rgba(255,92,122,.5);border-radius:16px;padding:20px;box-shadow:0 0 80px rgba(255,92,122,.22);display:flex;flex-direction:column;gap:10px;">
+<div style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:12px;"><span style="color:#FF5C7A;">INCIDENT · db</span><span style="color:#E6EDF7;font-variant-numeric:tabular-nums;">×{{ collCount }} · score 0.95</span></div>
+<div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#E6EDF7;">connection refused | host=db-1</div>
+<div style="font-size:14px;color:#9B8CFF;">why: severity ERROR, failure keyword, burst</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="product" style="max-width:1200px;margin:0 auto;padding:72px 24px;">
+<div style="display:flex;flex-direction:column;gap:14px;max-width:720px;margin-bottom:36px;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#5CC8FF;letter-spacing:.08em;">WHY SELF-HOSTED</span>
+<h2 style="margin:0;font-family:'Geist',sans-serif;font-weight:600;font-size:clamp(32px,4vw,52px);line-height:1.05;letter-spacing:-.02em;color:#E6EDF7;text-wrap:balance;">Built for the people accountable for uptime.</h2>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;">
+<div style="background:#0B111C;border:1px solid rgba(148,163,184,.12);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:14px;transition:border-color .25s, transform .25s;" style-hover="border-color:rgba(61,220,151,.45);transform:translateY(-3px)">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:28px;color:#3DDC97;">0 B</span>
+<h3 style="margin:0;font-family:'Geist',sans-serif;font-size:22px;color:#E6EDF7;font-weight:600;">Data stays sovereign</h3>
+<p style="margin:0;line-height:1.6;">Logs are read, parsed and analyzed on your machines. AI root-cause is opt-in and sends anomaly summaries, never full logs.</p>
+</div>
+<div style="background:#0B111C;border:1px solid rgba(148,163,184,.12);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:14px;transition:border-color .25s, transform .25s;" style-hover="border-color:rgba(92,200,255,.45);transform:translateY(-3px)">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:28px;color:#5CC8FF;">₹0 / GB</span>
+<h3 style="margin:0;font-family:'Geist',sans-serif;font-size:22px;color:#E6EDF7;font-weight:600;">Cost stays predictable</h3>
+<p style="margin:0;line-height:1.6;">It runs on hardware you already operate, so log growth never turns into a surprise invoice.</p>
+</div>
+<div style="background:#0B111C;border:1px solid rgba(148,163,184,.12);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:14px;transition:border-color .25s, transform .25s;" style-hover="border-color:rgba(155,140,255,.45);transform:translateY(-3px)">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:28px;color:#9B8CFF;">1 binary</span>
+<h3 style="margin:0;font-family:'Geist',sans-serif;font-size:22px;color:#E6EDF7;font-weight:600;">Operations stay simple</h3>
+<p style="margin:0;line-height:1.6;">Installed from your normal package manager. Registers as a systemd, launchd or Windows service. Stable exit codes.</p>
+</div>
+</div>
+</section>
+
+<section style="max-width:1200px;margin:0 auto;padding:40px 24px 72px;">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:32px;align-items:center;">
+<a href="LogLens Tour.dc.html" onMouseEnter="{{ ovEnter }}" onMouseLeave="{{ ovLeave }}" style="position:relative;display:block;aspect-ratio:16/9;border-radius:20px;overflow:hidden;border:1px solid rgba(148,163,184,.14);background:#000;box-shadow:0 40px 120px -40px rgba(155,140,255,.35);" style-hover="border-color:rgba(92,200,255,.5)">
+<video ref="{{ ovRef }}" src="{{ ovSrc }}" onLoadedMetadata="{{ ovMeta }}" poster="assets/thumbs/ov-24.png" muted="" playsinline="" loop="" preload="none" style="width:100%;height:100%;object-fit:cover;display:block;filter:{{ rootFilter }};"></video>
+<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,transparent 50%,rgba(5,8,15,.7));">
+<span style="width:76px;height:76px;border-radius:50%;background:#E6EDF7;display:flex;align-items:center;justify-content:center;color:#05080F;font-size:24px;padding-left:5px;box-shadow:0 0 0 10px rgba(230,237,247,.12);opacity:{{ ovPlayOp }};transition:opacity .25s;">▶</span>
+</div>
+<span style="position:absolute;top:14px;left:14px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#E6EDF7;background:rgba(5,8,15,.8);border-radius:6px;padding:4px 8px;">1:16 · no signup</span>
+<span style="position:absolute;top:14px;right:14px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#9B8CFF;background:rgba(5,8,15,.8);border-radius:6px;padding:4px 8px;">{{ ovHint }}</span>
+<div style="position:absolute;left:14px;right:14px;bottom:14px;display:grid;grid-template-columns:repeat(7,1fr);gap:4px;">
+<div style="height:4px;border-radius:2px;background:#5CC8FF;"></div><div style="height:4px;border-radius:2px;background:rgba(230,237,247,.35);"></div><div style="height:4px;border-radius:2px;background:rgba(230,237,247,.35);"></div><div style="height:4px;border-radius:2px;background:rgba(230,237,247,.35);"></div><div style="height:4px;border-radius:2px;background:rgba(230,237,247,.35);"></div><div style="height:4px;border-radius:2px;background:rgba(230,237,247,.35);"></div><div style="height:4px;border-radius:2px;background:rgba(230,237,247,.35);"></div>
+</div>
+</a>
+<div style="display:flex;flex-direction:column;gap:16px;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#5CC8FF;letter-spacing:.08em;">SEE IT WORKING</span>
+<h2 style="margin:0;font-family:'Geist',sans-serif;font-weight:600;font-size:clamp(28px,3.4vw,44px);line-height:1.08;letter-spacing:-.02em;color:#E6EDF7;">Watch before you install.</h2>
+<p style="margin:0;font-size:17px;line-height:1.6;">The why in 76 seconds. Hover to preview. The tour pauses at key moments so you can run each command yourself.</p>
+<div style="display:flex;flex-direction:column;gap:2px;font-family:'IBM Plex Mono',monospace;font-size:13px;">
+<a href="LogLens Tour.dc.html" style="display:flex;gap:16px;padding:10px 0;border-bottom:1px solid rgba(148,163,184,.12);color:#E6EDF7;"><span style="color:#5CC8FF;">0:24</span><span>LogLens reads the logs</span></a>
+<a href="LogLens Tour.dc.html" style="display:flex;gap:16px;padding:10px 0;border-bottom:1px solid rgba(148,163,184,.12);color:#E6EDF7;"><span style="color:#5CC8FF;">0:48</span><span>Your logs never leave</span></a>
+<a href="LogLens Tour.dc.html" style="display:flex;gap:16px;padding:10px 0;border-bottom:1px solid rgba(148,163,184,.12);color:#E6EDF7;"><span style="color:#5CC8FF;">1:00</span><span>Secure by design</span></a>
+</div>
+<div style="display:flex;gap:12px;flex-wrap:wrap;"><a href="LogLens Tour.dc.html" style="font-weight:600;font-size:15px;color:#05080F;background:#E6EDF7;border-radius:12px;padding:12px 18px;">Watch the interactive tour</a><a href="LogLens Tour.dc.html" style="font-size:15px;color:#E6EDF7;border:1px solid rgba(148,163,184,.2);border-radius:12px;padding:11px 18px;">Walkthrough · 1:57</a></div>
+</div>
+</div>
+</section>
+
+<section style="max-width:1200px;margin:0 auto;padding:72px 24px;">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:28px;">
+<div style="display:flex;flex-direction:column;gap:14px;max-width:640px;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#5CC8FF;letter-spacing:.08em;">HOW IT WORKS</span>
+<h2 style="margin:0;font-family:'Geist',sans-serif;font-weight:600;font-size:clamp(32px,4vw,52px);line-height:1.05;letter-spacing:-.02em;color:#E6EDF7;">Six stages. All on your host.</h2>
+</div>
+<button onClick="{{ toggleEli5 }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#E6EDF7;background:#0B111C;border:1px solid rgba(148,163,184,.2);border-radius:999px;padding:8px 14px;cursor:pointer;">{{ eli5Label }}</button>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-bottom:16px;">
+<sc-for list="{{ stages }}" as="s" hint-placeholder-count="6">
+<button onClick="{{ s.pick }}" style="text-align:left;font-family:inherit;display:flex;flex-direction:column;gap:6px;background:{{ s.bg }};border:1px solid {{ s.border }};border-radius:14px;padding:14px 16px;cursor:pointer;transition:all .2s;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6B7A90;">0{{ s.n }}</span>
+<span style="font-family:'Geist',sans-serif;font-size:18px;font-weight:600;color:#E6EDF7;">{{ s.name }}</span>
+</button>
+</sc-for>
+</div>
+<div style="background:#0B111C;border:1px solid rgba(148,163,184,.12);border-radius:16px;padding:22px 24px;display:flex;gap:16px;align-items:baseline;flex-wrap:wrap;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9B8CFF;">{{ stageMode }}</span>
+<p style="margin:0;font-size:17px;line-height:1.6;color:#E6EDF7;flex:1;min-width:260px;">{{ stageText }}</p>
+</div>
+</section>
+
+<section style="max-width:1200px;margin:0 auto;padding:40px 24px 72px;">
+<div style="display:flex;flex-direction:column;gap:14px;max-width:720px;margin-bottom:32px;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#5CC8FF;letter-spacing:.08em;">DAY ONE</span>
+<h2 style="margin:0;font-family:'Geist',sans-serif;font-weight:600;font-size:clamp(32px,4vw,52px);line-height:1.05;letter-spacing:-.02em;color:#E6EDF7;">What your team gets, free, today.</h2>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:1px;background:rgba(148,163,184,.12);border:1px solid rgba(148,163,184,.12);border-radius:20px;overflow:hidden;">
+<sc-for list="{{ features }}" as="f" hint-placeholder-count="8">
+<div style="background:#05080F;padding:24px;display:flex;flex-direction:column;gap:8px;transition:background .2s;" style-hover="background:#0B111C">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:{{ f.color }};">{{ f.tag }}</span>
+<span style="font-family:'Geist',sans-serif;font-size:19px;font-weight:600;color:#E6EDF7;">{{ f.name }}</span>
+<span style="font-size:14px;line-height:1.55;">{{ f.desc }}</span>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section style="max-width:1200px;margin:0 auto;padding:40px 24px 72px;">
+<div style="display:flex;flex-direction:column;gap:14px;max-width:760px;margin-bottom:32px;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#C9A7FF;letter-spacing:.08em;">ROADMAP</span>
+<h2 style="margin:0;font-family:'Geist',sans-serif;font-weight:600;font-size:clamp(32px,4vw,52px);line-height:1.05;letter-spacing:-.02em;color:#E6EDF7;text-wrap:balance;">From log analyzer to AI monitoring tool.</h2>
+<p style="margin:0;font-size:17px;line-height:1.6;">Logs are the first and strongest signal, so that's where we started. Application monitoring with metrics and traces is in the pipeline.</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;">
+<div style="border:1px solid rgba(61,220,151,.45);background:#0B111C;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:8px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#3DDC97;">● LIVE · v0.13.0</span><span style="font-family:'Geist',sans-serif;font-size:20px;font-weight:600;color:#E6EDF7;">Logs</span><span style="font-size:14px;line-height:1.5;">Anomaly detection, incident families, CI gate, offline reports.</span></div>
+<div style="border:1px dashed #C9A7FF;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:8px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#C9A7FF;">IN THE PIPELINE · Nov–Dec 2026</span><span style="font-family:'Geist',sans-serif;font-size:20px;font-weight:600;color:#E6EDF7;">Metrics</span><span style="font-size:14px;line-height:1.5;">Prometheus and OTLP metrics.</span></div>
+<div style="border:1px dashed #C9A7FF;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:8px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#C9A7FF;">IN THE PIPELINE · Q1 2027</span><span style="font-family:'Geist',sans-serif;font-size:20px;font-weight:600;color:#E6EDF7;">Traces + change events</span><span style="font-size:14px;line-height:1.5;">OTLP traces and deploy events for "what changed?" root cause.</span></div>
+<div style="border:1px dashed #C9A7FF;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:8px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#C9A7FF;">IN THE PIPELINE</span><span style="font-family:'Geist',sans-serif;font-size:20px;font-weight:600;color:#E6EDF7;">Cluster mode</span><span style="font-size:14px;line-height:1.5;">Premium Go engine. Many nodes' cores scheduled as one machine, with failover.</span></div>
+</div>
+</section>
+
+<section id="install" style="max-width:1200px;margin:0 auto;padding:72px 24px;">
+<div style="display:flex;flex-direction:column;gap:14px;max-width:720px;margin-bottom:28px;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#5CC8FF;letter-spacing:.08em;">INSTALL</span>
+<h2 style="margin:0;font-family:'Geist',sans-serif;font-weight:600;font-size:clamp(32px,4vw,52px);line-height:1.05;letter-spacing:-.02em;color:#E6EDF7;">Deploys like any other system package.</h2>
+<p style="margin:0;font-size:17px;line-height:1.6;">Native installers bundle neural mode and need no Python. New in v0.13.0: one-line installers, Windows MSI, Scoop and Intel macOS builds.</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px;align-items:start;">
+<div style="background:#070B14;border:1px solid rgba(148,163,184,.14);border-radius:18px;overflow:hidden;">
+<div style="display:flex;gap:4px;padding:8px;border-bottom:1px solid rgba(148,163,184,.12);flex-wrap:wrap;">
+<sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5">
+<button onClick="{{ t.pick }}" style="font-family:inherit;font-size:14px;color:{{ t.color }};background:{{ t.bg }};border:0;border-radius:8px;padding:8px 14px;cursor:pointer;">{{ t.name }}</button>
+</sc-for>
+</div>
+<div style="padding:16px;display:flex;flex-direction:column;gap:14px;">
+<sc-for list="{{ installItems }}" as="i" hint-placeholder-count="2">
+<div style="display:flex;flex-direction:column;gap:6px;">
+<span style="font-size:13px;color:#6B7A90;">{{ i.label }}</span>
+<div style="display:flex;gap:10px;align-items:flex-start;background:#0B111C;border:1px solid rgba(148,163,184,.12);border-radius:10px;padding:12px;">
+<code style="flex:1;font-family:'IBM Plex Mono',monospace;font-size:13px;color:#E6EDF7;word-break:break-all;line-height:1.55;">{{ i.cmd }}</code>
+<button onClick="{{ i.copy }}" style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:{{ i.btnColor }};background:transparent;border:1px solid rgba(148,163,184,.2);border-radius:6px;padding:4px 8px;cursor:pointer;">{{ i.btn }}</button>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="background:#0B111C;border:1px solid rgba(148,163,184,.12);border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:16px;">
+<h3 style="margin:0;font-family:'Geist',sans-serif;font-size:22px;color:#E6EDF7;font-weight:600;">Gates your pipelines</h3>
+<p style="margin:0;line-height:1.6;">Stable exit codes, JSON output and the official GitHub Action, now with sticky PR comments, SARIF upload and report artifacts.</p>
+<div style="display:flex;flex-direction:column;font-size:14px;">
+<div style="display:flex;gap:16px;padding:10px 0;border-bottom:1px solid rgba(148,163,184,.12);"><span style="font-family:'IBM Plex Mono',monospace;color:#3DDC97;width:20px;">0</span><span>Success, no gate tripped</span></div>
+<div style="display:flex;gap:16px;padding:10px 0;border-bottom:1px solid rgba(148,163,184,.12);"><span style="font-family:'IBM Plex Mono',monospace;color:#FFB547;width:20px;">1</span><span>Error: bad source, model or input</span></div>
+<div style="display:flex;gap:16px;padding:10px 0;"><span style="font-family:'IBM Plex Mono',monospace;color:#FF5C7A;width:20px;">2</span><span>--fail-on gate tripped: fail the build</span></div>
+</div>
+<code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:1.7;color:#A7B3C6;background:#05080F;border-radius:10px;padding:14px;white-space:pre;overflow:auto;">- uses: LoglensAI/LogLens-AI@v0.13.0
+  with:
+    source: "build.log"
+    fail-on: error
+    comment-on-pr: true
+    sarif: true</code>
+</div>
+</div>
+</section>
+
+<section id="academy" style="max-width:1200px;margin:0 auto;padding:72px 24px;">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:28px;">
+<div style="display:flex;flex-direction:column;gap:14px;max-width:640px;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9B8CFF;letter-spacing:.08em;">LOGLENS ACADEMY</span>
+<h2 style="margin:0;font-family:'Geist',sans-serif;font-weight:600;font-size:clamp(32px,4vw,52px);line-height:1.05;letter-spacing:-.02em;color:#E6EDF7;">Docs you can play. Rookie to Chief of Uptime.</h2>
+</div>
+<a href="LogLens Academy.dc.html" style="font-weight:600;font-size:15px;color:#05080F;background:#9B8CFF;border-radius:12px;padding:12px 18px;">Start Level 1 · 4 min</a>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:12px;">
+<sc-for list="{{ paths }}" as="p" hint-placeholder-count="5">
+<a href="{{ p.href }}" style="display:flex;flex-direction:column;gap:10px;background:#0B111C;border:1px solid rgba(148,163,184,.12);border-radius:16px;padding:20px;color:#A7B3C6;transition:border-color .2s, transform .2s;" style-hover="border-color:rgba(155,140,255,.5);transform:translateY(-3px);color:#A7B3C6">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6B7A90;">PATH {{ p.n }} · {{ p.levels }} levels</span>
+<span style="font-family:'Geist',sans-serif;font-size:19px;font-weight:600;color:#E6EDF7;">{{ p.name }}</span>
+<span style="font-size:13px;color:#9B8CFF;">{{ p.rank }}</span>
+<span style="font-size:14px;line-height:1.5;">{{ p.desc }}</span>
+</a>
+</sc-for>
+</div>
+</section>
+
+<section id="pricing" style="max-width:1200px;margin:0 auto;padding:72px 24px;">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:24px;">
+<div style="display:flex;flex-direction:column;gap:14px;max-width:680px;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#5CC8FF;letter-spacing:.08em;">PLANS</span>
+<h2 style="margin:0;font-family:'Geist',sans-serif;font-weight:600;font-size:clamp(32px,4vw,52px);line-height:1.05;letter-spacing:-.02em;color:#E6EDF7;">Core is free and live today.</h2>
+<p style="margin:0;font-size:17px;line-height:1.6;">Pro, Business, Apex and Enterprise run on the new Apex Go engine with AI monitoring. They're in the pipeline, and prices are revealed at launch.</p>
+</div>
+<a href="LogLens Pricing.dc.html" style="font-weight:600;font-size:15px;color:#05080F;background:#E6EDF7;border-radius:12px;padding:12px 18px;white-space:nowrap;" style-hover="background:#C9A7FF;color:#05080F">Explore every plan →</a>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:12px;">
+<a href="LogLens Pricing.dc.html" style="display:flex;flex-direction:column;gap:10px;background:#0B111C;border:1px solid rgba(61,220,151,.45);border-radius:18px;padding:20px;color:#A7B3C6;transition:transform .25s, border-color .25s;" style-hover="transform:translateY(-4px);border-color:#3DDC97;color:#A7B3C6">
+<span style="align-self:flex-start;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#3DDC97;border:1px solid #3DDC97;border-radius:6px;padding:3px 8px;white-space:nowrap;">LIVE · FREE · MIT</span>
+<span style="font-family:'Geist',sans-serif;font-size:22px;font-weight:600;color:#E6EDF7;">Core</span>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:22px;color:#E6EDF7;">₹0 · $0</span>
+<span style="font-size:13px;line-height:1.45;">Open-source engine, 1 node, unmetered.</span>
+<span style="font-size:12px;color:#6B7A90;margin-top:auto;">Install now</span>
+</a>
+<a href="LogLens Pricing.dc.html" style="display:flex;flex-direction:column;gap:10px;background:#0B111C;border:1px dashed rgba(201,167,255,.4);border-radius:18px;padding:20px;color:#A7B3C6;transition:transform .25s, border-color .25s;" style-hover="transform:translateY(-4px);border-color:#C9A7FF;color:#A7B3C6">
+<span style="align-self:flex-start;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#C9A7FF;border:1px dashed #C9A7FF;border-radius:6px;padding:3px 8px;white-space:nowrap;">IN THE PIPELINE</span>
+<span style="font-family:'Geist',sans-serif;font-size:22px;font-weight:600;color:#E6EDF7;">Pro</span>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C9A7FF;">Revealed at launch</span>
+<span style="font-size:13px;line-height:1.45;">Apex Go engine on every core of one box.</span>
+<span style="font-size:12px;color:#6B7A90;margin-top:auto;">Tap to see all features</span>
+</a>
+<a href="LogLens Pricing.dc.html" style="display:flex;flex-direction:column;gap:10px;background:#0B111C;border:1px dashed rgba(201,167,255,.4);border-radius:18px;padding:20px;color:#A7B3C6;transition:transform .25s, border-color .25s;" style-hover="transform:translateY(-4px);border-color:#C9A7FF;color:#A7B3C6">
+<span style="align-self:flex-start;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#C9A7FF;border:1px dashed #C9A7FF;border-radius:6px;padding:3px 8px;white-space:nowrap;">IN THE PIPELINE</span>
+<span style="font-family:'Geist',sans-serif;font-size:22px;font-weight:600;color:#E6EDF7;">Business</span>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C9A7FF;">Revealed at launch</span>
+<span style="font-size:13px;line-height:1.45;">Up to 5 nodes, HA leader, RCA graph, metrics.</span>
+<span style="font-size:12px;color:#6B7A90;margin-top:auto;">Tap to see all features</span>
+</a>
+<a href="LogLens Pricing.dc.html" style="display:flex;flex-direction:column;gap:10px;background:#0B111C;border:1px dashed rgba(201,167,255,.4);border-radius:18px;padding:20px;color:#A7B3C6;transition:transform .25s, border-color .25s;" style-hover="transform:translateY(-4px);border-color:#C9A7FF;color:#A7B3C6">
+<span style="align-self:flex-start;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#C9A7FF;border:1px dashed #C9A7FF;border-radius:6px;padding:3px 8px;white-space:nowrap;">IN THE PIPELINE</span>
+<span style="font-family:'Geist',sans-serif;font-size:22px;font-weight:600;color:#E6EDF7;">Apex</span>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C9A7FF;">Revealed at launch</span>
+<span style="font-size:13px;line-height:1.45;">16 nodes, AI narration, auto-heal, traces.</span>
+<span style="font-size:12px;color:#6B7A90;margin-top:auto;">Tap to see all features</span>
+</a>
+<a href="LogLens Pricing.dc.html" style="display:flex;flex-direction:column;gap:10px;background:#0B111C;border:1px dashed rgba(201,167,255,.4);border-radius:18px;padding:20px;color:#A7B3C6;transition:transform .25s, border-color .25s;" style-hover="transform:translateY(-4px);border-color:#C9A7FF;color:#A7B3C6">
+<span style="align-self:flex-start;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#C9A7FF;border:1px dashed #C9A7FF;border-radius:6px;padding:3px 8px;white-space:nowrap;">IN THE PIPELINE</span>
+<span style="font-family:'Geist',sans-serif;font-size:22px;font-weight:600;color:#E6EDF7;">Enterprise</span>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C9A7FF;">Custom</span>
+<span style="font-size:13px;line-height:1.45;">Unlimited nodes, SSO + SCIM, SLA.</span>
+<span style="font-size:12px;color:#6B7A90;margin-top:auto;">Talk to us</span>
+</a>
+</div>
+</section>
+
+<section id="security" style="max-width:1200px;margin:0 auto;padding:72px 24px;">
+<div style="display:flex;flex-direction:column;gap:14px;max-width:720px;margin-bottom:28px;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#3DDC97;letter-spacing:.08em;">SECURITY &amp; DATA FLOW</span>
+<h2 style="margin:0;font-family:'Geist',sans-serif;font-weight:600;font-size:clamp(32px,4vw,52px);line-height:1.05;letter-spacing:-.02em;color:#E6EDF7;">Know exactly where your data goes.</h2>
+</div>
+<div style="border:1px solid rgba(148,163,184,.12);border-radius:18px;overflow:auto;">
+<table style="width:100%;border-collapse:collapse;font-size:14px;min-width:640px;">
+<thead><tr style="background:#0B111C;text-align:left;"><th style="padding:14px 18px;color:#E6EDF7;font-weight:600;">Component</th><th style="padding:14px 18px;color:#E6EDF7;font-weight:600;">Where it runs</th><th style="padding:14px 18px;color:#E6EDF7;font-weight:600;">What leaves the host</th></tr></thead>
+<tbody>
+<tr style="border-top:1px solid rgba(148,163,184,.12);"><td style="padding:14px 18px;color:#E6EDF7;">Parsing &amp; detection</td><td style="padding:14px 18px;">On the host, as the invoking user</td><td style="padding:14px 18px;color:#3DDC97;">Nothing</td></tr>
+<tr style="border-top:1px solid rgba(148,163,184,.12);"><td style="padding:14px 18px;color:#E6EDF7;">Warm daemon</td><td style="padding:14px 18px;">Unix socket (0600, per user) or loopback TCP with a random token on Windows</td><td style="padding:14px 18px;color:#3DDC97;">Nothing, localhost only</td></tr>
+<tr style="border-top:1px solid rgba(148,163,184,.12);"><td style="padding:14px 18px;color:#E6EDF7;">Neural model (--deep)</td><td style="padding:14px 18px;">Bundled with native installs; local directory via LOGLENS_MODEL_DIR</td><td style="padding:14px 18px;color:#3DDC97;">Nothing, runs offline</td></tr>
+<tr style="border-top:1px solid rgba(148,163,184,.12);"><td style="padding:14px 18px;color:#E6EDF7;">AI root-cause &amp; ask</td><td style="padding:14px 18px;">Only when you pass --rca or use ask</td><td style="padding:14px 18px;"><span style="color:#FFB547;">Opt-in.</span> Anomaly summaries to your chosen provider, with count and token usage reported.</td></tr>
+<tr style="border-top:1px solid rgba(148,163,184,.12);"><td style="padding:14px 18px;color:#E6EDF7;">Alerts</td><td style="padding:14px 18px;">Only when you configure an alerter in the SDK</td><td style="padding:14px 18px;"><span style="color:#FFB547;">Opt-in.</span> The alert message, to the Slack, Teams or email destination you set.</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="faq" style="max-width:860px;margin:0 auto;padding:72px 24px;">
+<div style="display:flex;flex-direction:column;gap:14px;margin-bottom:24px;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#5CC8FF;letter-spacing:.08em;">QUESTIONS FROM IT LEADERS</span>
+<h2 style="margin:0;font-family:'Geist',sans-serif;font-weight:600;font-size:clamp(32px,4vw,52px);line-height:1.05;letter-spacing:-.02em;color:#E6EDF7;">The short answers.</h2>
+</div>
+<div style="display:flex;flex-direction:column;">
+<sc-for list="{{ faqs }}" as="f" hint-placeholder-count="7">
+<div style="border-top:1px solid rgba(148,163,184,.14);">
+<button onClick="{{ f.toggle }}" aria-expanded="{{ f.open }}" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;background:transparent;border:0;padding:20px 0;cursor:pointer;text-align:left;font-family:'IBM Plex Sans',sans-serif;font-size:17px;font-weight:500;color:#E6EDF7;">
+<span>{{ f.q }}</span>
+<span style="font-family:'IBM Plex Mono',monospace;color:#5CC8FF;transform:rotate({{ f.rot }}deg);transition:transform .25s;">+</span>
+</button>
+<sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+<p style="margin:0 0 20px;line-height:1.65;max-width:720px;">{{ f.a }}</p>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section id="waitlist" style="max-width:1200px;margin:0 auto;padding:72px 24px 96px;">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:40px;background:#0B111C;border:1px solid rgba(148,163,184,.14);border-radius:24px;padding:clamp(24px,4vw,48px);">
+<div style="display:flex;flex-direction:column;gap:16px;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#C9A7FF;letter-spacing:.08em;">WAITLIST · DESIGN PARTNERS</span>
+<h2 style="margin:0;font-family:'Geist',sans-serif;font-weight:600;font-size:clamp(30px,3.6vw,46px);line-height:1.06;letter-spacing:-.02em;color:#E6EDF7;">Planning a rollout? Talk to the person who builds it.</h2>
+<p style="margin:0;font-size:17px;line-height:1.6;">Your message goes straight to Paras Rajput. Design partners get free Apex during Preview.</p>
+<div style="display:flex;flex-direction:column;gap:12px;margin-top:8px;font-size:15px;">
+<div style="display:flex;gap:12px;"><span style="font-family:'IBM Plex Mono',monospace;color:#5CC8FF;">01</span><span>Share your setup: servers, log sources, compliance needs.</span></div>
+<div style="display:flex;gap:12px;"><span style="font-family:'IBM Plex Mono',monospace;color:#5CC8FF;">02</span><span>Get a personal reply by email.</span></div>
+<div style="display:flex;gap:12px;"><span style="font-family:'IBM Plex Mono',monospace;color:#5CC8FF;">03</span><span>Hear first when Premium opens.</span></div>
+</div>
+</div>
+<sc-if value="{{ formOk }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:12px;justify-content:center;align-items:flex-start;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#3DDC97;">● RECEIVED</span>
+<span style="font-family:'Geist',sans-serif;font-size:28px;font-weight:600;color:#E6EDF7;">Thank you. You'll hear back by email.</span>
+</div>
+</sc-if>
+<sc-if value="{{ formShow }}" hint-placeholder-val="{{ true }}">
+<form action="https://api.web3forms.com/submit" method="POST" onSubmit="{{ submit }}" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:14px;">
+<input type="hidden" name="access_key" value="46e9991b-a417-446f-b583-805c7b4b4365">
+<input type="hidden" name="subject" value="New LogLens AI enquiry">
+<input type="hidden" name="from_name" value="loglensai.com">
+<input type="hidden" name="plan" value="{{ plan }}">
+<input type="hidden" name="source" value="home">
+<input type="checkbox" name="botcheck" style="display:none">
+<label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#A7B3C6;">Full name<input name="name" required style="font:inherit;font-size:15px;color:#E6EDF7;background:#05080F;border:1px solid rgba(148,163,184,.2);border-radius:10px;padding:12px;outline:0;" style-focus="border-color:#5CC8FF"></label>
+<label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#A7B3C6;">Work email<input name="email" type="email" required style="font:inherit;font-size:15px;color:#E6EDF7;background:#05080F;border:1px solid rgba(148,163,184,.2);border-radius:10px;padding:12px;outline:0;" style-focus="border-color:#5CC8FF"></label>
+<label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#A7B3C6;">Company<input name="company" style="font:inherit;font-size:15px;color:#E6EDF7;background:#05080F;border:1px solid rgba(148,163,184,.2);border-radius:10px;padding:12px;outline:0;" style-focus="border-color:#5CC8FF"></label>
+<label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#A7B3C6;">Servers in scope<select name="servers" style="font:inherit;font-size:15px;color:#E6EDF7;background:#05080F;border:1px solid rgba(148,163,184,.2);border-radius:10px;padding:12px;"><option>1–10</option><option>11–50</option><option>51–200</option><option>200+</option></select></label>
+<label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#A7B3C6;grid-column:1/-1;">Interested in<select name="interest" value="{{ plan }}" onChange="{{ onPlan }}" style="font:inherit;font-size:15px;color:#E6EDF7;background:#05080F;border:1px solid rgba(148,163,184,.2);border-radius:10px;padding:12px;"><option>Pro</option><option>Business</option><option>Apex</option><option>Enterprise</option><option>Design partner</option></select></label>
+<label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#A7B3C6;grid-column:1/-1;">Anything we should know? (optional)<textarea name="message" rows="3" style="font:inherit;font-size:15px;color:#E6EDF7;background:#05080F;border:1px solid rgba(148,163,184,.2);border-radius:10px;padding:12px;outline:0;resize:vertical;" style-focus="border-color:#5CC8FF"></textarea></label>
+<div style="grid-column:1/-1;display:flex;gap:14px;align-items:center;flex-wrap:wrap;">
+<button type="submit" style="font-family:inherit;font-weight:600;font-size:15px;color:#05080F;background:#E6EDF7;border:0;border-radius:12px;padding:13px 22px;cursor:pointer;" style-hover="background:#5CC8FF">{{ submitLabel }}</button>
+<span style="font-size:13px;color:#6B7A90;">We only use your details to reply to you.</span>
+</div>
+<sc-if value="{{ formErr }}" hint-placeholder-val="{{ false }}">
+<span style="grid-column:1/-1;font-size:14px;color:#FF5C7A;">Something went wrong. Please try again, or email pr8101999@gmail.com.</span>
+</sc-if>
+</form>
+</sc-if>
+</div>
+</section>
+</main>
+
+<footer style="border-top:1px solid rgba(148,163,184,.12);">
+<div style="max-width:1200px;margin:0 auto;padding:48px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:32px;font-size:14px;">
+<div style="display:flex;flex-direction:column;gap:10px;">
+<span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:#E6EDF7;">LogLens AI</span>
+<span style="line-height:1.55;">The AI monitoring tool. Self-hosted, explainable log analysis.</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;"><span style="color:#E6EDF7;font-weight:500;">Product</span><a href="#product" style="color:#A7B3C6;">Log analyzer</a><a href="#product" style="color:#A7B3C6;">AI log analyzer</a><a href="LogLens Pricing.dc.html#ai-monitoring" style="color:#A7B3C6;">Application monitoring</a><a href="#security" style="color:#A7B3C6;">Security</a></div>
+<div style="display:flex;flex-direction:column;gap:10px;"><span style="color:#E6EDF7;font-weight:500;">Learn</span><a href="#sandbox" style="color:#A7B3C6;">Playground</a><a href="LogLens Academy.dc.html" style="color:#A7B3C6;">Academy</a><a href="LogLens Docs.dc.html" style="color:#A7B3C6;">Docs</a><a href="LogLens Docs.dc.html" style="color:#A7B3C6;">Glossary</a><a href="LogLens Docs.dc.html#changelog" style="color:#A7B3C6;">Changelog</a></div>
+<div style="display:flex;flex-direction:column;gap:10px;"><span style="color:#E6EDF7;font-weight:500;">Compare</span><a href="LogLens Compare.dc.html" style="color:#A7B3C6;">Splunk alternative</a><a href="LogLens Compare.dc.html" style="color:#A7B3C6;">Datadog alternative</a><a href="LogLens Compare.dc.html" style="color:#A7B3C6;">Grafana Loki vs LogLens</a><a href="LogLens Compare.dc.html" style="color:#A7B3C6;">Best log analyzer tools</a></div>
+<div style="display:flex;flex-direction:column;gap:10px;"><span style="color:#E6EDF7;font-weight:500;">Community</span><a href="https://github.com/LoglensAI/LogLens-AI" style="color:#A7B3C6;">GitHub</a><a href="https://pypi.org/project/loglensai/" style="color:#A7B3C6;">PyPI</a><a href="https://hub.docker.com/r/loglensai/loglens" style="color:#A7B3C6;">Docker Hub</a><a href="#waitlist" style="color:#A7B3C6;">Contact</a></div>
+</div>
+<div style="max-width:1200px;margin:0 auto;padding:18px 24px 32px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6B7A90;border-top:1px solid rgba(148,163,184,.08);">
+<span>© 2026 LogLens AI · Built by Paras Rajput · MIT License</span>
+<span>v0.13.0 · www.loglensai.com</span>
+</div>
+</footer>
+
+
+</div>
+<sc-if value="{{ toastOn }}" hint-placeholder-val="{{ false }}">
+<div role="status" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:100;background:#111A29;border:1px solid rgba(155,140,255,.5);border-radius:12px;padding:12px 18px;font-family:'IBM Plex Mono',monospace;font-size:13px;color:#E6EDF7;box-shadow:0 20px 60px rgba(0,0,0,.5);">{{ toast }}</div>
+</sc-if>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;dark&quot;,&quot;light&quot;],&quot;default&quot;:&quot;dark&quot;,&quot;tsType&quot;:&quot;'dark'|'light'&quot;,&quot;section&quot;:&quot;Page&quot;},&quot;showDevfest&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Page&quot;},&quot;heroLens&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;currency&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;INR&quot;,&quot;USD&quot;],&quot;default&quot;:&quot;INR&quot;,&quot;tsType&quot;:&quot;'INR'|'USD'&quot;,&quot;section&quot;:&quot;Pricing&quot;}}">
+const C = { ok:'#3DDC97', warn:'#FFB547', crit:'#FF5C7A', info:'#5CC8FF', ai:'#9B8CFF', ink:'#E6EDF7', body:'#A7B3C6', muted:'#6B7A90' };
+const NORMAL = ['GET /api/cart 200 18ms','worker heartbeat ok','GET /healthz 200 2ms','cache hit ratio 0.94','POST /api/session 201 41ms','queue depth 3','GET /api/products 200 27ms','gc pause 4ms','metrics flushed','tls handshake ok'];
+const ANOM = [
+  { lvl:'ERROR', msg:'connection refused | host=db-1', score:'0.95', why:'failure keyword, burst' },
+  { lvl:'WARN', msg:'upstream latency 2140ms /checkout', score:'0.71', why:'rare template, timing' },
+  { lvl:'ERROR', msg:'payment-svc OOMKilled (exit 137)', score:'0.92', why:'failure keyword, restart' }
+];
+const MISSIONS = [
+  { name:'Checkout is down', diff:'●○○ Rookie', time:'~3 min', desc:'E-commerce app log. A database connection-refused burst.', file:'checkout.log',
+    out:[['format: auto-detected · mode: fast · 48,210 lines parsed',C.muted],['████████████████████ 100% · 0.33 s (warm daemon)',C.info],['ERROR  db   ×47  score 0.95  connection refused | host=db-1',C.crit],['       why: severity ERROR, failure keyword, burst',C.ai],['WARN   api  ×12  score 0.71  upstream latency 2140ms /checkout',C.warn],['       why: rare template, timing',C.ai],['INCIDENT 2 families · 59 of 48,210 lines flagged',C.ink]],
+    found:[{lvl:'ERROR',svc:'db',count:47,score:0.95,msg:'connection refused | host=db-1',why:'severity ERROR, failure keyword, burst'},{lvl:'WARN',svc:'api',count:12,score:0.71,msg:'upstream latency 2140ms /checkout',why:'rare template, timing'}], badge:'First Incident' },
+  { name:'Kubernetes CrashLoop', diff:'●●○ Operator', time:'~4 min', desc:'Pod logs ending in OOMKilled and a restart loop.', file:'payment-pod.log',
+    out:[['format: auto-detected · mode: fast · 12,904 lines parsed',C.muted],['████████████████████ 100% · 0.21 s',C.info],['ERROR  payment-svc  ×9  score 0.92  OOMKilled (exit 137)',C.crit],['       why: failure keyword, restart pattern',C.ai],['WARN   payment-svc  ×31 score 0.68  heap usage 97% of limit',C.warn],['       why: value drift before failure',C.ai],['INCIDENT 2 families · 40 of 12,904 lines flagged',C.ink]],
+    found:[{lvl:'ERROR',svc:'payment-svc',count:9,score:0.92,msg:'OOMKilled (exit 137)',why:'failure keyword, restart pattern'},{lvl:'WARN',svc:'payment-svc',count:31,score:0.68,msg:'heap usage 97% of limit',why:'value drift before failure'}], badge:'Pod Whisperer' },
+  { name:'The silent failure', diff:'●●● SRE', time:'~5 min', desc:'Not a single ERROR line. Watch why AI beats grep.', file:'nightly-sync.log',
+    out:[['format: auto-detected · mode: deep · 31,377 lines parsed',C.muted],['████████████████████ 100% · 1.8 s (neural, offline)',C.info],['$ grep -c ERROR nightly-sync.log → 0',C.muted],['INFO   sync  ×1  score 0.83  manifest empty, warmup skipped',C.crit],['       why: never-seen template, sequence break',C.ai],['INCIDENT 1 family · 1 of 31,377 lines flagged',C.ink]],
+    found:[{lvl:'INFO',svc:'sync',count:1,score:0.83,msg:'manifest empty, warmup skipped',why:'never-seen template, sequence break'}], badge:'Silent Failure Hunter' }
+];
+const STAGES = [
+  ['Read','It opens your log files or live streams right where they are.','Files, stdin, URLs and docker / kubectl / tail streams. Large local files auto-split across CPU cores (--auto-scale).'],
+  ['Parse','It figures out the format on its own.','Format auto-detection extracts timestamp, level and message fields. No regex config.'],
+  ['Template','It notices that most lines are the same sentence with different numbers.','Lines are reduced to templates (variables masked), so 48,000 lines become a few hundred patterns.'],
+  ['Detect','It spots what is rare, bursty or out of order.','Template rarity, rate bursts, sequence breaks; deep mode adds a bundled neural model, offline.'],
+  ['Score','Every finding gets a 0 to 1 number: how worried to be.','Signals combine into a 0–1 anomaly score; repeats group into families by level + template.'],
+  ['Explain','It tells you why, in plain words.','Readable reasons per family. Optional AI root-cause with your own key sends summaries only.']
+];
+const FEATURES = [
+  ['SCORE 0–1',C.crit,'Explainable alerts','Every anomaly carries a score and readable reasons.'],
+  ['×N',C.crit,'Incident families','Repeats collapse into one family with a count.'],
+  ['STREAM',C.info,'Live watch','Flag issues in docker, kubectl or tail output as they happen.'],
+  ['FAST · TURBO · DEEP',C.info,'Three modes','Everyday, huge files, or semantic with a neural model.'],
+  ['EXIT 0/1/2',C.warn,'CI/CD gate','JSON, --fail-on, and a GitHub Action with SARIF and PR comments.'],
+  ['NEW',C.ok,'analyze-multi + explore','Correlate many sources; query saved results by window and severity.'],
+  ['HTML',C.ok,'Offline reports','A standalone file you can attach to a postmortem.'],
+  ['OPT-IN',C.ai,'AI root-cause','OpenAI, Azure or Groq with your own key. Summaries only.']
+];
+const TABS = [
+  ['Linux',[['One line, no package manager','curl -fsSL https://raw.githubusercontent.com/LoglensAI/LogLens-AI/main/scripts/install.sh | sh'],['Debian / Ubuntu',"curl -1sLf 'https://dl.cloudsmith.io/public/loglensai/loglensai-363o/setup.deb.sh' | sudo -E bash && sudo apt install loglens"],['Fedora / RHEL',"curl -1sLf 'https://dl.cloudsmith.io/public/loglensai/loglensai-363o/setup.rpm.sh' | sudo -E bash && sudo dnf install loglens"]]],
+  ['macOS',[['One line','curl -fsSL https://raw.githubusercontent.com/LoglensAI/LogLens-AI/main/scripts/install.sh | sh'],['Homebrew (Apple Silicon + Intel)','brew install loglensai/tap/loglens']]],
+  ['Windows',[['PowerShell, one line','irm https://raw.githubusercontent.com/LoglensAI/LogLens-AI/main/scripts/install.ps1 | iex'],['winget','winget install LoglensAI.LogLens'],['Scoop','scoop bucket add loglens https://github.com/LoglensAI/scoop-bucket && scoop install loglens'],['MSI (machine-wide)','github.com/LoglensAI/LogLens-AI/releases/latest → loglens-windows-x86_64.msi']]],
+  ['Python',[['pipx (Python 3.10+)','pipx install loglensai'],['With neural extra','pip install "loglensai[deep]"']]],
+  ['Docker',[['Multi-arch (amd64 + arm64)','docker run --rm -v "$PWD:/data" loglensai/loglens analyze --source app.log']]]
+];
+const PATHS = [
+  ['Foundations','Rookie Operator',4,'Install, first analysis, reading a score, incident families.','LogLens Academy.dc.html'],
+  ['Deploy','Field Engineer',4,'Package managers, daemon and services, air-gapped install.','LogLens Academy.dc.html'],
+  ['Operate','Night Shift',5,'Live watch, modes, explore, HTML reports for postmortems.','LogLens Academy.dc.html'],
+  ['Automate','Pipeline Guardian',5,'JSON output, --fail-on gates, the GitHub Action.','LogLens Academy.dc.html'],
+  ['Govern','Chief of Uptime',4,'Security model, AI root-cause with your key, cluster preview.','LogLens Academy.dc.html']
+];
+const PLANS = [
+  { name:'Core', live:true, inr:'₹0', usd:'$0', unit:'forever · MIT', scale:'1 node', ingest:'Unmetered, self-run', extra:'Templates + rate detection', cta:'Install free', href:'#install', min:1, max:1 },
+  { name:'Pro', inr:'₹4,999', usd:'$59', unit:'per node / month', scale:'1 node, all cores', ingest:'20 GB/day included', extra:'+ Sequence detection, heal suggestions', min:1, max:1 },
+  { name:'Business', inr:'₹24,999', usd:'$299', unit:'per month', scale:'Up to 5 nodes + HA leader', ingest:'200 GB/day included', extra:'+ RCA graph, metrics (Dec 2026)', min:2, max:5 },
+  { name:'Apex', inr:'₹74,999', usd:'$899', unit:'per month', scale:'Up to 16 nodes', ingest:'1 TB/day included', extra:'+ AI narration, traces (Q1 2027)', min:6, max:16 },
+  { name:'Enterprise', inr:'Talk to us', usd:'Talk to us', unit:'custom agreement', scale:'Unlimited nodes', ingest:'Custom ingest', extra:'SSO + SCIM, SLA, named engineer', min:17, max:999 }
+];
+const FAQS = [
+  ['Does any of our log data leave our servers?','Not for detection. Logs are read, parsed and analyzed on the host. Only if you turn on AI root-cause or ask does LogLens send anomaly summaries, never the full log, to the LLM provider you configure. The report shows how many summaries were sent and the token usage.'],
+  ['Can it run in an air-gapped environment?','Yes. Native installs bundle the neural model, so even deep mode runs fully offline. For pip installs, point LOGLENS_MODEL_DIR at a local model directory.'],
+  ['Do we need to configure baselines or train anything?','No. LogLens is zero-touch: no baselines, no labelling, no training. Install, point it at logs, read incidents. You can train on your own labelled logs with loglens train if you want to.'],
+  ['What does it cost?','Core is free under the MIT license, with no per-GB or per-host fees. Pro, Business, Apex and Enterprise are in the pipeline, with paid launch targeted for 1 Feb 2027. Join the waitlist to lock early-access pricing.'],
+  ['Does scaling to large files cost accuracy?','No. Exact whole-file detection is the default. Large files auto-switch to a parallel per-slice path, and every speed-up has a byte-identical equivalence test. Synthetic-suite micro-F1 stays 1.000.'],
+  ['Could it disrupt our existing scripts or CI?','It is designed not to. Exit codes are fixed (0, 1, 2), JSON output is machine-readable, and if the daemon is unavailable the CLI falls back to running in-process with identical results.'],
+  ['Who builds and supports LogLens?','LogLens is built by Paras Rajput. Support is through GitHub Issues today. Priority and SLA-backed support are planned for the paid plans. The full source is public on GitHub under MIT.']
+];
+const HELP = ['loglens analyze --source <file> [--mode fast|turbo|deep] [--fail-on high]','loglens watch            stream the current mission','echo $?                  last exit code (CI gate)','whoami · history · clear','(there may be a few secret commands)'];
+
+class Component extends DCLogic {
+  state = { lines:[], mx:0, my:0, hin:false, scan:0, w:500, mission:0, term:[{text:'LogLens sandbox · replay mode. Type loglens --help or hit Run.',color:C.muted}], running:false, input:'', hist:[], xp:0, lastExit:null, badges:[], toast:null, copied:null, prog:0, stage:3, eli5:false, tab:0, cur:null, nodes:3, faq:0, form:'idle', party:false, found:[], done:false, plan:'Design partner' };
+  heroRef = React.createRef(); ovRef = React.createRef(); collRef = React.createRef(); termBody = React.createRef(); inRef = React.createRef();
+  seq = 0; clock = 3*3600+12*60;
+  bars = Array.from({length:110},()=>({x:3+Math.random()*90,y:4+Math.random()*90,w:20+Math.random()*70,d:Math.random()}));
+
+  mkLine(){
+    this.clock += 1 + Math.floor(Math.random()*3);
+    const h=String(Math.floor(this.clock/3600)%24).padStart(2,'0'), m=String(Math.floor(this.clock/60)%60).padStart(2,'0'), s=String(this.clock%60).padStart(2,'0');
+    const a = Math.random()<0.14 ? ANOM[Math.floor(Math.random()*ANOM.length)] : null;
+    return a ? { id:this.seq++, ts:`${h}:${m}:${s}`, ...a, anomaly:true } : { id:this.seq++, ts:`${h}:${m}:${s}`, lvl:'INFO', msg:NORMAL[Math.floor(Math.random()*NORMAL.length)], anomaly:false };
+  }
+  componentDidMount(){
+    this.reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const init=[]; for(let i=0;i<16;i++) init.push(this.mkLine());
+    init[9] = {...init[9], ...ANOM[0], anomaly:true};
+    let xp=0; try{ xp = +localStorage.getItem('ll_xp')||0 }catch(e){}
+    this.setState({ lines:init, xp, w:this.heroRef.current?.offsetWidth||500, scan:9 });
+    if(!this.reduced) this.tick = setInterval(()=>{
+      this.setState(s=>({ lines:[...s.lines.slice(1), this.mkLine()], scan:(s.scan+1)%16, w:this.heroRef.current?.offsetWidth||s.w }));
+    }, 1100);
+    this.onScroll = ()=>{
+      const el=this.collRef.current; if(!el) return;
+      const r=el.getBoundingClientRect(), total=r.height-innerHeight;
+      const p=Math.max(0,Math.min(1,-r.top/total));
+      if(Math.abs(p-this.state.prog)>0.004) this.setState({prog:p});
+    };
+    addEventListener('scroll',this.onScroll,{passive:true});
+    this.onKey = e=>{
+      const tag=(document.activeElement||{}).tagName;
+      if(e.key==='/' && !['INPUT','TEXTAREA','SELECT'].includes(tag)){ e.preventDefault(); this.inRef.current?.focus({preventScroll:false}); }
+    };
+    addEventListener('keydown',this.onKey);
+    this.onScroll();
+  }
+  componentWillUnmount(){ clearInterval(this.tick); removeEventListener('scroll',this.onScroll); removeEventListener('keydown',this.onKey); clearTimeout(this.tt); (this.timers||[]).forEach(clearTimeout); }
+  componentDidUpdate(){ if(this._lt!==this.state.term && this.termBody.current){ this._lt=this.state.term; const b=this.termBody.current; b.scrollTop=b.scrollHeight; } }
+
+  addXp(n){ this.setState(s=>{ const xp=s.xp+n; try{localStorage.setItem('ll_xp',xp)}catch(e){} return {xp}; }); }
+  showToast(t){ clearTimeout(this.tt); this.setState({toast:t}); this.tt=setTimeout(()=>this.setState({toast:null}),2800); }
+  badge(name){ if(this.state.badges.includes(name)) return; this.setState(s=>({badges:[...s.badges,name]})); this.addXp(25); this.showToast(`Badge unlocked: ${name} · +25 XP`); }
+  copy(text,key){ try{ navigator.clipboard.writeText(text) }catch(e){} this.setState({copied:key}); this.addXp(10); setTimeout(()=>this.state.copied===key&&this.setState({copied:null}),2400); }
+  print(lines){ this.setState(s=>({term:[...s.term,...lines]})); }
+
+  run(cmdLine){
+    if(this.state.running) return;
+    const m = MISSIONS[this.state.mission];
+    const gate = /--fail-on/.test(cmdLine);
+    this.setState({running:true, found:[], done:false});
+    this.timers = m.out.map((o,i)=>setTimeout(()=>{
+      this.print([{text:o[0],color:o[1]}]);
+      if(i===m.out.length-1){
+        this.setState({running:false, found:m.found, done:true, lastExit: gate?2:0});
+        if(gate) this.print([{text:'gate tripped: severity ≥ high → exit 2',color:C.crit}]);
+        this.badge(m.badge);
+        if(gate) setTimeout(()=>this.badge('CI Gatekeeper'),600);
+      }
+    }, this.reduced?0:180*(i+1)));
+  }
+  exec(raw){
+    const cmd=raw.trim();
+    this.print([{text:`operator@lens $ ${cmd}`,color:C.ink}]);
+    this.setState(s=>({hist:cmd?[...s.hist,cmd]:s.hist, histIdx:null}));
+    if(!cmd) return;
+    if(cmd==='clear') return this.setState({term:[]});
+    if(cmd==='help'||cmd==='loglens --help'||cmd==='loglens') return this.print(HELP.map(t=>({text:t,color:C.body})));
+    if(cmd==='whoami') return this.print([{text:`operator · XP ${this.state.xp} · badges ${this.state.badges.length}`,color:C.body}]);
+    if(cmd==='history') return this.print(this.state.hist.map((h,i)=>({text:`${i+1}  ${h}`,color:C.muted})));
+    if(cmd==='echo $?') return this.print([{text:String(this.state.lastExit??0),color:this.state.lastExit===2?C.crit:C.ok}]);
+    if(/^sudo rm -rf/.test(cmd)){ this.print([{text:'Nice try. LogLens is read-only by design.',color:C.warn}]); return this.badge('Read-Only Respecter'); }
+    if(cmd==='loglens --party'){ this.setState(s=>({party:!s.party})); this.print([{text:'night shift mode toggled ✦',color:C.ai}]); return this.badge('Night Shift'); }
+    if(/^loglens (analyze|watch)/.test(cmd)) return this.run(cmd);
+    this.print([{text:`command not found: ${cmd.split(' ')[0]}. Try loglens --help`,color:C.muted}]);
+  }
+
+  renderVals(){
+    const s=this.state, lensProp=this.props.heroLens ?? true;
+    const cur = s.cur || this.props.currency || 'INR';
+    const lineY = i=>10+i*26+13;
+    const ly = s.hin ? s.my : lineY(s.scan);
+    const lx = s.hin ? s.mx : s.w*0.58;
+    const heroLines = s.lines.map((l,i)=>{
+      const f = lensProp ? Math.max(0,1-Math.abs(ly-lineY(i))/70) : 1;
+      const tip = lensProp && l.anomaly && f>0.55;
+      return { ts:l.ts, lvl:l.lvl, msg:l.msg, score:l.score, why:l.why, tip,
+        op: lensProp ? (0.3+0.7*f).toFixed(2) : 1, blur: lensProp ? ((1-f)*1.1).toFixed(2) : 0,
+        lvlColor: l.anomaly ? (l.lvl==='WARN'?C.warn:C.crit) : C.muted,
+        msgColor: l.anomaly ? (l.lvl==='WARN'?C.warn:C.crit) : C.body,
+        glow: l.anomaly && f>0.5 ? '0 0 12px rgba(255,92,122,.7)' : 'none' };
+    });
+    const p = this.reduced ? 1 : s.prog;
+    const ease = t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+    const bars = this.bars.map(b=>{
+      const t = ease(Math.max(0,Math.min(1,(p-b.d*0.25)/0.55)));
+      return { l:(b.x+(50-b.x)*t).toFixed(2), t:(b.y+(50-b.y)*t).toFixed(2), w:Math.round(b.w*(1-t*0.7)), o:(t>0.85?Math.max(0,(1-t)/0.15):0.85).toFixed(2) };
+    });
+    const cardOp = Math.max(0,Math.min(1,(p-0.6)/0.2));
+    const rec = PLANS.findIndex(pl=> s.nodes>=pl.min && s.nodes<=pl.max && (s.nodes>1 || pl.name==='Core'));
+    const m = MISSIONS[s.mission];
+    return {
+      showDevfest: this.props.showDevfest ?? false,
+      xp: s.xp,
+      heroRef:this.heroRef, collRef:this.collRef, termBody:this.termBody, inRef:this.inRef,
+      heroMove: e=>{ const r=this.heroRef.current.getBoundingClientRect(); this.setState({hin:true, mx:e.clientX-r.left, my:e.clientY-r.top}); },
+      heroLeave: ()=>this.setState({hin:false}),
+      heroLines, lensOn: lensProp, lensX: lx, lensY: ly,
+      lensTrans: s.hin ? 'none' : 'top .9s cubic-bezier(.2,.8,.2,1), left .9s',
+      lensRing: s.party ? '#FF5C7A' : 'rgba(92,200,255,.55)',
+      lensHint: s.hin ? 'inspecting' : 'hover to inspect',
+      anomalyCount: s.lines.filter(l=>l.anomaly).length,
+      copyPipx: ()=>this.copy('pipx install loglensai','pipx'),
+      pipxCopied: s.copied==='pipx', pipxLabel: s.copied==='pipx'?'✓ copied':'copy',
+      missions: MISSIONS.map((mm,i)=>({ ...mm, bg: i===s.mission?'#111A29':'#0B111C', border: i===s.mission?'rgba(92,200,255,.6)':'rgba(148,163,184,.12)', pick:()=>!s.running&&this.setState({mission:i,found:[],done:false,input:`loglens analyze --source ${mm.file}`}) })),
+      term: s.term, input: s.input,
+      onInput: e=>this.setState({input:e.target.value}),
+      onTermKey: e=>{
+        if(e.key==='Enter'){ const v=s.input; this.setState({input:''}); this.exec(v); }
+        else if(e.key==='ArrowUp'||e.key==='ArrowDown'){ e.preventDefault(); const h=s.hist; if(!h.length) return; let i=s.histIdx??h.length; i=Math.max(0,Math.min(h.length-1,i+(e.key==='ArrowUp'?-1:1))); this.setState({histIdx:i,input:h[i]}); }
+        else if(e.key==='Tab'){ e.preventDefault(); const opts=['loglens analyze --source ','loglens watch','loglens --help','clear','whoami','history','echo $?']; const hit=opts.find(o=>o.startsWith(s.input)&&o!==s.input); if(hit) this.setState({input:hit}); }
+      },
+      focusTerm: ()=>this.inRef.current?.focus({preventScroll:true}),
+      runMission: ()=>{ const c=`loglens analyze --source ${m.file}${s.mission===2?' --mode deep':''}`; this.exec(c); },
+      runLabel: s.running ? 'Running…' : `▶ Run "${m.name}"`,
+      canvasMeta: s.done ? `${m.file} · 0 bytes uploaded` : 'waiting for a run',
+      noFound: !s.found.length, canvasIdle: s.running ? 'analyzing…' : 'Run a mission. Incidents assemble here.',
+      found: s.found.map(f=>({ ...f, color: f.lvl==='WARN'?C.warn:(f.lvl==='INFO'?C.ai:C.crit), border: f.lvl==='WARN'?'rgba(255,181,71,.4)':'rgba(255,92,122,.4)', pct: Math.round(f.score*100), score: f.score.toFixed(2) })),
+      missionDone: s.done,
+      bars, collCount: Math.round(10000*Math.min(1,p/0.8)).toLocaleString('en-US'),
+      cardScale: (0.85+0.15*cardOp).toFixed(3), cardOp: cardOp.toFixed(2),
+      toggleEli5: ()=>this.setState({eli5:!s.eli5}), eli5Label: s.eli5 ? 'Mode: simple ↔ engineer' : 'Mode: engineer ↔ simple',
+      stages: STAGES.map((st,i)=>({ n:i+1, name:st[0], bg: i===s.stage?'#111A29':'#0B111C', border: i===s.stage?'rgba(155,140,255,.6)':'rgba(148,163,184,.12)', pick:()=>this.setState({stage:i}) })),
+      stageMode: s.eli5 ? 'SIMPLE' : 'ENGINEER', stageText: STAGES[s.stage][s.eli5?1:2],
+      features: FEATURES.map(f=>({tag:f[0],color:f[1],name:f[2],desc:f[3]})),
+      tabs: TABS.map((t,i)=>({ name:t[0], color: i===s.tab?'#05080F':C.body, bg: i===s.tab?C.ink:'transparent', pick:()=>this.setState({tab:i}) })),
+      installItems: TABS[s.tab][1].map((it,i)=>{ const k='i'+s.tab+'-'+i; return { label:it[0], cmd:it[1], copy:()=>this.copy(it[1],k), btn: s.copied===k?'✓':'copy', btnColor: s.copied===k?C.ok:C.body }; }),
+      paths: PATHS.map((pp,i)=>({ n:i+1, name:pp[0], rank:pp[1], levels:pp[2], desc:pp[3], href:pp[4] })),
+      setINR: ()=>this.setState({cur:'INR'}), setUSD: ()=>this.setState({cur:'USD'}),
+      inrColor: cur==='INR'?'#05080F':C.body, inrBg: cur==='INR'?C.ink:'transparent',
+      usdColor: cur==='USD'?'#05080F':C.body, usdBg: cur==='USD'?C.ink:'transparent',
+      nodes: s.nodes, onNodes: e=>this.setState({nodes:+e.target.value}),
+      nodesLabel: `${s.nodes} node${s.nodes>1?'s':''} → ${PLANS[rec<0?0:rec].name}`,
+      plans: PLANS.map((pl,i)=>{ const r=i===rec; return { ...pl, price: cur==='INR'?pl.inr:pl.usd,
+        status: pl.live?'LIVE · FREE · MIT':'IN THE PIPELINE', badgeColor: pl.live?C.ok:'#C9A7FF', borderStyle: pl.live?'solid':'dashed',
+        borderColor: r?(pl.live?C.ok:'#C9A7FF'):'rgba(148,163,184,.18)', lift: r?-8:0, shadow: r?'0 24px 60px -20px rgba(155,140,255,.45)':'none',
+        cta: pl.live?pl.cta:(pl.name==='Enterprise'?'Talk to us':'Join the waitlist'), href: pl.live?pl.href:'#waitlist',
+        ctaColor: pl.live?'#05080F':'#C9A7FF', ctaBg: pl.live?C.ink:'transparent', ctaBorder: pl.live?C.ink:'rgba(201,167,255,.5)',
+        pick: ()=>{ if(!pl.live) this.setState({plan:pl.name}); } }; }),
+      curNote: cur==='USD' ? 'USD values are indicative conversions.' : '',
+      faqs: FAQS.map((f,i)=>({ q:f[0], a:f[1], open: s.faq===i, rot: s.faq===i?45:0, toggle:()=>this.setState({faq: s.faq===i?-1:i}) })),
+      formOk: s.form==='ok', formShow: s.form!=='ok', formErr: s.form==='err',
+      submitLabel: s.form==='sending'?'Sending…':'Join the waitlist',
+      plan: s.plan, onPlan: e=>this.setState({plan:e.target.value}),
+      submit: async e=>{ e.preventDefault(); const fd=new FormData(e.target); if(fd.get('botcheck')) return; this.setState({form:'sending'});
+        try{ const r=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(Object.fromEntries(fd))}); const j=await r.json(); this.setState({form:j.success?'ok':'err'}); if(j.success) this.addXp(50); }catch(err){ this.setState({form:'err'}); } },
+      toastOn: !!s.toast, toast: s.toast,
+      ovRef:this.ovRef, ovSrc: s.ovBlob, ovMeta: e=>{ e.target.currentTime=24; if(this.state.ovHover) e.target.play().catch(()=>{}); },
+      ovEnter: ()=>{ if(this.reduced) return; this.setState({ovHover:true}); const v=this.ovRef.current; if(s.ovBlob){ v&&v.play().catch(()=>{}); return; } if(this.ovLoading) return; this.ovLoading=true; fetch('assets/video/overview.mp4').then(r=>r.blob()).then(b=>this.setState({ovBlob:URL.createObjectURL(b)})).catch(()=>{}); }, ovLeave: ()=>{ const v=this.ovRef.current; if(v){ v.pause(); } this.setState({ovHover:false}); },
+      ovPlayOp: s.ovHover?0:1, ovHint: s.ovHover?'previewing · click for the full tour':'hover to preview',
+      light: (s.theme ?? this.props.theme ?? 'dark')==='light',
+      toggleTheme: ()=>this.setState(st=>({theme: ((st.theme ?? this.props.theme ?? 'dark')==='light')?'dark':'light'})),
+      themeIcon: ((s.theme ?? this.props.theme ?? 'dark')==='light') ? '☾' : '☀',
+      rootFilter: ((s.theme ?? this.props.theme ?? 'dark')==='light') ? 'invert(1) hue-rotate(180deg)' : 'none'
+    };
+  }
+}
+</script>
+</body>
+</html>

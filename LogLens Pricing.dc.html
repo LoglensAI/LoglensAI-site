@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>LogLens AI Pricing: Free Core, Premium Plans in the Pipeline</title>
+<meta name="description" content="LogLens AI Core is free and MIT open source today. Pro, Business, Apex and Enterprise, with the Apex Go engine and AI monitoring, are in the pipeline. Join the waitlist.">
+<link rel="canonical" href="https://www.loglensai.com/pricing">
+<meta name="theme-color" content="#05080F">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#05080F;color:#A7B3C6;font-family:'IBM Plex Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#5CC8FF;text-decoration:none}
+a:hover{color:#E6EDF7}
+*{box-sizing:border-box}
+::selection{background:#9B8CFF;color:#05080F}
+@keyframes llShimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:radial-gradient(1100px 560px at 50% -12%, rgba(201,167,255,.09), transparent 60%), #05080F;filter:{{ rootFilter }};">
+
+<nav style="position:sticky;top:0;z-index:50;background:rgba(5,8,15,.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(148,163,184,.12);">
+<div style="max-width:1240px;margin:0 auto;padding:12px clamp(16px,3vw,24px);display:flex;align-items:center;gap:20px;">
+<a href="LogLens Home.dc.html" style="display:flex;align-items:center;gap:10px;color:#E6EDF7;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:15px;flex-shrink:0;">
+<img src="assets/loglens-mark.png" alt="LogLens AI logo" width="28" height="28" style="width:28px;height:28px;border-radius:50%;filter:{{ rootFilter }};">
+<span>LogLens AI</span>
+</a>
+<div style="display:flex;gap:20px;font-size:14px;flex:1;min-width:0;overflow-x:auto;white-space:nowrap;scrollbar-width:none;">
+<a href="LogLens Home.dc.html#product" style="color:#A7B3C6;">Product</a>
+<a href="LogLens Home.dc.html#sandbox" style="color:#A7B3C6;">Playground</a>
+<a href="LogLens Academy.dc.html" style="color:#A7B3C6;">Academy</a>
+<a href="LogLens Docs.dc.html" style="color:#A7B3C6;">Docs</a>
+<a href="LogLens Tour.dc.html" style="color:#A7B3C6;">Tour</a>
+<span style="color:#E6EDF7;">Pricing</span>
+<a href="LogLens Compare.dc.html" style="color:#A7B3C6;">Compare</a>
+</div>
+<div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9B8CFF;border:1px solid rgba(155,140,255,.35);border-radius:999px;padding:5px 10px;font-variant-numeric:tabular-nums;white-space:nowrap;">XP {{ xp }}</span>
+<button onClick="{{ toggleTheme }}" aria-label="Toggle light/dark theme" style="font-size:15px;color:#E6EDF7;background:transparent;border:1px solid rgba(148,163,184,.2);border-radius:10px;width:36px;height:36px;cursor:pointer;flex-shrink:0;">{{ themeIcon }}</button>
+</div>
+</div>
+</nav>
+
+<main>
+<section style="max-width:1240px;margin:0 auto;padding:clamp(40px,6vw,72px) clamp(16px,3vw,24px) 32px;display:flex;flex-direction:column;gap:20px;align-items:center;text-align:center;">
+<nav aria-label="Breadcrumb" style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6B7A90;display:flex;gap:8px;"><a href="LogLens Home.dc.html" style="color:#6B7A90;">Home</a><span>/</span><span style="color:#A7B3C6;">Pricing</span></nav>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#C9A7FF;letter-spacing:.08em;">PLANS &amp; PRICING</span>
+<h1 style="margin:0;font-family:'Geist',sans-serif;font-weight:600;font-size:clamp(34px,5.4vw,68px);line-height:1.02;letter-spacing:-.03em;color:#E6EDF7;max-width:900px;text-wrap:balance;">Start free today. Scale onto the Apex engine tomorrow.</h1>
+<p style="margin:0;font-size:clamp(16px,1.6vw,18px);line-height:1.6;max-width:680px;text-wrap:pretty;">Core is free, MIT open source and live today. Pro, Business, Apex and Enterprise run on the new Apex Go engine with AI monitoring. They are in the pipeline, and pricing will be revealed at launch.</p>
+<div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;align-items:center;background:#0B111C;border:1px dashed rgba(201,167,255,.5);border-radius:14px;padding:12px 16px;font-size:14px;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#05080F;background:#C9A7FF;border-radius:6px;padding:3px 8px;">IN THE PIPELINE</span>
+<span style="color:#E6EDF7;">Paid launch target: 1 Feb 2027.</span>
+<span>Waitlist members lock early-access pricing.</span>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:16px clamp(16px,3vw,24px) 40px;">
+<div style="background:#0B111C;border:1px solid rgba(148,163,184,.14);border-radius:22px;padding:clamp(18px,3vw,28px);display:flex;flex-direction:column;gap:22px;">
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;">
+<h2 style="margin:0;font-family:'Geist',sans-serif;font-size:clamp(22px,2.6vw,30px);font-weight:600;color:#E6EDF7;letter-spacing:-.02em;">Find your plan in 20 seconds</h2>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#A7B3C6;">Best fit: <span style="color:{{ recColor }};font-weight:600;">{{ recName }}</span></span>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:22px;">
+<label style="display:flex;flex-direction:column;gap:10px;">
+<span style="display:flex;justify-content:space-between;font-size:14px;color:#E6EDF7;"><span>Servers (nodes)</span><span style="font-family:'IBM Plex Mono',monospace;color:#5CC8FF;font-variant-numeric:tabular-nums;">{{ nodesLabel }}</span></span>
+<input type="range" min="1" max="30" value="{{ nodes }}" onChange="{{ onNodes }}" aria-label="Servers" style="width:100%;accent-color:#5CC8FF;height:28px;">
+</label>
+<label style="display:flex;flex-direction:column;gap:10px;">
+<span style="display:flex;justify-content:space-between;font-size:14px;color:#E6EDF7;"><span>Logs per day</span><span style="font-family:'IBM Plex Mono',monospace;color:#5CC8FF;font-variant-numeric:tabular-nums;">{{ gbLabel }}</span></span>
+<input type="range" min="0" max="100" value="{{ gbPos }}" onChange="{{ onGb }}" aria-label="Logs per day" style="width:100%;accent-color:#5CC8FF;height:28px;">
+</label>
+<div style="display:flex;flex-direction:column;gap:10px;">
+<span style="font-size:14px;color:#E6EDF7;">Keep history for</span>
+<div style="display:flex;gap:6px;flex-wrap:wrap;">
+<sc-for list="{{ retOpts }}" as="r" hint-placeholder-count="5">
+<button onClick="{{ r.pick }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:{{ r.color }};background:{{ r.bg }};border:1px solid {{ r.border }};border-radius:8px;padding:8px 11px;cursor:pointer;min-height:38px;">{{ r.label }}</button>
+</sc-for>
+</div>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;">
+<span style="font-size:14px;color:#E6EDF7;">I also need</span>
+<div style="display:flex;gap:8px;flex-wrap:wrap;">
+<sc-for list="{{ needs }}" as="n" hint-placeholder-count="8">
+<button onClick="{{ n.toggle }}" aria-pressed="{{ n.on }}" style="font-family:inherit;font-size:14px;color:{{ n.color }};background:{{ n.bg }};border:1px solid {{ n.border }};border-radius:999px;padding:8px 14px;cursor:pointer;min-height:38px;transition:all .2s;">{{ n.label }}</button>
+</sc-for>
+</div>
+</div>
+<p style="margin:0;font-size:14px;line-height:1.55;color:#A7B3C6;border-top:1px solid rgba(148,163,184,.12);padding-top:16px;">{{ recWhy }}</p>
+</div>
+</section>
+
+<section id="plans" style="max-width:1240px;margin:0 auto;padding:8px clamp(16px,3vw,24px) 48px;">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px;">
+<span style="font-size:14px;">Tap a card to see every feature. Pin two to compare.</span>
+<button onClick="{{ expandAll }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#E6EDF7;background:transparent;border:1px solid rgba(148,163,184,.25);border-radius:8px;padding:8px 12px;cursor:pointer;white-space:nowrap;">{{ expandAllLabel }}</button>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr));gap:14px;align-items:start;">
+<sc-for list="{{ plans }}" as="p" hint-placeholder-count="5">
+<article style="grid-column:{{ p.span }};position:relative;display:flex;flex-direction:column;background:#0B111C;border:1px {{ p.borderStyle }} {{ p.borderColor }};border-radius:20px;overflow:hidden;transform:translateY({{ p.lift }}px);box-shadow:{{ p.shadow }};transition:transform .4s cubic-bezier(.2,.9,.3,1.15), box-shadow .4s, border-color .3s;">
+<div style="padding:22px;display:flex;flex-direction:column;gap:14px;">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:{{ p.badgeColor }};border:1px {{ p.borderStyle }} {{ p.badgeColor }};border-radius:6px;padding:3px 8px;white-space:nowrap;background:{{ p.badgeBg }};background-size:200% 100%;animation:{{ p.shimmer }};">{{ p.status }}</span>
+<sc-if value="{{ p.rec }}" hint-placeholder-val="{{ false }}"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#05080F;background:#5CC8FF;border-radius:6px;padding:3px 8px;white-space:nowrap;">BEST FIT</span></sc-if>
+</div>
+<div style="display:flex;flex-direction:column;gap:4px;">
+<h3 style="margin:0;font-family:'Geist',sans-serif;font-size:26px;font-weight:600;color:#E6EDF7;letter-spacing:-.02em;">{{ p.name }}</h3>
+<span style="font-size:14px;line-height:1.45;">{{ p.who }}</span>
+</div>
+<div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;min-height:40px;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:{{ p.priceSize }};color:{{ p.priceColor }};font-weight:500;">{{ p.price }}</span>
+<span style="font-size:12px;color:#6B7A90;">{{ p.priceNote }}</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px;font-size:14px;border-top:1px solid rgba(148,163,184,.12);padding-top:14px;">
+<sc-for list="{{ p.highlights }}" as="h" hint-placeholder-count="4">
+<div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:{{ p.dot }};font-family:'IBM Plex Mono',monospace;">+</span><span style="color:#E6EDF7;line-height:1.4;">{{ h }}</span></div>
+</sc-for>
+</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">
+<button onClick="{{ p.toggle }}" aria-expanded="{{ p.open }}" style="flex:1 1 140px;font-family:inherit;font-size:14px;font-weight:500;color:#E6EDF7;background:#111A29;border:1px solid rgba(148,163,184,.2);border-radius:10px;padding:10px 12px;cursor:pointer;min-height:42px;display:flex;justify-content:center;gap:8px;align-items:center;" style-hover="border-color:rgba(92,200,255,.55)">{{ p.toggleLabel }} <span style="display:inline-block;transform:rotate({{ p.rot }}deg);transition:transform .3s;">⌄</span></button>
+<button onClick="{{ p.pin }}" aria-pressed="{{ p.pinned }}" title="Pin to compare" style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:{{ p.pinColor }};background:transparent;border:1px solid {{ p.pinBorder }};border-radius:10px;padding:10px 12px;cursor:pointer;min-height:42px;">{{ p.pinLabel }}</button>
+</div>
+<a href="{{ p.href }}" onClick="{{ p.choose }}" style="text-align:center;font-size:15px;font-weight:600;color:{{ p.ctaColor }};background:{{ p.ctaBg }};border:1px solid {{ p.ctaBorder }};border-radius:10px;padding:12px;min-height:44px;">{{ p.cta }}</a>
+</div>
+
+<sc-if value="{{ p.open }}" hint-placeholder-val="{{ false }}">
+<div style="border-top:1px solid rgba(148,163,184,.12);background:#070B14;padding:clamp(16px,2.4vw,24px);display:flex;flex-direction:column;gap:16px;">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6B7A90;">EVERYTHING IN {{ p.upper }} · {{ p.count }} capabilities</span>
+<span style="font-size:13px;color:#6B7A90;">Tap any feature for a simple explanation</span>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px;">
+<sc-for list="{{ p.groups }}" as="g" hint-placeholder-count="4">
+<div style="background:#0B111C;border:1px solid rgba(148,163,184,.12);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:4px;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:{{ g.color }};letter-spacing:.06em;margin-bottom:6px;">{{ g.name }}</span>
+<sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;">
+<button onClick="{{ r.tap }}" style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;background:transparent;border:0;padding:8px 0;cursor:pointer;text-align:left;font-family:inherit;border-bottom:1px solid rgba(148,163,184,.08);">
+<span style="font-size:14px;color:{{ r.labelColor }};line-height:1.35;">{{ r.label }}</span>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:{{ r.valColor }};text-align:right;line-height:1.35;flex-shrink:0;max-width:55%;">{{ r.val }}</span>
+</button>
+<sc-if value="{{ r.open }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 0 6px;">
+<span style="width:6px;height:6px;border-radius:50%;background:{{ g.color }};margin-top:7px;flex-shrink:0;box-shadow:0 0 10px {{ g.color }};"></span>
+<span style="font-size:13px;line-height:1.55;color:#A7B3C6;">{{ r.explain }}</span>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+</article>
+</sc-for>
+</div>
+</section>
+
+<sc-if value="{{ compareOn }}" hint-placeholder-val="{{ false }}">
+<section id="compare" style="max-width:1240px;margin:0 auto;padding:0 clamp(16px,3vw,24px) 56px;">
+<div style="background:#0B111C;border:1px solid rgba(92,200,255,.35);border-radius:20px;overflow:hidden;">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:16px 20px;border-bottom:1px solid rgba(148,163,184,.12);">
+<h2 style="margin:0;font-family:'Geist',sans-serif;font-size:22px;font-weight:600;color:#E6EDF7;">{{ compareTitle }}</h2>
+<div style="display:flex;gap:8px;">
+<button onClick="{{ toggleSame }}" style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#E6EDF7;background:transparent;border:1px solid rgba(148,163,184,.25);border-radius:8px;padding:8px 12px;cursor:pointer;white-space:nowrap;">{{ sameLabel }}</button>
+<button onClick="{{ clearPins }}" style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#A7B3C6;background:transparent;border:1px solid rgba(148,163,184,.25);border-radius:8px;padding:8px 12px;cursor:pointer;white-space:nowrap;">Clear</button>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;">
+<div style="display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr);gap:12px;padding:12px 20px;background:#111A29;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.04em;"><span style="color:#6B7A90;">FEATURE</span><span style="color:#5CC8FF;">{{ cmpA }}</span><span style="color:#C9A7FF;">{{ cmpB }}</span></div>
+<sc-for list="{{ cmpRows }}" as="r" hint-placeholder-count="6">
+<div style="display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr);gap:12px;padding:12px 20px;border-top:1px solid rgba(148,163,184,.08);background:{{ r.bg }};opacity:{{ r.op }};transition:opacity .3s, background .3s;">
+<span style="font-size:14px;color:#E6EDF7;">{{ r.label }}</span>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:{{ r.aColor }};">{{ r.a }}</span>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:{{ r.bColor }};">{{ r.b }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+</sc-if>
+
+<section id="apex" style="max-width:1240px;margin:0 auto;padding:56px clamp(16px,3vw,24px);">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(24px,4vw,48px);align-items:center;">
+<div style="display:flex;flex-direction:column;gap:16px;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#C9A7FF;letter-spacing:.08em;">THE APEX ENGINE · IN THE PIPELINE</span>
+<h2 style="margin:0;font-family:'Geist',sans-serif;font-weight:600;font-size:clamp(30px,4vw,50px);line-height:1.05;letter-spacing:-.025em;color:#E6EDF7;text-wrap:balance;">Every core on every node, scheduled as one machine.</h2>
+<p style="margin:0;font-size:17px;line-height:1.6;">The premium engine is rewritten in Go for multi-core and multi-node throughput with lower memory. Promote any node to leader, spread work across the cluster, and fail over automatically.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:rgba(148,163,184,.12);border:1px solid rgba(148,163,184,.12);border-radius:14px;overflow:hidden;">
+<div style="background:#05080F;padding:14px;display:flex;flex-direction:column;gap:4px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:20px;color:#E6EDF7;font-variant-numeric:tabular-nums;">{{ clusterCores }}</span><span style="font-size:12px;">cores scheduled</span></div>
+<div style="background:#05080F;padding:14px;display:flex;flex-direction:column;gap:4px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:20px;color:#E6EDF7;">{{ leaderLabel }}</span><span style="font-size:12px;">current leader</span></div>
+<div style="background:#05080F;padding:14px;display:flex;flex-direction:column;gap:4px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:20px;color:{{ healthColor }};">{{ healthLabel }}</span><span style="font-size:12px;">cluster state</span></div>
+</div>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6B7A90;display:flex;gap:8px;align-items:center;flex-wrap:wrap;"><span style="color:#C9A7FF;border:1px dashed #C9A7FF;border-radius:6px;padding:2px 6px;">TARGET</span>Interactive illustration of planned behaviour. Performance numbers will be published from measured benchmarks.</span>
+</div>
+<div style="background:#070B14;border:1px solid rgba(148,163,184,.14);border-radius:20px;padding:clamp(14px,2.4vw,22px);display:flex;flex-direction:column;gap:14px;">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
+<div style="display:flex;align-items:center;gap:6px;">
+<button onClick="{{ nodeMinus }}" aria-label="Remove node" style="width:40px;height:40px;font-size:18px;color:#E6EDF7;background:#0B111C;border:1px solid rgba(148,163,184,.2);border-radius:10px;cursor:pointer;">−</button>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#E6EDF7;min-width:72px;text-align:center;">{{ cNodesLabel }}</span>
+<button onClick="{{ nodePlus }}" aria-label="Add node" style="width:40px;height:40px;font-size:18px;color:#E6EDF7;background:#0B111C;border:1px solid rgba(148,163,184,.2);border-radius:10px;cursor:pointer;">+</button>
+</div>
+<button onClick="{{ failover }}" style="font-family:inherit;font-size:14px;font-weight:600;color:#05080F;background:#FF5C7A;border:0;border-radius:10px;padding:10px 14px;cursor:pointer;min-height:40px;">Kill the leader</button>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;">
+<sc-for list="{{ cNodes }}" as="n" hint-placeholder-count="4">
+<button onClick="{{ n.promote }}" title="Promote to leader" style="font-family:inherit;display:flex;flex-direction:column;gap:8px;background:#0B111C;border:1px solid {{ n.border }};border-radius:12px;padding:10px;cursor:pointer;opacity:{{ n.op }};box-shadow:{{ n.glow }};transition:all .35s;">
+<div style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:11px;"><span style="color:#E6EDF7;">{{ n.name }}</span><span style="color:{{ n.roleColor }};">{{ n.role }}</span></div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:3px;">
+<sc-for list="{{ n.cores }}" as="c" hint-placeholder-count="8"><div style="aspect-ratio:1;border-radius:3px;background:{{ c.bg }};transition:background .3s;"></div></sc-for>
+</div>
+</button>
+</sc-for>
+</div>
+<span style="font-size:13px;color:#6B7A90;">{{ clusterLog }}</span>
+</div>
+</div>
+</section>
+
+<section id="ai-monitoring" style="max-width:1240px;margin:0 auto;padding:56px clamp(16px,3vw,24px);">
+<div style="display:flex;flex-direction:column;gap:14px;max-width:780px;margin-bottom:24px;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9B8CFF;letter-spacing:.08em;">AI MONITORING · BEYOND LOGS</span>
+<h2 style="margin:0;font-family:'Geist',sans-serif;font-weight:600;font-size:clamp(30px,4vw,50px);line-height:1.05;letter-spacing:-.025em;color:#E6EDF7;text-wrap:balance;">From log analyzer to full AI monitoring tool.</h2>
+<p style="margin:0;font-size:17px;line-height:1.6;">Each signal joins the same incident model, so one incident can show the log line, the metric spike, the slow trace and the deploy that caused it.</p>
+</div>
+<div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:14px;scrollbar-width:thin;">
+<sc-for list="{{ sigTabs }}" as="t" hint-placeholder-count="6">
+<button onClick="{{ t.pick }}" style="flex-shrink:0;display:flex;flex-direction:column;align-items:flex-start;gap:3px;font-family:inherit;background:{{ t.bg }};border:1px {{ t.borderStyle }} {{ t.border }};border-radius:12px;padding:10px 14px;cursor:pointer;min-height:44px;">
+<span style="font-size:15px;font-weight:600;color:{{ t.color }};white-space:nowrap;">{{ t.name }}</span>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:{{ t.statusColor }};white-space:nowrap;">{{ t.status }}</span>
+</button>
+</sc-for>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:14px;">
+<div style="background:#0B111C;border:1px solid rgba(148,163,184,.12);border-radius:18px;padding:clamp(18px,2.6vw,26px);display:flex;flex-direction:column;gap:14px;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:{{ sigStatusColor }};">{{ sigStatus }}</span>
+<h3 style="margin:0;font-family:'Geist',sans-serif;font-size:26px;font-weight:600;color:#E6EDF7;">{{ sigName }}</h3>
+<p style="margin:0;font-size:16px;line-height:1.6;">{{ sigDesc }}</p>
+<div style="display:flex;flex-direction:column;gap:8px;">
+<sc-for list="{{ sigPoints }}" as="pt" hint-placeholder-count="3"><div style="display:flex;gap:10px;font-size:14px;"><span style="color:#9B8CFF;font-family:'IBM Plex Mono',monospace;">→</span><span style="color:#E6EDF7;">{{ pt }}</span></div></sc-for>
+</div>
+<span style="font-size:13px;color:#6B7A90;">Available on: {{ sigPlans }}</span>
+</div>
+<div style="background:#070B14;border:1px solid rgba(148,163,184,.14);border-radius:18px;padding:16px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:1.75;display:flex;flex-direction:column;justify-content:center;min-height:240px;overflow:hidden;">
+<span style="color:#6B7A90;margin-bottom:6px;">{{ sigPreviewLabel }}</span>
+<sc-for list="{{ sigLines }}" as="l" hint-placeholder-count="5"><div style="color:{{ l.c }};white-space:pre-wrap;word-break:break-word;">{{ l.t }}</div></sc-for>
+</div>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:56px clamp(16px,3vw,24px);">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px;">
+<div style="background:#0B111C;border:1px solid rgba(148,163,184,.12);border-radius:20px;padding:clamp(18px,2.6vw,28px);display:flex;flex-direction:column;gap:16px;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#3DDC97;letter-spacing:.08em;">HEAL PLAYBOOKS</span>
+<h3 style="margin:0;font-family:'Geist',sans-serif;font-size:clamp(22px,2.4vw,28px);font-weight:600;color:#E6EDF7;">You decide how much LogLens may fix on its own.</h3>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;">
+<sc-for list="{{ healSteps }}" as="h" hint-placeholder-count="3">
+<button onClick="{{ h.pick }}" style="font-family:inherit;display:flex;flex-direction:column;gap:4px;align-items:flex-start;text-align:left;background:{{ h.bg }};border:1px solid {{ h.border }};border-radius:12px;padding:10px;cursor:pointer;min-height:64px;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6B7A90;">LEVEL {{ h.n }}</span>
+<span style="font-size:14px;font-weight:600;color:{{ h.color }};line-height:1.25;">{{ h.name }}</span>
+</button>
+</sc-for>
+</div>
+<div style="background:#070B14;border-radius:12px;padding:14px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:1.7;display:flex;flex-direction:column;">
+<sc-for list="{{ healLines }}" as="l" hint-placeholder-count="3"><div style="color:{{ l.c }};white-space:pre-wrap;">{{ l.t }}</div></sc-for>
+</div>
+<span style="font-size:13px;">{{ healPlans }}</span>
+</div>
+<div style="background:#0B111C;border:1px solid rgba(148,163,184,.12);border-radius:20px;padding:clamp(18px,2.6vw,28px);display:flex;flex-direction:column;gap:16px;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#FFB547;letter-spacing:.08em;">BILLING PROMISE</span>
+<h3 style="margin:0;font-family:'Geist',sans-serif;font-size:clamp(22px,2.4vw,28px);font-weight:600;color:#E6EDF7;">Detection never stops because of billing.</h3>
+<p style="margin:0;font-size:15px;line-height:1.6;">Set a spend cap. Alerts fire at 50, 80 and 100%. At the cap only Apex extras pause; anomaly detection keeps running.</p>
+<div style="display:flex;flex-direction:column;gap:10px;">
+<div style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:12px;"><span style="color:#E6EDF7;">Usage this month</span><span style="color:{{ capColor }};font-variant-numeric:tabular-nums;">{{ capPct }}% of cap</span></div>
+<div style="position:relative;height:12px;border-radius:6px;background:rgba(148,163,184,.15);">
+<div style="position:absolute;left:0;top:0;bottom:0;width:{{ capW }}%;border-radius:6px;background:{{ capColor }};transition:width .2s, background .3s;"></div>
+<div style="position:absolute;left:50%;top:-4px;bottom:-4px;width:2px;background:rgba(230,237,247,.4);"></div>
+<div style="position:absolute;left:80%;top:-4px;bottom:-4px;width:2px;background:rgba(230,237,247,.4);"></div>
+</div>
+<input type="range" min="0" max="120" value="{{ cap }}" onChange="{{ onCap }}" aria-label="Simulate monthly usage" style="width:100%;accent-color:#FFB547;height:28px;">
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+<div style="background:#070B14;border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:4px;"><span style="font-size:12px;">Anomaly detection</span><span style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#3DDC97;">● running</span></div>
+<div style="background:#070B14;border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:4px;"><span style="font-size:12px;">Apex extras</span><span style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:{{ extrasColor }};">{{ extrasLabel }}</span></div>
+</div>
+<span style="font-size:13px;color:#6B7A90;">Usage add-ons (ingest overage, extra nodes, Apex Analyses, metric series, long retention) are priced at launch.</span>
+</div>
+</div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:40px clamp(16px,3vw,24px) 56px;">
+<h2 style="margin:0 0 20px;font-family:'Geist',sans-serif;font-weight:600;font-size:clamp(26px,3vw,36px);letter-spacing:-.02em;color:#E6EDF7;">The road to launch</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:10px;">
+<sc-for list="{{ timeline }}" as="t" hint-placeholder-count="5">
+<div style="position:relative;border:1px {{ t.style }} {{ t.color }};border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:6px;background:{{ t.bg }};">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:{{ t.color }};">{{ t.when }}</span>
+<span style="font-size:15px;font-weight:600;color:#E6EDF7;line-height:1.3;">{{ t.what }}</span>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section style="max-width:860px;margin:0 auto;padding:40px clamp(16px,3vw,24px) 56px;">
+<h2 style="margin:0 0 16px;font-family:'Geist',sans-serif;font-weight:600;font-size:clamp(26px,3vw,36px);letter-spacing:-.02em;color:#E6EDF7;">Pricing questions</h2>
+<sc-for list="{{ faqs }}" as="f" hint-placeholder-count="5">
+<div style="border-top:1px solid rgba(148,163,184,.14);">
+<button onClick="{{ f.toggle }}" aria-expanded="{{ f.open }}" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;background:transparent;border:0;padding:18px 0;cursor:pointer;text-align:left;font-family:inherit;font-size:16px;font-weight:500;color:#E6EDF7;min-height:44px;"><span>{{ f.q }}</span><span style="font-family:'IBM Plex Mono',monospace;color:#5CC8FF;transform:rotate({{ f.rot }}deg);transition:transform .25s;">+</span></button>
+<sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}"><p style="margin:0 0 18px;line-height:1.65;">{{ f.a }}</p></sc-if>
+</div>
+</sc-for>
+</section>
+
+<section id="waitlist" style="max-width:1240px;margin:0 auto;padding:24px clamp(16px,3vw,24px) 96px;">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(24px,4vw,40px);background:#0B111C;border:1px dashed rgba(201,167,255,.45);border-radius:24px;padding:clamp(20px,4vw,44px);">
+<div style="display:flex;flex-direction:column;gap:14px;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#C9A7FF;letter-spacing:.08em;">WAITLIST · DESIGN PARTNERS</span>
+<h2 style="margin:0;font-family:'Geist',sans-serif;font-weight:600;font-size:clamp(28px,3.4vw,42px);line-height:1.06;letter-spacing:-.02em;color:#E6EDF7;">Lock early-access pricing for {{ plan }}.</h2>
+<p style="margin:0;font-size:16px;line-height:1.6;">Design partners get free Apex during Preview (from Nov 2026) and help shape the engine. Your message goes straight to Paras Rajput.</p>
+</div>
+<sc-if value="{{ formOk }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:10px;justify-content:center;"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#3DDC97;">● ON THE LIST</span><span style="font-family:'Geist',sans-serif;font-size:26px;font-weight:600;color:#E6EDF7;">You're in. We'll email you before launch.</span></div>
+</sc-if>
+<sc-if value="{{ formShow }}" hint-placeholder-val="{{ true }}">
+<form action="https://api.web3forms.com/submit" method="POST" onSubmit="{{ submit }}" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:12px;">
+<input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
+<input type="hidden" name="subject" value="LogLens AI waitlist (pricing)">
+<input type="hidden" name="from_name" value="loglensai.com">
+<input type="hidden" name="plan" value="{{ plan }}">
+<input type="hidden" name="source" value="pricing">
+<input type="checkbox" name="botcheck" style="display:none">
+<label style="display:flex;flex-direction:column;gap:6px;font-size:13px;">Full name<input name="name" required style="font:inherit;font-size:16px;color:#E6EDF7;background:#05080F;border:1px solid rgba(148,163,184,.2);border-radius:10px;padding:12px;outline:0;min-height:46px;" style-focus="border-color:#5CC8FF"></label>
+<label style="display:flex;flex-direction:column;gap:6px;font-size:13px;">Work email<input name="email" type="email" required style="font:inherit;font-size:16px;color:#E6EDF7;background:#05080F;border:1px solid rgba(148,163,184,.2);border-radius:10px;padding:12px;outline:0;min-height:46px;" style-focus="border-color:#5CC8FF"></label>
+<label style="display:flex;flex-direction:column;gap:6px;font-size:13px;">Company<input name="company" style="font:inherit;font-size:16px;color:#E6EDF7;background:#05080F;border:1px solid rgba(148,163,184,.2);border-radius:10px;padding:12px;outline:0;min-height:46px;" style-focus="border-color:#5CC8FF"></label>
+<label style="display:flex;flex-direction:column;gap:6px;font-size:13px;">Servers in scope<select name="servers" style="font:inherit;font-size:16px;color:#E6EDF7;background:#05080F;border:1px solid rgba(148,163,184,.2);border-radius:10px;padding:12px;min-height:46px;"><option>1–10</option><option>11–50</option><option>51–200</option><option>200+</option></select></label>
+<label style="display:flex;flex-direction:column;gap:6px;font-size:13px;grid-column:1/-1;">Interested in<select name="interest" value="{{ plan }}" onChange="{{ onPlan }}" style="font:inherit;font-size:16px;color:#E6EDF7;background:#05080F;border:1px solid rgba(148,163,184,.2);border-radius:10px;padding:12px;min-height:46px;"><option>Pro</option><option>Business</option><option>Apex</option><option>Enterprise</option><option>Design partner</option></select></label>
+<div style="grid-column:1/-1;display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+<button type="submit" style="font-family:inherit;font-weight:600;font-size:15px;color:#05080F;background:#C9A7FF;border:0;border-radius:12px;padding:13px 22px;cursor:pointer;min-height:46px;">{{ submitLabel }}</button>
+<span style="font-size:13px;color:#6B7A90;">No spam. Only launch news.</span>
+</div>
+<sc-if value="{{ formErr }}" hint-placeholder-val="{{ false }}"><span style="grid-column:1/-1;font-size:14px;color:#FF5C7A;">Something went wrong. Please try again.</span></sc-if>
+</form>
+</sc-if>
+</div>
+</section>
+</main>
+
+<footer style="border-top:1px solid rgba(148,163,184,.12);">
+<div style="max-width:1240px;margin:0 auto;padding:24px clamp(16px,3vw,24px);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6B7A90;">
+<span>© 2026 LogLens AI · Built by Paras Rajput · MIT License</span>
+<span>v0.13.0 · www.loglensai.com/pricing</span>
+</div>
+</footer>
+</div>
+
+<sc-if value="{{ pinBarOn }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:80;display:flex;gap:10px;align-items:center;background:#111A29;border:1px solid rgba(92,200,255,.45);border-radius:14px;padding:8px 8px 8px 16px;box-shadow:0 20px 60px rgba(0,0,0,.5);max-width:calc(100vw - 24px);">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#E6EDF7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ pinBarText }}</span>
+<a href="#compare" style="font-size:14px;font-weight:600;color:#05080F;background:#5CC8FF;border-radius:10px;padding:9px 14px;white-space:nowrap;">{{ pinBarCta }}</a>
+</div>
+</sc-if>
+<sc-if value="{{ toastOn }}" hint-placeholder-val="{{ false }}">
+<div role="status" style="position:fixed;top:72px;left:50%;transform:translateX(-50%);z-index:100;background:#111A29;border:1px solid rgba(155,140,255,.5);border-radius:12px;padding:10px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;color:#E6EDF7;box-shadow:0 20px 60px rgba(0,0,0,.5);">{{ toast }}</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;dark&quot;,&quot;light&quot;],&quot;default&quot;:&quot;dark&quot;,&quot;tsType&quot;:&quot;'dark'|'light'&quot;,&quot;section&quot;:&quot;Page&quot;}}">
+const C = { ok:'#3DDC97', warn:'#FFB547', crit:'#FF5C7A', info:'#5CC8FF', ai:'#9B8CFF', pipe:'#C9A7FF', ink:'#E6EDF7', body:'#A7B3C6', muted:'#6B7A90' };
+const PLANS = [
+  { name:'Core', live:true, who:'Solo engineers, small teams and single air-gapped hosts.', hl:['Open-source engine, 1 node','Unmetered, self-run','Templates + rate detection','Community support'] },
+  { name:'Pro', who:'One busy server that needs every core.', hl:['Apex Go engine, all cores','20 GB/day included, 30-day retention','+ Sequence detection','Heal suggestions, email support'] },
+  { name:'Business', who:'Small fleets that need HA and root cause.', hl:['Up to 5 nodes + HA leader','200 GB/day, 90-day retention','+ Semantic novelty, RCA graph','Metrics (Dec 2026), RBAC'] },
+  { name:'Apex', who:'Large fleets that want AI narration and auto-heal.', hl:['Up to 16 nodes, cluster mode','1 TB/day, 400-day retention','AI narration included (fair use)','Traces, change-event RCA, audit log'] },
+  { name:'Enterprise', who:'Regulated organisations with custom needs.', hl:['Unlimited nodes','Custom ingest and retention','SSO + SCIM','SLA + named engineer'] }
+];
+const Y=true, N=false;
+const GROUPS = [
+  { name:'ENGINE & SCALE', color:C.info, rows:[
+    ['Engine',['Open-source','Apex Go engine','Apex Go engine','Apex Go engine','Apex Go engine'],'Core runs the MIT engine. Paid plans run the new Go engine, built for multi-core throughput and lower memory.'],
+    ['Nodes',['1','1, all cores','Up to 5 + HA leader','Up to 16','Unlimited'],'How many servers one deployment can coordinate. Pro scales up one machine; Business and above scale out.'],
+    ['Cluster mode & failover',[N,N,Y,Y,Y],'Any node can become leader. Work is spread across every core in the cluster, and a new leader takes over automatically if one fails.'],
+    ['Included ingest',['Unmetered','20 GB/day','200 GB/day','1 TB/day','Custom'],'How much log volume per day is included before usage add-ons apply.'],
+    ['Retention',['Local files','30 days','90 days','400 days','Custom'],'How long processed incidents and history are kept for search and trends.'],
+    ['Self-hosted dashboard',[N,Y,Y,Y,Y],'A web dashboard you run on your own infrastructure. A cloud option comes later.']
+  ]},
+  { name:'DETECTION', color:C.crit, rows:[
+    ['Templates + rate',[Y,Y,Y,Y,Y],'Finds rare message shapes and sudden bursts. This is what Core does today.'],
+    ['Sequence detection',[N,Y,Y,Y,Y],'Notices when events happen in an unusual order, like a step being skipped.'],
+    ['Semantic novelty',[N,N,Y,Y,Y],'Spots log lines whose meaning has never been seen before, even if the wording looks normal.'],
+    ['Value drift',[N,N,Y,Y,Y],'Watches numbers inside logs (latency, sizes, counts) and flags when they drift.'],
+    ['Transformer sequence model',[N,N,N,Y,Y],'A neural model that understands long event sequences across services.']
+  ]},
+  { name:'INCIDENTS & ROOT CAUSE', color:C.warn, rows:[
+    ['Incident grouping',['Basic','Correlation + dedup','Correlation + dedup','Correlation + dedup','All'],'Repeats collapse into one incident; higher tiers correlate related incidents across sources.'],
+    ['RCA graph',[N,N,Y,Y,Y],'A visual map of how incidents connect, pointing at the most likely origin.'],
+    ['Change-event RCA',[N,N,N,Y,Y],'Links incidents to deploys and config changes, answering "what changed?".']
+  ]},
+  { name:'AI & AUTOMATION', color:C.ai, rows:[
+    ['AI narration (Apex Analyses)',[N,'25 one-time','25 one-time','Included, fair use','Custom'],'A plain-language story of the incident: what happened, why, and what to check.'],
+    ['Heal playbooks',[N,'Suggest','Suggest','Approve-to-run + policy auto','All'],'Suggested fixes. On Apex you can approve them with one click, or let safe ones run inside a policy.']
+  ]},
+  { name:'OBSERVABILITY', color:C.pipe, rows:[
+    ['Logs',[Y,Y,Y,Y,Y],'Live today across all plans.'],
+    ['Metrics (Prometheus / OTLP)',[N,N,'Dec 2026','Dec 2026','Dec 2026'],'Metric anomalies joined to the same incidents as your logs. Planned Nov–Dec 2026.'],
+    ['Traces (OTLP)',[N,N,N,'Q1 2027','Q1 2027'],'Slow or failing spans linked to incidents. Planned Q1 2027.']
+  ]},
+  { name:'SECURITY & SUPPORT', color:C.ok, rows:[
+    ['RBAC',[N,N,Y,Y,Y],'Control who can view, acknowledge or run playbooks.'],
+    ['Audit log',[N,N,N,Y,Y],'Every action recorded for compliance reviews.'],
+    ['SSO + SCIM',[N,N,N,N,Y],'Sign in with your identity provider and provision users automatically.'],
+    ['Support',['Community','Email','Business hours','Priority + Slack','SLA + named engineer'],'How you reach us and how fast we respond.']
+  ]}
+];
+const ROWS = GROUPS.flatMap(g=>g.rows.map(r=>({g:g.name,label:r[0],vals:r[1],explain:r[2]})));
+const NEEDS = [['All cores on one box',1],['Sequence detection',1],['RCA graph',2],['Metrics',2],['HA / failover',2],['AI narration included',3],['Auto-heal',3],['Traces',3],['Audit log',3],['SSO / SCIM',4]];
+const RET = [['Local',0],['30 d',1],['90 d',2],['400 d',3],['Custom',4]];
+const SIGS = [
+  { name:'Logs', status:'LIVE · v0.13.0', live:true, desc:'Explainable anomaly detection over files, stdin, URLs and live docker / kubectl / tail streams.', pts:['Incident families with ×N counts','0–1 scores with readable reasons','CI gate, SARIF and PR comments'], plans:'All plans, including free Core', label:'loglens analyze --source app.log', lines:[['ERROR db ×47 score 0.95 connection refused',C.crit],['why: failure keyword, burst',C.ai],['0 bytes uploaded',C.ok]] },
+  { name:'Metrics', status:'IN THE PIPELINE · NOV–DEC 2026', desc:'Prometheus and OTLP metrics, scored by the same engine and joined to log incidents.', pts:['Spike and drift detection on series','Metric context inside each incident','No per-series dashboards to build'], plans:'Business, Apex, Enterprise', label:'preview · metric anomaly', lines:[['p99_latency{svc="checkout"} 140ms → 2.1s',C.warn],['joined to incident #42 (db connection refused)',C.ai],['score 0.88 · why: value drift, co-occurs with ERROR burst',C.body]] },
+  { name:'Traces', status:'IN THE PIPELINE · Q1 2027', desc:'OTLP traces linked to incidents, so you can see which span broke and where.', pts:['Failing and slow spans highlighted','Service path to the root cause','Joined with logs and metrics'], plans:'Apex, Enterprise', label:'preview · trace', lines:[['checkout → payment → db.query',C.body],['                         ✕ 2.1s timeout',C.crit],['root span linked to incident #42',C.ai]] },
+  { name:'Change events', status:'IN THE PIPELINE · Q1 2027', desc:'Deploys and config changes fed in, so LogLens can answer "what changed?" before you ask.', pts:['Deploys on the incident timeline','Suspect change ranked by likelihood','Works with your CI/CD'], plans:'Apex, Enterprise', label:'preview · what changed?', lines:[['14:02 deploy payment-svc v2.3.1',C.info],['14:03 first ERROR connection refused',C.crit],['likely cause: deploy v2.3.1 (pool size 50 → 5)',C.ai]] },
+  { name:'AI narration & RCA graph', status:'IN THE PIPELINE', desc:'A plain-language story for each incident, plus a graph of how incidents connect.', pts:['What happened, why, what to check','Readable by on-call and managers','Uses summaries, never full logs'], plans:'Pro & Business (25 one-time), Apex (included)', label:'preview · narration', lines:[['At 14:03 checkout began failing because the',C.ai],['database refused new connections. This started',C.ai],['one minute after deploy v2.3.1 reduced the pool.',C.ai]] },
+  { name:'Cluster mode', status:'IN THE PIPELINE', desc:'The Apex engine treats every node\'s cores as one machine, with leader election and failover.', pts:['Promote any node to leader','Automatic failover','Linear scale-out target'], plans:'Business (5 nodes), Apex (16), Enterprise', label:'preview · cluster', lines:[['leader: node-1 · 4 nodes · 32 cores',C.info],['node-1 lost → node-3 elected in 1.2 s (target)',C.warn],['detection continued: 0 gaps',C.ok]] }
+];
+const HEAL = [
+  { name:'Suggest', plans:'Pro, Business, Apex, Enterprise', lines:[['incident #42 · connection refused',C.crit],['suggestion: restart payment-svc pool',C.ai],['action: none taken (suggest only)',C.muted]] },
+  { name:'Approve to run', plans:'Apex, Enterprise', lines:[['incident #42 · connection refused',C.crit],['playbook: restart payment-svc pool',C.ai],['[ Approve ]  approved by paras · ran in 3.4 s ✓',C.ok]] },
+  { name:'Policy-bounded auto', plans:'Apex, Enterprise', lines:[['incident #42 · matches policy "pool-restart"',C.crit],['auto-run allowed: max 2/hour, prod-eu only',C.warn],['ran automatically · incident resolved ✓',C.ok]] }
+];
+const TIMELINE = [['NOW','Core live, free, MIT',true],['NOV 2026','Preview metering for design partners'],['DEC 2026','Metrics land'],['1 FEB 2027','Paid launch target · prices revealed'],['Q1 2027','Traces + change events']];
+const FAQS = [
+  ['Why aren\'t prices shown yet?','The paid plans and the Apex engine are still in the pipeline. We will publish prices at launch (target 1 Feb 2027). Waitlist members lock early-access pricing before then.'],
+  ['Will Core stay free?','Yes. Core is MIT open source and stays free, with no per-GB or per-host fees.'],
+  ['What happens if I hit my spend cap?','Anomaly detection keeps running. Only Apex extras such as additional AI narration pause until the next cycle or until you raise the cap.'],
+  ['What is a design partner?','A team that runs the Preview from Nov 2026 and gives feedback. Design partners get free Apex during Preview.'],
+  ['Do paid plans upload my logs?','No. Every plan is self-hosted. AI features send anomaly summaries only, to a provider you configure.']
+];
+const gbFromPos = p=>{ const v=Math.round(Math.pow(10, p/100*Math.log10(3000))); return v; };
+const posFromGb = g=>Math.round(Math.log10(Math.max(1,g))/Math.log10(3000)*100);
+const LS = { get(k,d){ try{ const v=localStorage.getItem(k); return v==null?d:JSON.parse(v); }catch(e){ return d; } }, set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} } };
+
+class Component extends DCLogic {
+  state = { nodes:1, gb:5, ret:0, needs:{}, open:{}, feat:{}, pins:[], hideSame:false, cn:4, leader:0, dead:-1, clog:'Tap any node to promote it to leader.', busy:0, sig:0, heal:0, cap:62, faq:0, plan:'Design partner', form:'idle', xp:0, toast:null, theme:null };
+  componentDidMount(){ this.setState({xp:LS.get('ll_xp',0)}); this.reduced=matchMedia('(prefers-reduced-motion: reduce)').matches; if(!this.reduced) this.iv=setInterval(()=>this.setState(s=>({busy:s.busy+1})),900); }
+  componentWillUnmount(){ clearInterval(this.iv); clearTimeout(this.tt); clearTimeout(this.ft); }
+  addXp(n,msg){ const xp=this.state.xp+n; LS.set('ll_xp',xp); this.setState({xp}); if(msg){ clearTimeout(this.tt); this.setState({toast:msg}); this.tt=setTimeout(()=>this.setState({toast:null}),2400); } }
+  recommend(){ const s=this.state; let t=0, why=[];
+    if(s.nodes>16){ t=4; why.push(`${s.nodes} nodes`); } else if(s.nodes>5){ t=Math.max(t,3); why.push(`${s.nodes} nodes`); } else if(s.nodes>1){ t=Math.max(t,2); why.push(`${s.nodes} nodes`); }
+    if(s.ret>0){ t=Math.max(t,s.ret); why.push(`${RET[s.ret][0]} history`); }
+    NEEDS.forEach(([n,lv])=>{ if(s.needs[n]){ if(lv>t) t=lv; why.push(n); } });
+    if(t>0){ const g=s.gb>1000?4:s.gb>200?3:s.gb>20?2:1; if(g>t){ t=g; why.push(`${s.gb} GB/day`); } }
+    return {t,why}; }
+  renderVals(){
+    const s=this.state, light=(s.theme ?? this.props.theme ?? 'dark')==='light';
+    const {t:rec,why}=this.recommend();
+    const anyOpen=PLANS.some((_,i)=>s.open[i]);
+    const fmtVal=v=>v===true?'✓':v===false?'—':v;
+    const valColor=v=>v===false?'#3B475A':v===true?C.ok:C.ink;
+    const pinned=s.pins;
+    const alive=[...Array(s.cn).keys()].filter(i=>i!==s.dead);
+    const cs=SIGS[s.sig];
+    return {
+      rootFilter: light?'invert(1) hue-rotate(180deg)':'none', themeIcon: light?'☾':'☀', toggleTheme:()=>this.setState({theme:light?'dark':'light'}), xp:s.xp,
+      nodes:s.nodes, nodesLabel:`${s.nodes}`, onNodes:e=>this.setState({nodes:+e.target.value}),
+      gbPos:posFromGb(s.gb), gbLabel: s.gb>=1000?`${(s.gb/1000).toFixed(1)} TB`:`${s.gb} GB`, onGb:e=>this.setState({gb:gbFromPos(+e.target.value)}),
+      retOpts: RET.map(([l],i)=>({label:l, color:i===s.ret?'#05080F':C.body, bg:i===s.ret?C.ink:'transparent', border:i===s.ret?C.ink:'rgba(148,163,184,.25)', pick:()=>this.setState({ret:i})})),
+      needs: NEEDS.map(([n])=>{ const on=!!s.needs[n]; return {label:n, on, color:on?'#05080F':C.body, bg:on?C.info:'transparent', border:on?C.info:'rgba(148,163,184,.25)', toggle:()=>this.setState({needs:{...s.needs,[n]:!on}})}; }),
+      recName: PLANS[rec].name, recColor: rec===0?C.ok:C.pipe,
+      recWhy: rec===0 ? 'Core covers this today, free. Install it now, and join the waitlist if you expect to grow.' : `${PLANS[rec].name} fits because of: ${why.join(', ')}. It's in the pipeline, so join the waitlist to lock early-access pricing.`,
+      expandAll: ()=>{ const o={}; if(!anyOpen) PLANS.forEach((_,i)=>o[i]=true); this.setState({open:o}); }, expandAllLabel: anyOpen?'Collapse all':'Expand all features',
+      plans: PLANS.map((p,i)=>{ const open=!!s.open[i], isRec=i===rec, isPin=pinned.includes(i);
+        const groups=GROUPS.map(g=>({ name:g.name, color:g.color, rows:g.rows.map((r,ri)=>{ const key=`${i}-${g.name}-${ri}`, v=r[1][i]; return { label:r[0], val:fmtVal(v), valColor:valColor(v), labelColor: v===false?C.muted:C.ink, explain:r[2], open:!!s.feat[key], tap:()=>this.setState({feat:{...s.feat,[key]:!s.feat[key]}}) }; }) }));
+        const count=ROWS.filter(r=>r.vals[i]!==false).length;
+        return { name:p.name, upper:p.name.toUpperCase(), who:p.who, highlights:p.hl, rec:isRec, open, count, groups,
+          span: open?'1 / -1':'auto',
+          status: p.live?'LIVE · FREE · MIT':'IN THE PIPELINE', badgeColor: p.live?C.ok:C.pipe,
+          badgeBg: p.live?'transparent':'linear-gradient(90deg,transparent 0%,rgba(201,167,255,.18) 50%,transparent 100%)', shimmer: p.live||this.reduced?'none':'llShimmer 3.2s linear infinite',
+          borderStyle: p.live?'solid':'dashed', borderColor: isRec?(p.live?C.ok:C.info):(open?'rgba(92,200,255,.45)':'rgba(148,163,184,.2)'),
+          lift: isRec&&!open?-6:0, shadow: isRec?'0 24px 70px -24px rgba(92,200,255,.45)':'none',
+          price: p.live?'₹0 · $0':(p.name==='Enterprise'?'Custom':'Revealed at launch'), priceNote: p.live?'forever':(p.name==='Enterprise'?'talk to us':'early-access pricing for waitlist'),
+          priceSize: p.live?'28px':'17px', priceColor: p.live?C.ink:C.pipe, dot: p.live?C.ok:C.pipe,
+          toggle: ()=>{ this.setState({open:{...s.open,[i]:!open}}); if(!open && !this.seen?.[i]){ this.seen={...(this.seen||{}),[i]:1}; this.addXp(5,`Explored ${p.name} · +5 XP`); } },
+          toggleLabel: open?'Hide features':`All ${count} features`, rot: open?180:0,
+          pinned:isPin, pin: ()=>this.setState(st=>{ const has=st.pins.includes(i); let np=has?st.pins.filter(x=>x!==i):[...st.pins,i]; if(np.length>2) np=np.slice(-2); return {pins:np}; }),
+          pinLabel: isPin?'✓ pinned':'⇄ compare', pinColor: isPin?C.info:C.body, pinBorder: isPin?C.info:'rgba(148,163,184,.25)',
+          cta: p.live?'Install free':(p.name==='Enterprise'?'Talk to us':'Join the waitlist'), href: p.live?'LogLens Home.dc.html#install':'#waitlist',
+          choose: ()=>{ if(!p.live) this.setState({plan:p.name}); },
+          ctaColor: p.live?'#05080F':C.pipe, ctaBg: p.live?C.ink:'transparent', ctaBorder: p.live?C.ink:'rgba(201,167,255,.5)' }; }),
+      compareOn: pinned.length===2, cmpA: pinned.length===2?PLANS[pinned[0]].name.toUpperCase():'', cmpB: pinned.length===2?PLANS[pinned[1]].name.toUpperCase():'',
+      compareTitle: pinned.length===2?`${PLANS[pinned[0]].name} vs ${PLANS[pinned[1]].name}`:'',
+      toggleSame: ()=>this.setState({hideSame:!s.hideSame}), sameLabel: s.hideSame?'Show all rows':'Hide identical rows',
+      clearPins: ()=>this.setState({pins:[]}),
+      cmpRows: pinned.length===2 ? ROWS.map(r=>{ const a=r.vals[pinned[0]], b=r.vals[pinned[1]], same=a===b; return {label:r.label, a:fmtVal(a), b:fmtVal(b), aColor:valColor(a), bColor:valColor(b), same}; }).filter(r=>!(s.hideSame&&r.same)).map(r=>({...r, bg:r.same?'transparent':'rgba(92,200,255,.06)', op:r.same?0.45:1})) : [],
+      pinBarOn: pinned.length>0, pinBarText: pinned.length===1?`${PLANS[pinned[0]].name} pinned · pick one more`:`${PLANS[pinned[0]]?.name} vs ${PLANS[pinned[1]]?.name}`, pinBarCta: pinned.length===2?'View comparison ↓':'Pin another',
+      cNodesLabel: `${s.cn} nodes`,
+      nodeMinus: ()=>this.setState(st=>{ const cn=Math.max(2,st.cn-1); return {cn, leader: st.leader>=cn?0:st.leader, dead: st.dead>=cn?-1:st.dead}; }),
+      nodePlus: ()=>this.setState(st=>({cn:Math.min(8,st.cn+1)})),
+      failover: ()=>{ if(s.dead>=0) return; const old=s.leader; const next=alive.find(i=>i!==old);
+        this.setState({dead:old, clog:`node-${old+1} lost. Electing a new leader…`});
+        clearTimeout(this.ft); this.ft=setTimeout(()=>{ this.setState({leader:next, clog:`node-${next+1} elected leader. Work redistributed, detection never paused.`}); this.addXp(10,'Failover survived · +10 XP');
+          this.ft=setTimeout(()=>this.setState({dead:-1, clog:`node-${old+1} rejoined as follower.`}),2600); }, this.reduced?0:1200); },
+      cNodes: [...Array(s.cn).keys()].map(i=>{ const dead=i===s.dead, lead=i===s.leader&&!dead;
+        return { name:`node-${i+1}`, role: dead?'offline':lead?'leader':'follower', roleColor: dead?C.crit:lead?C.pipe:C.muted,
+          border: dead?'rgba(255,92,122,.6)':lead?C.pipe:'rgba(148,163,184,.16)', op: dead?0.45:1, glow: lead?'0 0 30px rgba(201,167,255,.25)':'none',
+          promote: ()=>{ if(dead||lead) return; this.setState({leader:i, clog:`node-${i+1} promoted to leader.`}); },
+          cores: [...Array(8).keys()].map(c=>({ bg: dead?'rgba(255,92,122,.25)':(((c*7+i*3+s.busy)%5)<3?(lead?C.pipe:C.info):'rgba(148,163,184,.14)') })) }; }),
+      clusterCores: alive.length*8, leaderLabel: s.dead===s.leader?'electing…':`node-${s.leader+1}`,
+      healthLabel: s.dead>=0?'failover':'healthy', healthColor: s.dead>=0?C.warn:C.ok, clusterLog: s.clog,
+      sigTabs: SIGS.map((g,i)=>({ name:g.name, status:g.status, pick:()=>this.setState({sig:i}), bg:i===s.sig?'#111A29':'transparent', border:i===s.sig?(g.live?C.ok:C.pipe):'rgba(148,163,184,.2)', borderStyle:g.live?'solid':'dashed', color:i===s.sig?C.ink:C.body, statusColor:g.live?C.ok:C.pipe })),
+      sigName:cs.name, sigStatus:cs.status, sigStatusColor:cs.live?C.ok:C.pipe, sigDesc:cs.desc, sigPoints:cs.pts, sigPlans:cs.plans, sigPreviewLabel:'$ '+cs.label, sigLines:cs.lines.map(l=>({t:l[0],c:l[1]})),
+      healSteps: HEAL.map((h,i)=>({ n:i+1, name:h.name, pick:()=>this.setState({heal:i}), bg:i===s.heal?'#111A29':'transparent', border:i===s.heal?C.ok:'rgba(148,163,184,.2)', color:i===s.heal?C.ink:C.body })),
+      healLines: HEAL[s.heal].lines.map(l=>({t:l[0],c:l[1]})), healPlans: `Available on: ${HEAL[s.heal].plans}`,
+      cap:s.cap, onCap:e=>this.setState({cap:+e.target.value}), capPct:s.cap, capW:Math.min(100,s.cap/1.2*1).toFixed(1),
+      capColor: s.cap>=100?C.crit:s.cap>=80?C.warn:s.cap>=50?'#E8D35C':C.ok,
+      extrasLabel: s.cap>=100?'❚❚ paused':'● running', extrasColor: s.cap>=100?C.warn:C.ok,
+      timeline: TIMELINE.map(([w,x,live])=>({when:w, what:x, color:live?C.ok:C.pipe, style:live?'solid':'dashed', bg:live?'#0B111C':'transparent'})),
+      faqs: FAQS.map((f,i)=>({q:f[0], a:f[1], open:s.faq===i, rot:s.faq===i?45:0, toggle:()=>this.setState({faq:s.faq===i?-1:i})})),
+      plan:s.plan, onPlan:e=>this.setState({plan:e.target.value}),
+      formOk:s.form==='ok', formShow:s.form!=='ok', formErr:s.form==='err', submitLabel:s.form==='sending'?'Sending…':'Join the waitlist',
+      submit: async e=>{ e.preventDefault(); const fd=new FormData(e.target); if(fd.get('botcheck')) return; this.setState({form:'sending'});
+        try{ const r=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(Object.fromEntries(fd))}); const j=await r.json(); this.setState({form:j.success?'ok':'err'}); if(j.success) this.addXp(50); }catch(err){ this.setState({form:'err'}); } },
+      toastOn:!!s.toast, toast:s.toast
+    };
+  }
+}
+</script>
+</body>
+</html>

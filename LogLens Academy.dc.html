@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>LogLens Academy: Learn Log Analysis by Playing</title>
+<meta name="description" content="LogLens Academy turns the docs into a game: 5 paths, short levels with a mini sandbox, quizzes, XP and badges. Go from Rookie Operator to Chief of Uptime.">
+<link rel="canonical" href="https://www.loglensai.com/learn">
+<meta name="theme-color" content="#05080F">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#05080F;color:#A7B3C6;font-family:'IBM Plex Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#5CC8FF;text-decoration:none}
+a:hover{color:#E6EDF7}
+*{box-sizing:border-box}
+@keyframes llPulse{0%,100%{box-shadow:0 0 0 0 rgba(92,200,255,.45)}50%{box-shadow:0 0 0 10px rgba(92,200,255,0)}}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:radial-gradient(900px 500px at 80% -10%, rgba(155,140,255,.1), transparent 60%), #05080F;filter:{{ rootFilter }};">
+<nav style="position:sticky;top:0;z-index:50;background:rgba(5,8,15,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(148,163,184,.12);">
+<div style="max-width:1200px;margin:0 auto;padding:12px clamp(16px,3vw,24px);display:flex;align-items:center;gap:20px;">
+<a href="LogLens Home.dc.html" style="display:flex;align-items:center;gap:10px;color:#E6EDF7;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:15px;flex-shrink:0;">
+<img src="assets/loglens-mark.png" alt="LogLens AI logo" width="28" height="28" style="width:28px;height:28px;border-radius:50%;filter:{{ rootFilter }};">
+<span>LogLens AI</span>
+</a>
+<div style="display:flex;gap:20px;font-size:14px;flex:1;min-width:0;overflow-x:auto;white-space:nowrap;scrollbar-width:none;">
+<a href="LogLens Home.dc.html#product" style="color:#A7B3C6;">Product</a>
+<a href="LogLens Home.dc.html#sandbox" style="color:#A7B3C6;">Playground</a>
+<span style="color:#E6EDF7;">Academy</span>
+<a href="LogLens Docs.dc.html" style="color:#A7B3C6;">Docs</a>
+<a href="LogLens Tour.dc.html" style="color:#A7B3C6;">Tour</a>
+<a href="LogLens Pricing.dc.html" style="color:#A7B3C6;">Pricing</a>
+<a href="LogLens Compare.dc.html" style="color:#A7B3C6;">Compare</a>
+</div>
+<div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9B8CFF;border:1px solid rgba(155,140,255,.35);border-radius:999px;padding:5px 10px;font-variant-numeric:tabular-nums;white-space:nowrap;">XP {{ xp }}</span>
+<button onClick="{{ toggleTheme }}" aria-label="Toggle light/dark theme" style="font-size:15px;color:#E6EDF7;background:transparent;border:1px solid rgba(148,163,184,.2);border-radius:10px;width:36px;height:36px;cursor:pointer;">{{ themeIcon }}</button>
+</div>
+</div>
+</nav>
+
+<main style="max-width:1200px;margin:0 auto;padding:clamp(28px,5vw,56px) clamp(16px,3vw,24px) 96px;display:flex;flex-direction:column;gap:32px;">
+
+<sc-if value="{{ onMap }}" hint-placeholder-val="{{ true }}">
+<header style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;">
+<div style="display:flex;flex-direction:column;gap:14px;max-width:700px;">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9B8CFF;letter-spacing:.08em;">LOGLENS ACADEMY</span>
+<h1 style="margin:0;font-family:'Geist',sans-serif;font-weight:600;font-size:clamp(34px,5vw,62px);line-height:1.02;letter-spacing:-.03em;color:#E6EDF7;text-wrap:balance;">Learn log analysis by playing it.</h1>
+<p style="margin:0;font-size:17px;line-height:1.6;">Five paths. Short levels with a story, a sandbox and a quiz. Every level is a real page you can read without playing; the game just makes it stick.</p>
+</div>
+<div style="background:#0B111C;border:1px solid rgba(155,140,255,.35);border-radius:18px;padding:18px;min-width:min(100%,280px);display:flex;flex-direction:column;gap:10px;">
+<div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-family:'Geist',sans-serif;font-size:20px;font-weight:600;color:#E6EDF7;">{{ rank }}</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9B8CFF;">{{ xp }} XP</span></div>
+<div style="height:6px;border-radius:4px;background:rgba(148,163,184,.15);overflow:hidden;"><div style="height:100%;width:{{ rankPct }}%;background:linear-gradient(90deg,#5CC8FF,#9B8CFF);transition:width .5s;"></div></div>
+<span style="font-size:13px;">{{ nextRank }}</span>
+<div style="display:flex;gap:6px;flex-wrap:wrap;"><sc-for list="{{ badges }}" as="b" hint-placeholder-count="0"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#05080F;background:#FFB547;border-radius:999px;padding:3px 8px;">★ {{ b }}</span></sc-for></div>
+</div>
+</header>
+
+<sc-if value="{{ resumeOn }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ resume }}" style="align-self:flex-start;display:flex;gap:12px;align-items:center;font-family:inherit;background:#0B111C;border:1px solid rgba(92,200,255,.45);border-radius:999px;padding:10px 18px;cursor:pointer;color:#E6EDF7;font-size:15px;min-height:44px;"><span style="color:#5CC8FF;font-family:'IBM Plex Mono',monospace;font-size:12px;">WELCOME BACK, OPERATOR</span>{{ resumeLabel }} →</button>
+</sc-if>
+
+<section style="display:flex;flex-direction:column;gap:14px;">
+<sc-for list="{{ paths }}" as="p" hint-placeholder-count="5">
+<div style="background:#0B111C;border:1px solid rgba(148,163,184,.12);border-radius:20px;padding:clamp(16px,2.6vw,24px);display:flex;flex-direction:column;gap:16px;">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+<div style="display:flex;gap:14px;align-items:center;">
+<span style="width:44px;height:44px;border-radius:12px;background:{{ p.tint }};border:1px solid {{ p.color }};display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:15px;color:{{ p.color }};flex-shrink:0;">{{ p.n }}</span>
+<div style="display:flex;flex-direction:column;gap:2px;"><span style="font-family:'Geist',sans-serif;font-size:21px;font-weight:600;color:#E6EDF7;">{{ p.name }}</span><span style="font-size:13px;color:{{ p.color }};">{{ p.rank }} · {{ p.theme }}</span></div>
+</div>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#A7B3C6;">{{ p.progress }}</span>
+</div>
+<div style="display:flex;align-items:center;gap:0;overflow-x:auto;padding:4px 2px 8px;">
+<sc-for list="{{ p.levels }}" as="l" hint-placeholder-count="4">
+<div style="display:flex;align-items:center;flex-shrink:0;">
+<sc-if value="{{ l.notFirst }}" hint-placeholder-val="{{ false }}"><div style="width:clamp(16px,3vw,36px);height:2px;background:{{ l.line }};"></div></sc-if>
+<button onClick="{{ l.open }}" disabled="{{ l.locked }}" title="{{ l.title }}" style="display:flex;flex-direction:column;align-items:center;gap:8px;background:transparent;border:0;cursor:{{ l.cursor }};padding:4px;font-family:inherit;width:clamp(92px,12vw,124px);">
+<span style="width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:14px;color:{{ l.dotColor }};background:{{ l.dotBg }};border:2px {{ l.dotStyle }} {{ l.dotBorder }};animation:{{ l.pulse }};">{{ l.mark }}</span>
+<span style="font-size:13px;line-height:1.3;color:{{ l.textColor }};text-align:center;">{{ l.title }}</span>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6B7A90;">{{ l.meta }}</span>
+</button>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</section>
+</sc-if>
+
+<sc-if value="{{ onLevel }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:24px;max-width:860px;width:100%;margin:0 auto;">
+<nav aria-label="Breadcrumb" style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6B7A90;display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+<button onClick="{{ backToMap }}" style="font-family:inherit;font-size:12px;color:#5CC8FF;background:transparent;border:0;cursor:pointer;padding:0;">← Skill map</button><span>/</span><span>Foundations</span><span>/</span><span style="color:#A7B3C6;">{{ lvTitle }}</span>
+</nav>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:12px;"><span style="color:#5CC8FF;">LEVEL {{ lvNum }} · ROOKIE OPERATOR</span><span style="color:#6B7A90;">{{ lvMins }} min · +{{ lvXp }} XP</span></div>
+<h1 style="margin:0;font-family:'Geist',sans-serif;font-weight:600;font-size:clamp(30px,4.4vw,52px);line-height:1.04;letter-spacing:-.03em;color:#E6EDF7;">{{ lvTitle }}</h1>
+<p style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:15px;line-height:1.6;color:#FFB547;">{{ lvStory }}</p>
+</div>
+
+<div style="background:#0B111C;border:1px solid rgba(148,163,184,.12);border-radius:18px;padding:clamp(18px,3vw,26px);display:flex;flex-direction:column;gap:14px;">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
+<h2 style="margin:0;font-family:'Geist',sans-serif;font-size:22px;font-weight:600;color:#E6EDF7;">The idea</h2>
+<div style="display:flex;gap:4px;background:#05080F;border:1px solid rgba(148,163,184,.18);border-radius:10px;padding:3px;">
+<button onClick="{{ setSimple }}" style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:{{ simpleColor }};background:{{ simpleBg }};border:0;border-radius:7px;padding:6px 10px;cursor:pointer;min-height:32px;">Simple</button>
+<button onClick="{{ setEng }}" style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:{{ engColor }};background:{{ engBg }};border:0;border-radius:7px;padding:6px 10px;cursor:pointer;min-height:32px;">Engineer</button>
+</div>
+</div>
+<p style="margin:0;font-size:17px;line-height:1.7;color:#E6EDF7;text-wrap:pretty;">{{ lvConcept }}</p>
+</div>
+
+<div style="background:#070B14;border:1px solid rgba(92,200,255,.3);border-radius:18px;overflow:hidden;">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid rgba(148,163,184,.12);font-family:'IBM Plex Mono',monospace;font-size:12px;gap:10px;flex-wrap:wrap;"><span style="color:#5CC8FF;">TRY IT · {{ lvTask }}</span><span style="color:{{ sbDoneColor }};">{{ sbDoneLabel }}</span></div>
+<div style="padding:14px;font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:1.65;min-height:150px;display:flex;flex-direction:column;" aria-live="polite">
+<sc-for list="{{ sbOut }}" as="o" hint-placeholder-count="0"><div style="color:{{ o.c }};white-space:pre-wrap;word-break:break-word;">{{ o.t }}</div></sc-for>
+<div style="display:flex;gap:8px;align-items:center;"><span style="color:#3DDC97;">$</span><input value="{{ sbInput }}" onChange="{{ onSb }}" onKeyDown="{{ onSbKey }}" placeholder="{{ lvCmd }}" spellCheck="false" aria-label="Level sandbox" style="flex:1;min-width:0;background:transparent;border:0;outline:0;color:#E6EDF7;font:inherit;caret-color:#5CC8FF;"></div>
+</div>
+<div style="display:flex;gap:8px;padding:10px 14px;border-top:1px solid rgba(148,163,184,.12);flex-wrap:wrap;">
+<button onClick="{{ sbRun }}" style="font-family:inherit;font-size:14px;font-weight:600;color:#05080F;background:#5CC8FF;border:0;border-radius:8px;padding:9px 14px;cursor:pointer;min-height:40px;">Run ⏎</button>
+<button onClick="{{ sbHint }}" style="font-family:inherit;font-size:14px;color:#E6EDF7;background:transparent;border:1px solid rgba(148,163,184,.25);border-radius:8px;padding:9px 14px;cursor:pointer;min-height:40px;">Fill in the command</button>
+</div>
+</div>
+
+<div style="background:#0B111C;border:1px solid rgba(155,140,255,.3);border-radius:18px;padding:clamp(18px,3vw,26px);display:flex;flex-direction:column;gap:18px;">
+<div style="display:flex;justify-content:space-between;align-items:center;"><h2 style="margin:0;font-family:'Geist',sans-serif;font-size:22px;font-weight:600;color:#E6EDF7;">Quick quiz</h2><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9B8CFF;">{{ quizScore }}</span></div>
+<sc-for list="{{ quiz }}" as="q" hint-placeholder-count="2">
+<div style="display:flex;flex-direction:column;gap:10px;">
+<span style="font-size:16px;font-weight:500;color:#E6EDF7;">{{ q.q }}</span>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:8px;">
+<sc-for list="{{ q.opts }}" as="o" hint-placeholder-count="3">
+<button onClick="{{ o.pick }}" style="text-align:left;font-family:inherit;font-size:15px;color:#E6EDF7;background:{{ o.bg }};border:1px solid {{ o.border }};border-radius:10px;padding:11px 14px;cursor:pointer;min-height:46px;transform:scale({{ o.scale }});transition:all .25s cubic-bezier(.2,.9,.3,1.3);">{{ o.label }}</button>
+</sc-for>
+</div>
+<sc-if value="{{ q.answered }}" hint-placeholder-val="{{ false }}"><span style="font-size:14px;line-height:1.5;color:{{ q.fbColor }};">{{ q.fb }}</span></sc-if>
+</div>
+</sc-for>
+</div>
+
+<div style="background:#0B111C;border:1px solid rgba(61,220,151,.3);border-radius:18px;padding:clamp(18px,3vw,26px);display:flex;flex-direction:column;gap:10px;">
+<h2 style="margin:0;font-family:'Geist',sans-serif;font-size:20px;font-weight:600;color:#E6EDF7;">Key takeaways</h2>
+<sc-for list="{{ takeaways }}" as="t" hint-placeholder-count="3"><div style="display:flex;gap:10px;font-size:15px;line-height:1.5;"><span style="color:#3DDC97;">✓</span><span style="color:#E6EDF7;">{{ t }}</span></div></sc-for>
+<a href="{{ lvDoc }}" style="font-size:14px;margin-top:4px;">Read the full reference in the docs →</a>
+</div>
+
+<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;background:#070B14;border:1px solid rgba(148,163,184,.14);border-radius:18px;padding:16px 20px;">
+<span style="font-size:15px;color:{{ completeColor }};flex:1;min-width:200px;">{{ completeLabel }}</span>
+<button onClick="{{ next }}" disabled="{{ nextDisabled }}" style="font-family:inherit;font-size:15px;font-weight:600;color:#05080F;background:{{ nextBg }};border:0;border-radius:12px;padding:12px 20px;cursor:pointer;min-height:46px;">{{ nextLabel }}</button>
+</div>
+</div>
+</sc-if>
+</main>
+
+<footer style="border-top:1px solid rgba(148,163,184,.12);">
+<div style="max-width:1200px;margin:0 auto;padding:24px clamp(16px,3vw,24px);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6B7A90;">
+<span>© 2026 LogLens AI · Progress is stored only in this browser</span><span>v0.13.0 · www.loglensai.com/learn</span>
+</div>
+</footer>
+</div>
+
+<sc-if value="{{ toastOn }}" hint-placeholder-val="{{ false }}">
+<div role="status" style="position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:100;background:#111A29;border:1px solid rgba(155,140,255,.5);border-radius:12px;padding:10px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;color:#E6EDF7;box-shadow:0 20px 60px rgba(0,0,0,.5);">{{ toast }}</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;dark&quot;,&quot;light&quot;],&quot;default&quot;:&quot;dark&quot;,&quot;tsType&quot;:&quot;'dark'|'light'&quot;,&quot;section&quot;:&quot;Page&quot;}}">
+const C={ok:'#3DDC97',warn:'#FFB547',crit:'#FF5C7A',info:'#5CC8FF',ai:'#9B8CFF',ink:'#E6EDF7',body:'#A7B3C6',muted:'#6B7A90'};
+const LEVELS=[
+ { title:'Install', mins:4, xp:40, story:"It's your first day on the platform team. Your lead says: get LogLens on this box before standup.",
+   simple:'LogLens is one program. You install it like any other app, with one line, and it works without the internet.',
+   eng:'Native installers ship a self-contained binary with the neural model and a warm daemon registered as an OS service. v0.13.0 adds one-line installers, a Windows MSI and Scoop.',
+   task:'install LogLens with the one-line installer', cmd:'curl -fsSL https://raw.githubusercontent.com/LoglensAI/LogLens-AI/main/scripts/install.sh | sh', match:/install\.sh|pipx install loglensai|brew install|apt install loglens/,
+   out:[['→ detected linux x86_64',C.muted],['→ installing loglens 0.13.0 (neural model bundled)',C.body],['→ registering warm daemon (systemd --user)',C.body],['✓ loglens 0.13.0 installed · run: loglens --help',C.ok]],
+   quiz:[{q:'Do native installs need Python?',opts:['Yes, 3.10+','No, they are self-contained','Only on Windows'],c:1,fb:'Native installers are self-contained. Python is only needed for pipx/pip installs.'},{q:'Which install is new in v0.13.0?',opts:['winget','Windows MSI','Docker'],c:1,fb:'v0.13.0 added a machine-wide Windows MSI, plus one-line installers and Scoop.'}],
+   take:['One line installs LogLens on macOS and Linux; PowerShell has its own one-liner.','Native installs bundle the neural model and work offline.','The warm daemon is registered as a service automatically.'], doc:'LogLens Docs.dc.html#l-2-1' },
+ { title:'First analysis', mins:4, xp:50, story:"3 a.m. Checkout is failing. You have app.log and five minutes.",
+   simple:'Point LogLens at a log file. It reads every line, ignores the boring ones, and shows you the few that look like trouble.',
+   eng:'analyze auto-detects the format, extracts templates, scores entries 0–1 with one policy (severity, rarity, keywords, flood, timing) and groups them into families.',
+   task:'analyze app.log', cmd:'loglens analyze --source app.log', match:/loglens analyze --source app\.log/,
+   out:[['format: auto-detected · mode: fast · 48,210 lines parsed',C.muted],['ERROR  db   ×47  score 0.95  connection refused | host=db-1',C.crit],['       why: severity ERROR, failure keyword, burst',C.ai],['WARN   api  ×12  score 0.71  upstream latency 2140ms /checkout',C.warn],['INCIDENT 2 families · 59 of 48,210 lines flagged',C.ink]],
+   quiz:[{q:'What did you need to configure first?',opts:['Baselines','Training labels','Nothing'],c:2,fb:'Zero-touch: no baselines, labels or training. Install, point, read.'},{q:'How many of 48,210 lines were flagged?',opts:['59','47','48,210'],c:0,fb:'59 lines in 2 families. That is the point: a handful, not a wall.'}],
+   take:['loglens analyze --source <file> is the main command.','Formats are auto-detected.','Results are families with counts, not raw lines.'], doc:'LogLens Docs.dc.html#l-3-1' },
+ { title:'Reading a score', mins:3, xp:40, story:"Your lead asks: why is the db error ranked above the latency warning?",
+   simple:'Every finding gets a number from 0 to 1. Closer to 1 means "look at this first". The "why" line tells you the reasons.',
+   eng:'All modes share one scoring policy and reason vocabulary, so scores are comparable. FATAL/CRITICAL are hard-flagged but still ranked. Use --explain N to see near-misses.',
+   task:'see the top 5 scored entries with reasons', cmd:'loglens analyze --source app.log --explain 5', match:/--explain/,
+   out:[['0.95  ERROR db   connection refused     why: severity, keyword, burst',C.crit],['0.71  WARN  api  upstream latency 2140ms why: rare template, timing',C.warn],['0.38  INFO  web  cache miss storm      why: burst (below threshold)',C.muted],['0.21  INFO  auth token refreshed      why: rare template',C.muted],['0.12  INFO  web  GET /healthz 200',C.muted]],
+   quiz:[{q:'A score of 0.95 means…',opts:['95% CPU','Very anomalous, look first','95 occurrences'],c:1,fb:'Scores are 0–1 anomaly scores. Higher means more anomalous.'},{q:'Which flag shows near-misses?',opts:['--explain','--verbose','--deep'],c:0,fb:'--explain N shows the top-N scored entries, flagged or not, with reasons.'}],
+   take:['Scores are 0–1 and comparable across modes.','Reasons explain every score.','--explain helps tune and debug.'], doc:'LogLens Docs.dc.html#l-1-1' },
+ { title:'Incident families', mins:4, xp:60, story:"The dashboard shows 10,000 red lines. Your manager asks: how many problems is that, really?",
+   simple:'Lots of identical errors are really one problem. LogLens stacks them into one card and writes ×N to show how many.',
+   eng:'Families group anomalies by level + template (and service). Large runs in v0.13.0 always group into families instead of per-line noise; explore lets you query them by window.',
+   task:'explore families in saved results', cmd:'loglens explore results.json', match:/loglens explore/,
+   out:[['explorer · results.json · view: families · window: 24h',C.muted],['1) ERROR db   connection refused     ×9,812  max 0.95',C.crit],['2) WARN  api  upstream latency        ×176    max 0.71',C.warn],['3) ERROR pay  OOMKilled (exit 137)    ×12     max 0.92',C.crit],['3 families · 10,000 anomalies · critical 0 · error 9,824 · warning 176',C.ink]],
+   quiz:[{q:'10,000 identical errors become…',opts:['10,000 alerts','1 family with ×10,000','Nothing'],c:1,fb:'Repeats collapse into one family with an ×N count.'},{q:'What does explore avoid?',opts:['Re-running detection','Reading the file','Using the terminal'],c:0,fb:'explore queries a saved results file without re-running detection.'}],
+   take:['Families group by level + template.','×N tells you how big each problem is.','explore slices families by time window and severity.'], doc:'LogLens Docs.dc.html#l-3-3' }
+];
+const PATHS=[
+ {name:'Foundations',rank:'Rookie Operator',theme:'What LogLens does',color:'#5CC8FF',tint:'rgba(92,200,255,.1)',levels:LEVELS.map(l=>l.title),live:true},
+ {name:'Deploy',rank:'Field Engineer',theme:'Running it for real',color:'#3DDC97',tint:'rgba(61,220,151,.1)',levels:['Package managers','Daemon & services','Air-gapped install','Windows MSI & Scoop']},
+ {name:'Operate',rank:'Night Shift',theme:'Day-to-day',color:'#FFB547',tint:'rgba(255,181,71,.1)',levels:['Live watch','fast / turbo / deep','analyze-multi','explore','HTML reports']},
+ {name:'Automate',rank:'Pipeline Guardian',theme:'CI/CD',color:'#FF5C7A',tint:'rgba(255,92,122,.1)',levels:['JSON output','--fail-on gates','GitHub Action','SARIF & PR comments']},
+ {name:'Govern',rank:'Chief of Uptime',theme:'Security and scale',color:'#9B8CFF',tint:'rgba(155,140,255,.1)',levels:['Data-flow model','AI root-cause, your key','Apex cluster preview']}
+];
+const RANKS=[[0,'Rookie'],[100,'Operator'],[250,'SRE'],[450,'Principal'],[700,'Chief of Uptime']];
+const LS={ get(k,d){ try{ const v=localStorage.getItem(k); return v==null?d:JSON.parse(v); }catch(e){ return d; } }, set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} } };
+
+class Component extends DCLogic {
+  state={ view:'map', lv:0, done:{}, xp:0, badges:[], simple:true, sbInput:'', sbOut:[], sbOk:false, ans:{}, toast:null, theme:null, last:null };
+  componentDidMount(){ this.setState({ xp:LS.get('ll_xp',0), done:LS.get('ll_acad_done',{}), badges:LS.get('ll_acad_badges',[]), last:LS.get('ll_acad_last',null) }); }
+  componentWillUnmount(){ clearTimeout(this.tt); }
+  addXp(n,msg){ const xp=this.state.xp+n; LS.set('ll_xp',xp); this.setState({xp}); if(msg) this.toastMsg(msg); }
+  toastMsg(t){ clearTimeout(this.tt); this.setState({toast:t}); this.tt=setTimeout(()=>this.setState({toast:null}),2400); }
+  openLevel(i){ LS.set('ll_acad_last',i); this.setState({view:'level', lv:i, sbInput:'', sbOut:[], sbOk:false, ans:{}, last:i}); window.scrollTo({top:0}); }
+  renderVals(){
+    const s=this.state, light=(s.theme ?? this.props.theme ?? 'dark')==='light';
+    const L=LEVELS[s.lv]; let ri=0; RANKS.forEach((r,i)=>{ if(s.xp>=r[0]) ri=i; });
+    const nextR=RANKS[ri+1];
+    const firstOpen=LEVELS.findIndex((_,i)=>!s.done[i]);
+    const quizRight=L.quiz.filter((q,i)=>s.ans[i]===q.c).length, quizDone=L.quiz.every((_,i)=>s.ans[i]!=null);
+    const complete=s.sbOk && quizDone;
+    const run=()=>{ const v=s.sbInput.trim()||''; if(!v) return;
+      if(L.match.test(v)){ this.setState({sbOut:[...s.sbOut,{t:'$ '+v,c:C.ink},...L.out.map(o=>({t:o[0],c:o[1]}))], sbInput:'', sbOk:true}); if(!s.sbOk) this.addXp(15,'Sandbox task done · +15 XP'); }
+      else this.setState({sbOut:[...s.sbOut,{t:'$ '+v,c:C.ink},{t:'Not quite. Hint: '+L.cmd,c:C.muted}], sbInput:''}); };
+    return {
+      rootFilter: light?'invert(1) hue-rotate(180deg)':'none', themeIcon: light?'☾':'☀', toggleTheme:()=>this.setState({theme:light?'dark':'light'}), xp:s.xp,
+      onMap: s.view==='map', onLevel: s.view==='level',
+      rank: RANKS[ri][1], rankPct: nextR ? ((s.xp-RANKS[ri][0])/(nextR[0]-RANKS[ri][0])*100).toFixed(1) : 100,
+      nextRank: nextR ? `${nextR[0]-s.xp} XP to ${nextR[1]}` : 'Top rank reached', badges: s.badges,
+      resumeOn: s.last!=null && !s.done[s.last], resumeLabel: s.last!=null ? `Continue Level 1.${s.last+1}: ${LEVELS[s.last].title}` : '', resume: ()=>this.openLevel(s.last),
+      paths: PATHS.map((p,pi)=>({ n:pi+1, name:p.name, rank:p.rank, theme:p.theme, color:p.color, tint:p.tint,
+        progress: p.live ? `${Object.keys(s.done).length}/${p.levels.length} complete` : 'Levels coming soon',
+        levels: p.levels.map((t,li)=>{ const done=p.live&&s.done[li], cur=p.live&&li===firstOpen, locked=!p.live;
+          return { title:t, notFirst:li>0, locked, cursor: locked?'default':'pointer', open: locked?undefined:()=>this.openLevel(li),
+            mark: done?'✓':locked?'·':`${pi+1}.${li+1}`, meta: locked?'soon':(p.live?`${LEVELS[li].mins} min`:''),
+            dotColor: done?'#05080F':cur?p.color:locked?'#3B475A':'#E6EDF7', dotBg: done?p.color:'#05080F', dotBorder: done||cur?p.color:locked?'rgba(148,163,184,.2)':'rgba(148,163,184,.45)', dotStyle: locked?'dashed':'solid',
+            pulse: cur?'llPulse 2s ease-in-out infinite':'none', textColor: locked?'#6B7A90':'#E6EDF7', line: done?p.color:'rgba(148,163,184,.2)' }; }) })),
+      backToMap: ()=>this.setState({view:'map'}),
+      lvTitle:L.title, lvNum:`1.${s.lv+1}`, lvMins:L.mins, lvXp:L.xp, lvStory:L.story, lvConcept: s.simple?L.simple:L.eng, lvTask:L.task, lvCmd:L.cmd, lvDoc:L.doc,
+      setSimple:()=>this.setState({simple:true}), setEng:()=>this.setState({simple:false}),
+      simpleColor: s.simple?'#05080F':C.body, simpleBg: s.simple?C.ink:'transparent', engColor: !s.simple?'#05080F':C.body, engBg: !s.simple?C.ink:'transparent',
+      sbOut:s.sbOut, sbInput:s.sbInput, onSb:e=>this.setState({sbInput:e.target.value}), onSbKey:e=>{ if(e.key==='Enter'){ e.preventDefault(); run(); } },
+      sbRun:run, sbHint:()=>this.setState({sbInput:L.cmd}), sbDoneLabel: s.sbOk?'✓ done':'not run yet', sbDoneColor: s.sbOk?C.ok:C.muted,
+      quizScore: `${quizRight}/${L.quiz.length} correct`,
+      quiz: L.quiz.map((q,qi)=>{ const a=s.ans[qi]; return { q:q.q, answered:a!=null, fb:(a===q.c?'Correct. ':'Not quite. ')+q.fb, fbColor:a===q.c?C.ok:C.warn,
+        opts:q.opts.map((o,oi)=>({ label:o, scale: a===oi?1.02:1, bg: a!=null&&oi===q.c?'rgba(61,220,151,.14)':(a===oi?'rgba(255,92,122,.14)':'#05080F'), border: a!=null&&oi===q.c?C.ok:(a===oi?C.crit:'rgba(148,163,184,.2)'),
+          pick:()=>{ if(a!=null) return; this.setState({ans:{...s.ans,[qi]:oi}}); if(oi===q.c) this.addXp(10,'Correct · +10 XP'); } })) }; }),
+      takeaways:L.take,
+      completeLabel: complete ? (s.done[s.lv]?'Level complete. Nice work.':`Ready! Claim +${L.xp} XP and move on.`) : `To finish: ${s.sbOk?'':'run the sandbox task'}${!s.sbOk&&!quizDone?' and ':''}${quizDone?'':'answer the quiz'}.`,
+      completeColor: complete?C.ok:C.body,
+      nextDisabled: !complete, nextBg: complete?'#9B8CFF':'#3B475A',
+      nextLabel: s.lv<LEVELS.length-1 ? 'Complete & next level →' : 'Complete path ★',
+      next: ()=>{ if(!complete) return; if(!s.done[s.lv]){ const done={...s.done,[s.lv]:true}; LS.set('ll_acad_done',done); this.setState({done}); this.addXp(L.xp,`Level complete · +${L.xp} XP`);
+          if(s.lv===LEVELS.length-1 && !s.badges.includes('Rookie Operator')){ const b=[...s.badges,'Rookie Operator']; LS.set('ll_acad_badges',b); this.setState({badges:b}); setTimeout(()=>this.toastMsg('Badge unlocked: Rookie Operator'),900); } }
+        if(s.lv<LEVELS.length-1) this.openLevel(s.lv+1); else this.setState({view:'map'}); },
+      toastOn:!!s.toast, toast:s.toast
+    };
+  }
+}
+</script>
+</body>
+</html>
