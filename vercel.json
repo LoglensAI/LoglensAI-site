@@ -8,18 +8,14 @@
     { "source": "/tour", "destination": "/LogLens%20Tour.dc.html" },
     { "source": "/pricing", "destination": "/LogLens%20Pricing.dc.html" },
     { "source": "/docs", "destination": "/LogLens%20Docs.dc.html" },
+    { "source": "/learn", "destination": "/LogLens%20Academy.dc.html" },
+    { "source": "/academy", "destination": "/LogLens%20Academy.dc.html" },
     { "source": "/compare", "destination": "/LogLens%20Compare.dc.html" },
-    { "source": "/academy", "destination": "/LogLens%20Academy.dc.html" }
+    { "source": "/compare/splunk-alternative", "destination": "/LogLens%20Compare.dc.html" }
   ],
   "headers": [
     {
       "source": "/assets/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
-      ]
-    },
-    {
-      "source": "/uploads/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]

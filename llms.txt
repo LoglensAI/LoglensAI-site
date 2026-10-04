@@ -1,0 +1,31 @@
+# LogLens AI
+
+> LogLens AI is a free, open-source, self-hosted AI log analyzer and monitoring
+> tool. It reads logs where they already live, flags the few lines that signal a
+> real failure, and explains each one in plain language — without uploading a
+> single log line. MIT-licensed. Runs on Linux, macOS, and Windows. v0.13.0.
+
+## What it is
+- Local-first log anomaly detection (nothing leaves the host; offline/air-gapped capable)
+- Three detection modes: fast, turbo, and deep (neural)
+- Incident grouping, explainable alerts, opt-in AI root-cause analysis (summaries only)
+- CI/CD integration with stable exit codes; offline HTML reports
+
+## Key pages
+- Home: https://www.loglensai.com/
+- Product tour: https://www.loglensai.com/tour
+- Pricing (free, MIT): https://www.loglensai.com/pricing
+- Docs (install, commands, CI/CD): https://www.loglensai.com/docs
+- Academy: https://www.loglensai.com/learn
+- Compare (vs Splunk, Datadog, Grafana Loki, ELK): https://www.loglensai.com/compare/splunk-alternative
+
+## Install
+- macOS/Linux: curl -fsSL https://raw.githubusercontent.com/LoglensAI/LogLens-AI/main/scripts/install.sh | sh
+- Windows: irm https://raw.githubusercontent.com/LoglensAI/LogLens-AI/main/scripts/install.ps1 | iex
+- Python: pipx install loglensai
+- Docker: docker run --rm -v "$PWD:/data" loglensai/loglens analyze --source app.log
+
+## Source & packages
+- GitHub: https://github.com/LoglensAI/LogLens-AI
+- PyPI: https://pypi.org/project/loglensai/
+- Docker Hub: https://hub.docker.com/r/loglensai/loglens
