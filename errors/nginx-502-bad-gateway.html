@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>502 Bad Gateway (nginx) — causes and how to fix it | LogLens AI</title>
+<meta name="description" content="A 502 Bad Gateway means nginx reached your upstream app but got an invalid or no response — usually the app is down, crashing, or slow. Causes, diagnosis, and fix.">
+<link rel="canonical" href="https://www.loglensai.com/errors/nginx-502-bad-gateway">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:title" content="502 Bad Gateway (nginx) — causes and how to fix it">
+<meta property="og:description" content="A 502 Bad Gateway means nginx reached your upstream app but got an invalid or no response — usually the app is down, crashing, or slow. Causes, diagnosis, and fix.">
+<meta property="og:url" content="https://www.loglensai.com/errors/nginx-502-bad-gateway">
+<meta property="og:image" content="https://www.loglensai.com/assets/loglens-mark.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05080F;--panel:#0b1020;--ink:#E6EDF7;--body:#A7B3C6;--muted:#6B7A90;--accent:#5CC8FF;--line:rgba(148,163,184,.14)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--body);font:16px/1.65 'IBM Plex Sans',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:40px 20px 80px}
+a{color:var(--accent);text-decoration:none}a:hover{color:var(--ink)}
+h1{color:var(--ink);font-size:30px;line-height:1.2;margin:.1em 0 .5em}
+h2{color:var(--ink);font-size:20px;margin:1.9em 0 .5em}
+h3{color:var(--ink);font-size:15px;margin:1.3em 0 .2em}
+p,li{color:var(--body)}
+code,pre{font-family:'IBM Plex Mono',ui-monospace,monospace}
+pre{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;overflow:auto;color:var(--ink);font-size:13px;line-height:1.5}
+code{background:rgba(148,163,184,.12);padding:.1em .35em;border-radius:5px;font-size:.9em;color:var(--ink)}
+.tldr{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;padding:14px 16px;margin:1.1em 0}
+.crumb{font-size:13px;color:var(--muted);margin-bottom:6px}
+.cta{display:inline-block;margin:.4em .5em .2em 0;padding:10px 16px;border-radius:10px;background:var(--ink);color:var(--bg);font-weight:600}
+.cta.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+ol li,ul li{margin:.35em 0}
+footer{margin-top:52px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.card{display:block;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:10px 0}
+.card b{color:var(--ink)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://www.loglensai.com/#org", "name": "LogLens AI", "url": "https://www.loglensai.com/", "logo": "https://www.loglensai.com/assets/loglens-mark.png", "sameAs": ["https://github.com/LoglensAI/LogLens-AI", "https://pypi.org/project/loglensai/", "https://hub.docker.com/r/loglensai/loglens"]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Errors", "item": "https://www.loglensai.com/errors"}, {"@type": "ListItem", "position": 2, "name": "502 Bad Gateway", "item": "https://www.loglensai.com/errors/nginx-502-bad-gateway"}]}, {"@type": "TechArticle", "headline": "502 Bad Gateway (nginx) — causes and how to fix it", "description": "A 502 Bad Gateway means nginx reached your upstream app but got an invalid or no response — usually the app is down, crashing, or slow. Causes, diagnosis, and fix.", "datePublished": "2026-10-05", "dateModified": "2026-10-05", "author": {"@type": "Organization", "name": "LogLens AI"}, "publisher": {"@id": "https://www.loglensai.com/#org"}, "mainEntityOfPage": "https://www.loglensai.com/errors/nginx-502-bad-gateway"}, {"@type": "HowTo", "name": "How to fix 502 Bad Gateway", "step": [{"@type": "HowToStep", "name": "Restart and verify the upstream app", "text": "Make sure your app process (PHP-FPM, Gunicorn, Node) is running and listening on the expected port or socket."}, {"@type": "HowToStep", "name": "Check the nginx upstream config", "text": "Confirm proxy_pass / upstream points at the right host:port or unix socket, then nginx -t && systemctl reload nginx."}, {"@type": "HowToStep", "name": "Raise timeouts if the app is slow", "text": "Increase proxy_read_timeout / proxy_connect_timeout, and fix the slow upstream (a 504 is the timeout variant)."}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the difference between 502 and 504?", "acceptedAnswer": {"@type": "Answer", "text": "502 means the upstream gave an invalid/no response (often down or crashed). 504 means the upstream was reached but did not respond within nginx's timeout (too slow)."}}, {"@type": "Question", "name": "Why do I get 502 only sometimes?", "acceptedAnswer": {"@type": "Answer", "text": "Intermittent 502s usually mean the upstream is crash-looping or restarting, or you have too few worker processes for the load."}}]}]}</script>
+</head>
+<body>
+<main class="wrap">
+<div class="crumb"><a href="/">LogLens AI</a> / <a href="/errors">Errors</a> / 502 Bad Gateway</div>
+<h1>502 Bad Gateway (nginx): causes and how to fix it</h1>
+<div class="tldr"><strong>TL;DR.</strong> <code>502 Bad Gateway</code> means nginx (acting as a reverse proxy) connected to your upstream application but received an invalid or empty response — the app crashed, isn't listening, or closed the connection.</div>
+<h2>What causes 502 Bad Gateway</h2>
+<p>The upstream app (PHP-FPM, Node, Gunicorn, etc.) is down or crashing; the wrong upstream host/port/socket in the nginx config; the app restarted mid-request; or the upstream closed the connection due to its own error.</p>
+<h2>How to diagnose it</h2>
+<p>Check the nginx error log: <code>tail -f /var/log/nginx/error.log</code> — it names the upstream and reason (e.g. <code>connect() failed (111: Connection refused)</code>). Confirm the app is listening on the <code>proxy_pass</code> / <code>upstream</code> target.</p>
+<h2>How to fix 502 Bad Gateway</h2>
+<ol><li><strong>Restart and verify the upstream app.</strong> Make sure your app process (PHP-FPM, Gunicorn, Node) is running and listening on the expected port or socket.</li><li><strong>Check the nginx upstream config.</strong> Confirm <code>proxy_pass</code> / <code>upstream</code> points at the right host:port or unix socket, then <code>nginx -t &amp;&amp; systemctl reload nginx</code>.</li><li><strong>Raise timeouts if the app is slow.</strong> Increase <code>proxy_read_timeout</code> / <code>proxy_connect_timeout</code>, and fix the slow upstream (a 504 is the timeout variant).</li></ol>
+<h2>Example log line</h2>
+<pre><code>2026/10/05 02:14:11 [error] 920#920: *5 connect() failed (111: Connection refused) while connecting to upstream, client: 1.2.3.4, upstream: &quot;http://127.0.0.1:8000/&quot;</code></pre>
+<h2>How LogLens detects 502 Bad Gateway</h2>
+<p>LogLens flags 502 spikes in nginx access logs and correlates them with the upstream app's crash or restart lines. <a href="/">LogLens AI</a> is a free, self-hosted AI log analyzer that surfaces lines like this automatically, groups them into one incident, and explains them in plain language.</p>
+<p><a class="cta" href="/docs">Install LogLens</a><a class="cta ghost" href="/tour">See the tour</a></p>
+<h2>Related errors</h2>
+<ul><li><a href="/errors/nginx-504-gateway-timeout">504 Gateway Timeout</a></li><li><a href="/errors/connection-refused">Connection refused</a></li><li><a href="/errors/500-internal-server-error">500 Internal Server Error</a></li></ul>
+<h2>FAQ</h2>
+<h3>What is the difference between 502 and 504?</h3><p>502 means the upstream gave an invalid/no response (often down or crashed). 504 means the upstream was reached but did not respond within nginx's timeout (too slow).</p><h3>Why do I get 502 only sometimes?</h3><p>Intermittent 502s usually mean the upstream is crash-looping or restarting, or you have too few worker processes for the load.</p>
+<footer>Part of the <a href="/errors">LogLens error &amp; log reference</a>. © 2026 LogLens AI · MIT License.</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Error &amp; Log Reference — Fix Common Errors | LogLens AI</title>
+<meta name="description" content="A growing reference of common server, container, and application errors — what each means, how to diagnose it, and how to fix it. From the LogLens AI team.">
+<link rel="canonical" href="https://www.loglensai.com/errors">
+<meta name="robots" content="index, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet"><style>
+:root{--bg:#05080F;--panel:#0b1020;--ink:#E6EDF7;--body:#A7B3C6;--muted:#6B7A90;--accent:#5CC8FF;--line:rgba(148,163,184,.14)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--body);font:16px/1.65 'IBM Plex Sans',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:40px 20px 80px}
+a{color:var(--accent);text-decoration:none}a:hover{color:var(--ink)}
+h1{color:var(--ink);font-size:30px;line-height:1.2;margin:.1em 0 .5em}
+h2{color:var(--ink);font-size:20px;margin:1.9em 0 .5em}
+h3{color:var(--ink);font-size:15px;margin:1.3em 0 .2em}
+p,li{color:var(--body)}
+code,pre{font-family:'IBM Plex Mono',ui-monospace,monospace}
+pre{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;overflow:auto;color:var(--ink);font-size:13px;line-height:1.5}
+code{background:rgba(148,163,184,.12);padding:.1em .35em;border-radius:5px;font-size:.9em;color:var(--ink)}
+.tldr{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;padding:14px 16px;margin:1.1em 0}
+.crumb{font-size:13px;color:var(--muted);margin-bottom:6px}
+.cta{display:inline-block;margin:.4em .5em .2em 0;padding:10px 16px;border-radius:10px;background:var(--ink);color:var(--bg);font-weight:600}
+.cta.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+ol li,ul li{margin:.35em 0}
+footer{margin-top:52px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.card{display:block;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:10px 0}
+.card b{color:var(--ink)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "LogLens Error & Log Reference", "url": "https://www.loglensai.com/errors", "isPartOf": {"@id": "https://www.loglensai.com/#website"}, "publisher": {"@id": "https://www.loglensai.com/#org"}}</script>
+</head><body><main class="wrap">
+<div class="crumb"><a href="/">LogLens AI</a> / Errors</div>
+<h1>Error &amp; log reference</h1>
+<div class="tldr">Clear, practical fixes for the errors you actually see in logs — what each means, how to diagnose it, and how to fix it. <a href="/">LogLens AI</a> finds and explains these automatically.</div>
+<a class="card" href="/errors/connection-refused"><b>connection refused</b><br><span style="color:var(--muted)">&quot;Connection refused&quot; means nothing is listening on the target host and port, or a firewall rejected the connec…</span></a><a class="card" href="/errors/oomkilled-exit-137"><b>OOMKilled (exit 137)</b><br><span style="color:var(--muted)">Exit code 137 / OOMKilled means a container exceeded its memory limit and the kernel OOM killer stopped it. Ca…</span></a><a class="card" href="/errors/nginx-502-bad-gateway"><b>502 Bad Gateway</b><br><span style="color:var(--muted)">A 502 Bad Gateway means nginx reached your upstream app but got an invalid or no response — usually the app is…</span></a><a class="card" href="/errors/nginx-504-gateway-timeout"><b>504 Gateway Timeout</b><br><span style="color:var(--muted)">A 504 Gateway Timeout means the proxy reached your upstream app but it did not respond in time. Causes, diagno…</span></a><a class="card" href="/errors/500-internal-server-error"><b>500 Internal Server Error</b><br><span style="color:var(--muted)">A 500 Internal Server Error is a generic server-side failure — an unhandled exception in your app. Here is how…</span></a><a class="card" href="/errors/crashloopbackoff"><b>CrashLoopBackOff</b><br><span style="color:var(--muted)">CrashLoopBackOff means a Kubernetes container keeps starting then crashing, so kubelet backs off restarting it…</span></a><a class="card" href="/errors/imagepullbackoff"><b>ImagePullBackOff</b><br><span style="color:var(--muted)">ImagePullBackOff means Kubernetes cannot pull your container image — wrong name/tag, missing registry credenti…</span></a><a class="card" href="/errors/java-outofmemoryerror"><b>java.lang.OutOfMemoryError</b><br><span style="color:var(--muted)">java.lang.OutOfMemoryError means the JVM could not allocate memory — usually a heap too small or a memory leak…</span></a><a class="card" href="/errors/too-many-open-files"><b>Too many open files</b><br><span style="color:var(--muted)">&quot;Too many open files&quot; (EMFILE) means a process hit its file-descriptor limit — too low a ulimit, or a leak of …</span></a><a class="card" href="/errors/address-already-in-use-eaddrinuse"><b>Address already in use (EADDRINUSE)</b><br><span style="color:var(--muted)">EADDRINUSE / &quot;address already in use&quot; means the port your app wants is already bound by another process. How t…</span></a>
+<footer>© 2026 LogLens AI · MIT License · <a href="/">loglensai.com</a></footer>
+</main></body></html>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OOMKilled (exit code 137) — what it means and how to fix it | LogLens AI</title>
+<meta name="description" content="Exit code 137 / OOMKilled means a container exceeded its memory limit and the kernel OOM killer stopped it. Causes, diagnosis, and a step-by-step fix.">
+<link rel="canonical" href="https://www.loglensai.com/errors/oomkilled-exit-137">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OOMKilled (exit code 137) — what it means and how to fix it">
+<meta property="og:description" content="Exit code 137 / OOMKilled means a container exceeded its memory limit and the kernel OOM killer stopped it. Causes, diagnosis, and a step-by-step fix.">
+<meta property="og:url" content="https://www.loglensai.com/errors/oomkilled-exit-137">
+<meta property="og:image" content="https://www.loglensai.com/assets/loglens-mark.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05080F;--panel:#0b1020;--ink:#E6EDF7;--body:#A7B3C6;--muted:#6B7A90;--accent:#5CC8FF;--line:rgba(148,163,184,.14)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--body);font:16px/1.65 'IBM Plex Sans',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:40px 20px 80px}
+a{color:var(--accent);text-decoration:none}a:hover{color:var(--ink)}
+h1{color:var(--ink);font-size:30px;line-height:1.2;margin:.1em 0 .5em}
+h2{color:var(--ink);font-size:20px;margin:1.9em 0 .5em}
+h3{color:var(--ink);font-size:15px;margin:1.3em 0 .2em}
+p,li{color:var(--body)}
+code,pre{font-family:'IBM Plex Mono',ui-monospace,monospace}
+pre{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;overflow:auto;color:var(--ink);font-size:13px;line-height:1.5}
+code{background:rgba(148,163,184,.12);padding:.1em .35em;border-radius:5px;font-size:.9em;color:var(--ink)}
+.tldr{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;padding:14px 16px;margin:1.1em 0}
+.crumb{font-size:13px;color:var(--muted);margin-bottom:6px}
+.cta{display:inline-block;margin:.4em .5em .2em 0;padding:10px 16px;border-radius:10px;background:var(--ink);color:var(--bg);font-weight:600}
+.cta.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+ol li,ul li{margin:.35em 0}
+footer{margin-top:52px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.card{display:block;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:10px 0}
+.card b{color:var(--ink)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://www.loglensai.com/#org", "name": "LogLens AI", "url": "https://www.loglensai.com/", "logo": "https://www.loglensai.com/assets/loglens-mark.png", "sameAs": ["https://github.com/LoglensAI/LogLens-AI", "https://pypi.org/project/loglensai/", "https://hub.docker.com/r/loglensai/loglens"]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Errors", "item": "https://www.loglensai.com/errors"}, {"@type": "ListItem", "position": 2, "name": "OOMKilled (exit 137)", "item": "https://www.loglensai.com/errors/oomkilled-exit-137"}]}, {"@type": "TechArticle", "headline": "OOMKilled (exit code 137) — what it means and how to fix it", "description": "Exit code 137 / OOMKilled means a container exceeded its memory limit and the kernel OOM killer stopped it. Causes, diagnosis, and a step-by-step fix.", "datePublished": "2026-10-05", "dateModified": "2026-10-05", "author": {"@type": "Organization", "name": "LogLens AI"}, "publisher": {"@id": "https://www.loglensai.com/#org"}, "mainEntityOfPage": "https://www.loglensai.com/errors/oomkilled-exit-137"}, {"@type": "HowTo", "name": "How to fix OOMKilled (exit 137)", "step": [{"@type": "HowToStep", "name": "Confirm it was OOM", "text": "Verify Reason: OOMKilled and exit 137 — 137 can also be a manual SIGKILL."}, {"@type": "HowToStep", "name": "Raise the limit or fix the leak", "text": "If usage is reasonable but the limit is low, raise resources.limits.memory. If memory grows without bound, profile and fix the leak."}, {"@type": "HowToStep", "name": "Set requests = limits with headroom", "text": "Give the container a realistic request/limit ~20–30% above observed peak, and set the runtime heap (-Xmx, --max-old-space-size) below the container limit."}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What does exit code 137 mean?", "acceptedAnswer": {"@type": "Answer", "text": "137 = 128 + 9, meaning the process received SIGKILL (signal 9). In containers it is almost always the OOM killer acting because the memory limit was exceeded."}}, {"@type": "Question", "name": "Is OOMKilled always a memory leak?", "acceptedAnswer": {"@type": "Answer", "text": "No — it is often simply a limit set too low for peak usage, a spike, or a large in-memory operation. Check the memory trend before assuming a leak."}}]}]}</script>
+</head>
+<body>
+<main class="wrap">
+<div class="crumb"><a href="/">LogLens AI</a> / <a href="/errors">Errors</a> / OOMKilled (exit 137)</div>
+<h1>OOMKilled (exit code 137): what it means and how to fix it</h1>
+<div class="tldr"><strong>TL;DR.</strong> Exit code 137 is <code>128 + 9</code> — the process got SIGKILL. In Docker and Kubernetes this almost always means the container exceeded its memory limit and the kernel out-of-memory killer terminated it.</div>
+<h2>What causes OOMKilled (exit 137)</h2>
+<p>A memory limit set too low for normal peak load; a genuine memory leak; a traffic spike; loading a large file or dataset entirely into memory; or a JVM/Node heap larger than the container limit.</p>
+<h2>How to diagnose it</h2>
+<p>In Kubernetes run <code>kubectl describe pod &lt;pod&gt;</code> and look under <em>Last State</em> for <code>Reason: OOMKilled, Exit Code: 137</code>. In Docker, <code>docker inspect &lt;id&gt; --format '{{.State.OOMKilled}}'</code> returns <code>true</code>. Then check whether memory climbs steadily (leak) or spikes (load).</p>
+<h2>How to fix OOMKilled (exit 137)</h2>
+<ol><li><strong>Confirm it was OOM.</strong> Verify Reason: OOMKilled and exit 137 — 137 can also be a manual SIGKILL.</li><li><strong>Raise the limit or fix the leak.</strong> If usage is reasonable but the limit is low, raise <code>resources.limits.memory</code>. If memory grows without bound, profile and fix the leak.</li><li><strong>Set requests = limits with headroom.</strong> Give the container a realistic request/limit ~20–30% above observed peak, and set the runtime heap (<code>-Xmx</code>, <code>--max-old-space-size</code>) below the container limit.</li></ol>
+<h2>Example log line</h2>
+<pre><code>State: Terminated  Reason: OOMKilled  Exit Code: 137
+kernel: Memory cgroup out of memory: Killed process 4821 (java)</code></pre>
+<h2>How LogLens detects OOMKilled (exit 137)</h2>
+<p>LogLens recognises the OOMKilled keyword and the repeated container-restart pattern, and groups them into one incident. <a href="/">LogLens AI</a> is a free, self-hosted AI log analyzer that surfaces lines like this automatically, groups them into one incident, and explains them in plain language.</p>
+<p><a class="cta" href="/docs">Install LogLens</a><a class="cta ghost" href="/tour">See the tour</a></p>
+<h2>Related errors</h2>
+<ul><li><a href="/errors/crashloopbackoff">CrashLoopBackOff</a></li><li><a href="/errors/java-outofmemoryerror">java.lang.OutOfMemoryError</a></li><li><a href="/errors/node-heap-out-of-memory">Node.js heap out of memory</a></li></ul>
+<h2>FAQ</h2>
+<h3>What does exit code 137 mean?</h3><p>137 = 128 + 9, meaning the process received SIGKILL (signal 9). In containers it is almost always the OOM killer acting because the memory limit was exceeded.</p><h3>Is OOMKilled always a memory leak?</h3><p>No — it is often simply a limit set too low for peak usage, a spike, or a large in-memory operation. Check the memory trend before assuming a leak.</p>
+<footer>Part of the <a href="/errors">LogLens error &amp; log reference</a>. © 2026 LogLens AI · MIT License.</footer>
+</main>
+</body>
+</html>

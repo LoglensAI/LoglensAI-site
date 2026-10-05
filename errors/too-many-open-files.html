@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Too many open files — how to fix it (ulimit) | LogLens AI</title>
+<meta name="description" content="&quot;Too many open files&quot; (EMFILE) means a process hit its file-descriptor limit — too low a ulimit, or a leak of unclosed sockets/files. Causes and step-by-step fix.">
+<link rel="canonical" href="https://www.loglensai.com/errors/too-many-open-files">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Too many open files — how to fix it (ulimit)">
+<meta property="og:description" content="&quot;Too many open files&quot; (EMFILE) means a process hit its file-descriptor limit — too low a ulimit, or a leak of unclosed sockets/files. Causes and step-by-step fix.">
+<meta property="og:url" content="https://www.loglensai.com/errors/too-many-open-files">
+<meta property="og:image" content="https://www.loglensai.com/assets/loglens-mark.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05080F;--panel:#0b1020;--ink:#E6EDF7;--body:#A7B3C6;--muted:#6B7A90;--accent:#5CC8FF;--line:rgba(148,163,184,.14)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--body);font:16px/1.65 'IBM Plex Sans',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:40px 20px 80px}
+a{color:var(--accent);text-decoration:none}a:hover{color:var(--ink)}
+h1{color:var(--ink);font-size:30px;line-height:1.2;margin:.1em 0 .5em}
+h2{color:var(--ink);font-size:20px;margin:1.9em 0 .5em}
+h3{color:var(--ink);font-size:15px;margin:1.3em 0 .2em}
+p,li{color:var(--body)}
+code,pre{font-family:'IBM Plex Mono',ui-monospace,monospace}
+pre{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;overflow:auto;color:var(--ink);font-size:13px;line-height:1.5}
+code{background:rgba(148,163,184,.12);padding:.1em .35em;border-radius:5px;font-size:.9em;color:var(--ink)}
+.tldr{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;padding:14px 16px;margin:1.1em 0}
+.crumb{font-size:13px;color:var(--muted);margin-bottom:6px}
+.cta{display:inline-block;margin:.4em .5em .2em 0;padding:10px 16px;border-radius:10px;background:var(--ink);color:var(--bg);font-weight:600}
+.cta.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+ol li,ul li{margin:.35em 0}
+footer{margin-top:52px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.card{display:block;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:10px 0}
+.card b{color:var(--ink)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://www.loglensai.com/#org", "name": "LogLens AI", "url": "https://www.loglensai.com/", "logo": "https://www.loglensai.com/assets/loglens-mark.png", "sameAs": ["https://github.com/LoglensAI/LogLens-AI", "https://pypi.org/project/loglensai/", "https://hub.docker.com/r/loglensai/loglens"]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Errors", "item": "https://www.loglensai.com/errors"}, {"@type": "ListItem", "position": 2, "name": "Too many open files", "item": "https://www.loglensai.com/errors/too-many-open-files"}]}, {"@type": "TechArticle", "headline": "Too many open files — how to fix it (ulimit)", "description": "\"Too many open files\" (EMFILE) means a process hit its file-descriptor limit — too low a ulimit, or a leak of unclosed sockets/files. Causes and step-by-step fix.", "datePublished": "2026-10-05", "dateModified": "2026-10-05", "author": {"@type": "Organization", "name": "LogLens AI"}, "publisher": {"@id": "https://www.loglensai.com/#org"}, "mainEntityOfPage": "https://www.loglensai.com/errors/too-many-open-files"}, {"@type": "HowTo", "name": "How to fix Too many open files", "step": [{"@type": "HowToStep", "name": "Raise the file-descriptor limit", "text": "Increase the soft/hard limit in /etc/security/limits.conf, the systemd unit (LimitNOFILE=), or the container runtime."}, {"@type": "HowToStep", "name": "Find and fix the leak", "text": "If FDs grow without bound, use lsof to find the leaking resource and ensure files/sockets/connections are closed (use pools and context managers)."}, {"@type": "HowToStep", "name": "Bound your connection pools", "text": "Cap HTTP/DB client pools so a burst can't exhaust descriptors."}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do I check the open file limit?", "acceptedAnswer": {"@type": "Answer", "text": "Run ulimit -n for the shell limit, or cat /proc//limits for a running process's actual soft/hard limits."}}, {"@type": "Question", "name": "Why does the limit come back after a reboot?", "acceptedAnswer": {"@type": "Answer", "text": "ulimit changes in a shell are temporary. Set LimitNOFILE in the systemd unit or limits.conf for a persistent limit."}}]}]}</script>
+</head>
+<body>
+<main class="wrap">
+<div class="crumb"><a href="/">LogLens AI</a> / <a href="/errors">Errors</a> / Too many open files</div>
+<h1>Too many open files: how to fix it</h1>
+<div class="tldr"><strong>TL;DR.</strong> <code>Too many open files</code> (EMFILE) means a process exceeded its file-descriptor limit. Either the <code>ulimit</code> is too low for the workload, or the app is leaking descriptors (unclosed files, sockets, or connections).</div>
+<h2>What causes Too many open files</h2>
+<p>A default soft limit (often 1024) that is too low for a busy server; leaked connections (HTTP clients, DB connections, file handles never closed); or a connection pool without limits.</p>
+<h2>How to diagnose it</h2>
+<p>Check the limit: <code>ulimit -n</code> and <code>cat /proc/&lt;pid&gt;/limits</code>. Count open FDs: <code>ls /proc/&lt;pid&gt;/fd | wc -l</code>, and <code>lsof -p &lt;pid&gt;</code> to see what they are. Steadily rising FD count = a leak.</p>
+<h2>How to fix Too many open files</h2>
+<ol><li><strong>Raise the file-descriptor limit.</strong> Increase the soft/hard limit in <code>/etc/security/limits.conf</code>, the systemd unit (<code>LimitNOFILE=</code>), or the container runtime.</li><li><strong>Find and fix the leak.</strong> If FDs grow without bound, use <code>lsof</code> to find the leaking resource and ensure files/sockets/connections are closed (use pools and context managers).</li><li><strong>Bound your connection pools.</strong> Cap HTTP/DB client pools so a burst can't exhaust descriptors.</li></ol>
+<h2>Example log line</h2>
+<pre><code>accept4: Too many open files (os error 24)
+java.net.SocketException: Too many open files</code></pre>
+<h2>How LogLens detects Too many open files</h2>
+<p>LogLens flags EMFILE bursts and correlates them with the rising-connection pattern that precedes them. <a href="/">LogLens AI</a> is a free, self-hosted AI log analyzer that surfaces lines like this automatically, groups them into one incident, and explains them in plain language.</p>
+<p><a class="cta" href="/docs">Install LogLens</a><a class="cta ghost" href="/tour">See the tour</a></p>
+<h2>Related errors</h2>
+<ul><li><a href="/errors/address-already-in-use-eaddrinuse">Address already in use (EADDRINUSE)</a></li><li><a href="/errors/connection-refused">Connection refused</a></li><li><a href="/errors/no-space-left-on-device">No space left on device</a></li></ul>
+<h2>FAQ</h2>
+<h3>How do I check the open file limit?</h3><p>Run ulimit -n for the shell limit, or cat /proc/<pid>/limits for a running process's actual soft/hard limits.</p><h3>Why does the limit come back after a reboot?</h3><p>ulimit changes in a shell are temporary. Set LimitNOFILE in the systemd unit or limits.conf for a persistent limit.</p>
+<footer>Part of the <a href="/errors">LogLens error &amp; log reference</a>. © 2026 LogLens AI · MIT License.</footer>
+</main>
+</body>
+</html>

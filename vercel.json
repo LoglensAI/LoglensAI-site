@@ -11,7 +11,9 @@
     { "source": "/learn", "destination": "/LogLens%20Academy.dc.html" },
     { "source": "/academy", "destination": "/LogLens%20Academy.dc.html" },
     { "source": "/compare", "destination": "/LogLens%20Compare.dc.html" },
-    { "source": "/compare/splunk-alternative", "destination": "/LogLens%20Compare.dc.html" }
+    { "source": "/compare/splunk-alternative", "destination": "/LogLens%20Compare.dc.html" },
+    { "source": "/errors", "destination": "/errors/index.html" },
+    { "source": "/errors/:slug", "destination": "/errors/:slug.html" }
   ],
   "headers": [
     {

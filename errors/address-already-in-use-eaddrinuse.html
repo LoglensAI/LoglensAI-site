@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Address already in use (EADDRINUSE) — how to fix it | LogLens AI</title>
+<meta name="description" content="EADDRINUSE / &quot;address already in use&quot; means the port your app wants is already bound by another process. How to find and free the port, or change it.">
+<link rel="canonical" href="https://www.loglensai.com/errors/address-already-in-use-eaddrinuse">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Address already in use (EADDRINUSE) — how to fix it">
+<meta property="og:description" content="EADDRINUSE / &quot;address already in use&quot; means the port your app wants is already bound by another process. How to find and free the port, or change it.">
+<meta property="og:url" content="https://www.loglensai.com/errors/address-already-in-use-eaddrinuse">
+<meta property="og:image" content="https://www.loglensai.com/assets/loglens-mark.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05080F;--panel:#0b1020;--ink:#E6EDF7;--body:#A7B3C6;--muted:#6B7A90;--accent:#5CC8FF;--line:rgba(148,163,184,.14)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--body);font:16px/1.65 'IBM Plex Sans',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:40px 20px 80px}
+a{color:var(--accent);text-decoration:none}a:hover{color:var(--ink)}
+h1{color:var(--ink);font-size:30px;line-height:1.2;margin:.1em 0 .5em}
+h2{color:var(--ink);font-size:20px;margin:1.9em 0 .5em}
+h3{color:var(--ink);font-size:15px;margin:1.3em 0 .2em}
+p,li{color:var(--body)}
+code,pre{font-family:'IBM Plex Mono',ui-monospace,monospace}
+pre{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;overflow:auto;color:var(--ink);font-size:13px;line-height:1.5}
+code{background:rgba(148,163,184,.12);padding:.1em .35em;border-radius:5px;font-size:.9em;color:var(--ink)}
+.tldr{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;padding:14px 16px;margin:1.1em 0}
+.crumb{font-size:13px;color:var(--muted);margin-bottom:6px}
+.cta{display:inline-block;margin:.4em .5em .2em 0;padding:10px 16px;border-radius:10px;background:var(--ink);color:var(--bg);font-weight:600}
+.cta.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+ol li,ul li{margin:.35em 0}
+footer{margin-top:52px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.card{display:block;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:10px 0}
+.card b{color:var(--ink)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://www.loglensai.com/#org", "name": "LogLens AI", "url": "https://www.loglensai.com/", "logo": "https://www.loglensai.com/assets/loglens-mark.png", "sameAs": ["https://github.com/LoglensAI/LogLens-AI", "https://pypi.org/project/loglensai/", "https://hub.docker.com/r/loglensai/loglens"]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Errors", "item": "https://www.loglensai.com/errors"}, {"@type": "ListItem", "position": 2, "name": "Address already in use (EADDRINUSE)", "item": "https://www.loglensai.com/errors/address-already-in-use-eaddrinuse"}]}, {"@type": "TechArticle", "headline": "Address already in use (EADDRINUSE) — how to fix it", "description": "EADDRINUSE / \"address already in use\" means the port your app wants is already bound by another process. How to find and free the port, or change it.", "datePublished": "2026-10-05", "dateModified": "2026-10-05", "author": {"@type": "Organization", "name": "LogLens AI"}, "publisher": {"@id": "https://www.loglensai.com/#org"}, "mainEntityOfPage": "https://www.loglensai.com/errors/address-already-in-use-eaddrinuse"}, {"@type": "HowTo", "name": "How to fix Address already in use (EADDRINUSE)", "step": [{"@type": "HowToStep", "name": "Find the process on the port", "text": "lsof -i :3000 or ss -ltnp 'sport = :3000' shows the PID."}, {"@type": "HowToStep", "name": "Stop it or change your port", "text": "Kill the stale process (kill &lt;pid&gt;) if it's an old instance, or configure your app to use a free port."}, {"@type": "HowToStep", "name": "Enable address reuse for restarts", "text": "Set SO_REUSEADDR (most frameworks do by default) so quick restarts don't hit TIME_WAIT sockets."}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do I find what is using a port?", "acceptedAnswer": {"@type": "Answer", "text": "Run lsof -i : or ss -ltnp | grep : — both show the PID and command currently bound to that port."}}, {"@type": "Question", "name": "How do I kill the process using a port?", "acceptedAnswer": {"@type": "Answer", "text": "Get its PID from lsof -i :, then run kill  (or kill -9  if it won't stop), or just start your app on a different port."}}]}]}</script>
+</head>
+<body>
+<main class="wrap">
+<div class="crumb"><a href="/">LogLens AI</a> / <a href="/errors">Errors</a> / Address already in use (EADDRINUSE)</div>
+<h1>Address already in use (EADDRINUSE): how to fix it</h1>
+<div class="tldr"><strong>TL;DR.</strong> <code>EADDRINUSE</code> ("address already in use") means another process is already listening on the port your app is trying to bind. Either that process is still running, a previous instance didn't exit cleanly, or two services share a port.</div>
+<h2>What causes Address already in use (EADDRINUSE)</h2>
+<p>A previous instance of the app is still running; another service uses the same port; a crashed process left the socket in TIME_WAIT; or a dev reload started a second copy.</p>
+<h2>How to diagnose it</h2>
+<p>Find what owns the port: <code>ss -ltnp | grep :&lt;port&gt;</code> or <code>lsof -i :&lt;port&gt;</code> (macOS/Linux). That gives the PID and command holding it.</p>
+<h2>How to fix Address already in use (EADDRINUSE)</h2>
+<ol><li><strong>Find the process on the port.</strong> <code>lsof -i :3000</code> or <code>ss -ltnp 'sport = :3000'</code> shows the PID.</li><li><strong>Stop it or change your port.</strong> Kill the stale process (<code>kill &lt;pid&gt;</code>) if it's an old instance, or configure your app to use a free port.</li><li><strong>Enable address reuse for restarts.</strong> Set <code>SO_REUSEADDR</code> (most frameworks do by default) so quick restarts don't hit TIME_WAIT sockets.</li></ol>
+<h2>Example log line</h2>
+<pre><code>Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:1817:16)</code></pre>
+<h2>How LogLens detects Address already in use (EADDRINUSE)</h2>
+<p>LogLens flags EADDRINUSE at startup and the restart loop it causes, so a stuck port is obvious. <a href="/">LogLens AI</a> is a free, self-hosted AI log analyzer that surfaces lines like this automatically, groups them into one incident, and explains them in plain language.</p>
+<p><a class="cta" href="/docs">Install LogLens</a><a class="cta ghost" href="/tour">See the tour</a></p>
+<h2>Related errors</h2>
+<ul><li><a href="/errors/connection-refused">Connection refused</a></li><li><a href="/errors/too-many-open-files">Too many open files</a></li><li><a href="/errors/crashloopbackoff">CrashLoopBackOff</a></li></ul>
+<h2>FAQ</h2>
+<h3>How do I find what is using a port?</h3><p>Run lsof -i :<port> or ss -ltnp | grep :<port> — both show the PID and command currently bound to that port.</p><h3>How do I kill the process using a port?</h3><p>Get its PID from lsof -i :<port>, then run kill <pid> (or kill -9 <pid> if it won't stop), or just start your app on a different port.</p>
+<footer>Part of the <a href="/errors">LogLens error &amp; log reference</a>. © 2026 LogLens AI · MIT License.</footer>
+</main>
+</body>
+</html>

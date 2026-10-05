@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CrashLoopBackOff — how to debug and fix it | LogLens AI</title>
+<meta name="description" content="CrashLoopBackOff means a Kubernetes container keeps starting then crashing, so kubelet backs off restarting it. Causes, diagnosis, and a step-by-step fix.">
+<link rel="canonical" href="https://www.loglensai.com/errors/crashloopbackoff">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CrashLoopBackOff — how to debug and fix it">
+<meta property="og:description" content="CrashLoopBackOff means a Kubernetes container keeps starting then crashing, so kubelet backs off restarting it. Causes, diagnosis, and a step-by-step fix.">
+<meta property="og:url" content="https://www.loglensai.com/errors/crashloopbackoff">
+<meta property="og:image" content="https://www.loglensai.com/assets/loglens-mark.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05080F;--panel:#0b1020;--ink:#E6EDF7;--body:#A7B3C6;--muted:#6B7A90;--accent:#5CC8FF;--line:rgba(148,163,184,.14)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--body);font:16px/1.65 'IBM Plex Sans',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:40px 20px 80px}
+a{color:var(--accent);text-decoration:none}a:hover{color:var(--ink)}
+h1{color:var(--ink);font-size:30px;line-height:1.2;margin:.1em 0 .5em}
+h2{color:var(--ink);font-size:20px;margin:1.9em 0 .5em}
+h3{color:var(--ink);font-size:15px;margin:1.3em 0 .2em}
+p,li{color:var(--body)}
+code,pre{font-family:'IBM Plex Mono',ui-monospace,monospace}
+pre{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;overflow:auto;color:var(--ink);font-size:13px;line-height:1.5}
+code{background:rgba(148,163,184,.12);padding:.1em .35em;border-radius:5px;font-size:.9em;color:var(--ink)}
+.tldr{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;padding:14px 16px;margin:1.1em 0}
+.crumb{font-size:13px;color:var(--muted);margin-bottom:6px}
+.cta{display:inline-block;margin:.4em .5em .2em 0;padding:10px 16px;border-radius:10px;background:var(--ink);color:var(--bg);font-weight:600}
+.cta.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+ol li,ul li{margin:.35em 0}
+footer{margin-top:52px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.card{display:block;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:10px 0}
+.card b{color:var(--ink)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://www.loglensai.com/#org", "name": "LogLens AI", "url": "https://www.loglensai.com/", "logo": "https://www.loglensai.com/assets/loglens-mark.png", "sameAs": ["https://github.com/LoglensAI/LogLens-AI", "https://pypi.org/project/loglensai/", "https://hub.docker.com/r/loglensai/loglens"]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Errors", "item": "https://www.loglensai.com/errors"}, {"@type": "ListItem", "position": 2, "name": "CrashLoopBackOff", "item": "https://www.loglensai.com/errors/crashloopbackoff"}]}, {"@type": "TechArticle", "headline": "CrashLoopBackOff — how to debug and fix it", "description": "CrashLoopBackOff means a Kubernetes container keeps starting then crashing, so kubelet backs off restarting it. Causes, diagnosis, and a step-by-step fix.", "datePublished": "2026-10-05", "dateModified": "2026-10-05", "author": {"@type": "Organization", "name": "LogLens AI"}, "publisher": {"@id": "https://www.loglensai.com/#org"}, "mainEntityOfPage": "https://www.loglensai.com/errors/crashloopbackoff"}, {"@type": "HowTo", "name": "How to fix CrashLoopBackOff", "step": [{"@type": "HowToStep", "name": "Read the previous container's logs", "text": "kubectl logs &lt;pod&gt; --previous almost always shows the real startup error."}, {"@type": "HowToStep", "name": "Check the exit code and events", "text": "kubectl describe pod — exit 137 means OOM (raise memory); a failing probe means tune livenessProbe timing."}, {"@type": "HowToStep", "name": "Fix config, then the probe", "text": "Supply the missing env/secret/volume or fix the start command; only then adjust restart/probe settings."}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do I find why a pod is in CrashLoopBackOff?", "acceptedAnswer": {"@type": "Answer", "text": "Run kubectl logs  --previous to see the crashed container's output, and kubectl describe pod for the exit code and events."}}, {"@type": "Question", "name": "Does CrashLoopBackOff mean out of memory?", "acceptedAnswer": {"@type": "Answer", "text": "Sometimes — if the exit code is 137 it was OOMKilled. Otherwise it is usually a startup/config error or a failing liveness probe."}}]}]}</script>
+</head>
+<body>
+<main class="wrap">
+<div class="crumb"><a href="/">LogLens AI</a> / <a href="/errors">Errors</a> / CrashLoopBackOff</div>
+<h1>CrashLoopBackOff: how to debug and fix it</h1>
+<div class="tldr"><strong>TL;DR.</strong> <code>CrashLoopBackOff</code> means a Kubernetes pod starts, crashes, and restarts repeatedly, so kubelet adds an increasing back-off delay. It is a symptom — the real error is in the container's logs or its exit code.</div>
+<h2>What causes CrashLoopBackOff</h2>
+<p>The app exits on startup (bad config, missing env var or secret, failed dependency connection); it is OOMKilled (exit 137); a failing liveness probe; a bad image command; or a missing file/volume.</p>
+<h2>How to diagnose it</h2>
+<p>Run <code>kubectl logs &lt;pod&gt; --previous</code> to see the crashed container's output, and <code>kubectl describe pod &lt;pod&gt;</code> for the exit code and events. Exit 137 = OOM; non-zero app exits point to config or dependency errors.</p>
+<h2>How to fix CrashLoopBackOff</h2>
+<ol><li><strong>Read the previous container&#x27;s logs.</strong> <code>kubectl logs &lt;pod&gt; --previous</code> almost always shows the real startup error.</li><li><strong>Check the exit code and events.</strong> <code>kubectl describe pod</code> — exit 137 means OOM (raise memory); a failing probe means tune <code>livenessProbe</code> timing.</li><li><strong>Fix config, then the probe.</strong> Supply the missing env/secret/volume or fix the start command; only then adjust restart/probe settings.</li></ol>
+<h2>Example log line</h2>
+<pre><code>Last State: Terminated  Reason: Error  Exit Code: 1
+Back-off restarting failed container app in pod web-7d9f (reason: CrashLoopBackOff)</code></pre>
+<h2>How LogLens detects CrashLoopBackOff</h2>
+<p>LogLens surfaces the crashing container's real error line and groups the restart loop into a single incident. <a href="/">LogLens AI</a> is a free, self-hosted AI log analyzer that surfaces lines like this automatically, groups them into one incident, and explains them in plain language.</p>
+<p><a class="cta" href="/docs">Install LogLens</a><a class="cta ghost" href="/tour">See the tour</a></p>
+<h2>Related errors</h2>
+<ul><li><a href="/errors/oomkilled-exit-137">OOMKilled (exit 137)</a></li><li><a href="/errors/imagepullbackoff">ImagePullBackOff</a></li><li><a href="/errors/back-off-restarting-failed-container">Back-off restarting failed container</a></li></ul>
+<h2>FAQ</h2>
+<h3>How do I find why a pod is in CrashLoopBackOff?</h3><p>Run kubectl logs <pod> --previous to see the crashed container's output, and kubectl describe pod for the exit code and events.</p><h3>Does CrashLoopBackOff mean out of memory?</h3><p>Sometimes — if the exit code is 137 it was OOMKilled. Otherwise it is usually a startup/config error or a failing liveness probe.</p>
+<footer>Part of the <a href="/errors">LogLens error &amp; log reference</a>. © 2026 LogLens AI · MIT License.</footer>
+</main>
+</body>
+</html>

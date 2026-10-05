@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ImagePullBackOff / ErrImagePull — how to fix it | LogLens AI</title>
+<meta name="description" content="ImagePullBackOff means Kubernetes cannot pull your container image — wrong name/tag, missing registry credentials, or the image doesn&#x27;t exist. Causes and fix.">
+<link rel="canonical" href="https://www.loglensai.com/errors/imagepullbackoff">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ImagePullBackOff / ErrImagePull — how to fix it">
+<meta property="og:description" content="ImagePullBackOff means Kubernetes cannot pull your container image — wrong name/tag, missing registry credentials, or the image doesn&#x27;t exist. Causes and fix.">
+<meta property="og:url" content="https://www.loglensai.com/errors/imagepullbackoff">
+<meta property="og:image" content="https://www.loglensai.com/assets/loglens-mark.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05080F;--panel:#0b1020;--ink:#E6EDF7;--body:#A7B3C6;--muted:#6B7A90;--accent:#5CC8FF;--line:rgba(148,163,184,.14)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--body);font:16px/1.65 'IBM Plex Sans',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:40px 20px 80px}
+a{color:var(--accent);text-decoration:none}a:hover{color:var(--ink)}
+h1{color:var(--ink);font-size:30px;line-height:1.2;margin:.1em 0 .5em}
+h2{color:var(--ink);font-size:20px;margin:1.9em 0 .5em}
+h3{color:var(--ink);font-size:15px;margin:1.3em 0 .2em}
+p,li{color:var(--body)}
+code,pre{font-family:'IBM Plex Mono',ui-monospace,monospace}
+pre{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;overflow:auto;color:var(--ink);font-size:13px;line-height:1.5}
+code{background:rgba(148,163,184,.12);padding:.1em .35em;border-radius:5px;font-size:.9em;color:var(--ink)}
+.tldr{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;padding:14px 16px;margin:1.1em 0}
+.crumb{font-size:13px;color:var(--muted);margin-bottom:6px}
+.cta{display:inline-block;margin:.4em .5em .2em 0;padding:10px 16px;border-radius:10px;background:var(--ink);color:var(--bg);font-weight:600}
+.cta.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+ol li,ul li{margin:.35em 0}
+footer{margin-top:52px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.card{display:block;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:10px 0}
+.card b{color:var(--ink)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://www.loglensai.com/#org", "name": "LogLens AI", "url": "https://www.loglensai.com/", "logo": "https://www.loglensai.com/assets/loglens-mark.png", "sameAs": ["https://github.com/LoglensAI/LogLens-AI", "https://pypi.org/project/loglensai/", "https://hub.docker.com/r/loglensai/loglens"]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Errors", "item": "https://www.loglensai.com/errors"}, {"@type": "ListItem", "position": 2, "name": "ImagePullBackOff", "item": "https://www.loglensai.com/errors/imagepullbackoff"}]}, {"@type": "TechArticle", "headline": "ImagePullBackOff / ErrImagePull — how to fix it", "description": "ImagePullBackOff means Kubernetes cannot pull your container image — wrong name/tag, missing registry credentials, or the image doesn't exist. Causes and fix.", "datePublished": "2026-10-05", "dateModified": "2026-10-05", "author": {"@type": "Organization", "name": "LogLens AI"}, "publisher": {"@id": "https://www.loglensai.com/#org"}, "mainEntityOfPage": "https://www.loglensai.com/errors/imagepullbackoff"}, {"@type": "HowTo", "name": "How to fix ImagePullBackOff", "step": [{"@type": "HowToStep", "name": "Verify the image name and tag", "text": "Confirm the repository and tag exist and were pushed — manifest unknown means the tag is missing."}, {"@type": "HowToStep", "name": "Add registry credentials", "text": "For private registries, create an imagePullSecret and reference it in the pod spec (unauthorized means missing/invalid creds)."}, {"@type": "HowToStep", "name": "Check registry reachability", "text": "Fix DNS/network to the registry and watch for Docker Hub rate limits (toomanyrequests) — authenticate or mirror."}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the difference between ErrImagePull and ImagePullBackOff?", "acceptedAnswer": {"@type": "Answer", "text": "ErrImagePull is the first failed pull attempt; ImagePullBackOff is Kubernetes backing off before retrying after repeated failures. Same root cause."}}, {"@type": "Question", "name": "How do I fix 'unauthorized' when pulling an image?", "acceptedAnswer": {"@type": "Answer", "text": "Create a Kubernetes imagePullSecret with your registry login and reference it under imagePullSecrets in the pod/deployment spec."}}]}]}</script>
+</head>
+<body>
+<main class="wrap">
+<div class="crumb"><a href="/">LogLens AI</a> / <a href="/errors">Errors</a> / ImagePullBackOff</div>
+<h1>ImagePullBackOff / ErrImagePull: how to fix it</h1>
+<div class="tldr"><strong>TL;DR.</strong> <code>ImagePullBackOff</code> (after <code>ErrImagePull</code>) means kubelet could not pull the container image, so it backs off retrying. The image name/tag is wrong, the image doesn't exist, or the registry needs credentials.</div>
+<h2>What causes ImagePullBackOff</h2>
+<p>A typo in the image name or tag; the tag was never pushed; a private registry with no <code>imagePullSecret</code>; rate-limited or unreachable registry; or wrong architecture.</p>
+<h2>How to diagnose it</h2>
+<p>Run <code>kubectl describe pod &lt;pod&gt;</code> and read the Events — it states the exact pull error (<code>manifest unknown</code>, <code>unauthorized</code>, <code>no such host</code>). Try pulling the image manually with <code>docker pull &lt;image&gt;</code>.</p>
+<h2>How to fix ImagePullBackOff</h2>
+<ol><li><strong>Verify the image name and tag.</strong> Confirm the repository and tag exist and were pushed — <code>manifest unknown</code> means the tag is missing.</li><li><strong>Add registry credentials.</strong> For private registries, create an <code>imagePullSecret</code> and reference it in the pod spec (<code>unauthorized</code> means missing/invalid creds).</li><li><strong>Check registry reachability.</strong> Fix DNS/network to the registry and watch for Docker Hub rate limits (<code>toomanyrequests</code>) — authenticate or mirror.</li></ol>
+<h2>Example log line</h2>
+<pre><code>Failed to pull image &quot;myrepo/app:v2&quot;: rpc error: code = NotFound ... manifest unknown
+Reason: ImagePullBackOff</code></pre>
+<h2>How LogLens detects ImagePullBackOff</h2>
+<p>LogLens flags image-pull failures across your cluster's events so you spot a bad deploy immediately. <a href="/">LogLens AI</a> is a free, self-hosted AI log analyzer that surfaces lines like this automatically, groups them into one incident, and explains them in plain language.</p>
+<p><a class="cta" href="/docs">Install LogLens</a><a class="cta ghost" href="/tour">See the tour</a></p>
+<h2>Related errors</h2>
+<ul><li><a href="/errors/crashloopbackoff">CrashLoopBackOff</a></li><li><a href="/errors/cannot-connect-to-docker-daemon">Cannot connect to the Docker daemon</a></li><li><a href="/errors/name-or-service-not-known">Name or service not known</a></li></ul>
+<h2>FAQ</h2>
+<h3>What is the difference between ErrImagePull and ImagePullBackOff?</h3><p>ErrImagePull is the first failed pull attempt; ImagePullBackOff is Kubernetes backing off before retrying after repeated failures. Same root cause.</p><h3>How do I fix &#x27;unauthorized&#x27; when pulling an image?</h3><p>Create a Kubernetes imagePullSecret with your registry login and reference it under imagePullSecrets in the pod/deployment spec.</p>
+<footer>Part of the <a href="/errors">LogLens error &amp; log reference</a>. © 2026 LogLens AI · MIT License.</footer>
+</main>
+</body>
+</html>
